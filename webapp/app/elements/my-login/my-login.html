@@ -1,0 +1,111 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="my-login">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      span {
+        @apply(--paper-font-body1);
+      }
+    </style>
+
+    <div>
+  			<paper-input label="gebruikersnaam" value="{{username}}"></paper-input>
+  			<paper-input label="wachtwoord" type="password" value="{{password}}"></paper-input>
+  			<paper-button on-click="loginHandler">Login</paper-button>
+  	</div>
+
+  	<iron-ajax
+      id="ajax"
+      method="POST"
+  		url="/login"
+      handle-as="json"
+  		on-response="handleLogin">
+    </iron-ajax>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'my-login',
+
+        properties: {
+          username: {
+            type: String,
+            notify: true
+          },
+          password: String,
+          rol: {
+            type: String,
+            notify: true,
+            observer: 'attributeChanged'
+          },
+          loggedin: {
+            type: Boolean,
+            notify: true
+          },
+          roldocent: {
+            type: Boolean,
+            notify: true
+          },
+          rolstudent: {
+            type: Boolean,
+            notify: true
+          }
+        },
+
+        ready: function() {
+          this.rol = "undefined";
+        },
+
+        attributeChanged: function() {
+          this.loggedin = (this.rol != "undefined");
+
+          if (this.rol == "undefined") {
+            this.roldocent = false;
+            this.rolstudent = false;
+          };
+
+          if (this.rol == "docent") {
+            this.roldocent = true;
+            this.rolstudent = false;
+          };
+
+          if (this.rol == "student") {
+            this.roldocent = false;
+            this.rolstudent = true;
+          };
+
+          console.log("loggedin="+this.loggedin+" | rol="+this.rol+"| roldocent="+this.roldocent+"| rolstudent="+this.rolstudent );
+        },
+
+        loginHandler: function() {
+          this.$.ajax.contentType="application/json";
+          this.$.ajax.body={
+            "username":this.username,
+            "wachtwoord":this.password
+          };
+          this.$.ajax.generateRequest();
+        },
+
+        handleLogin: function(request) {
+          this.rol = request.detail.response.rol;
+          console.log("username="+this.username+" | rol="+this.rol);
+          this.attributeChanged();
+          this.password = "";
+          app.route='home';
+        }
+      });
+    })();
+  </script>
+</dom-module>
