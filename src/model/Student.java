@@ -4,24 +4,24 @@ public class Student {
 	private String gebruikersNaam;
 	private String wachtwoord;
 	private Klas mijnKlas;
-	
-	public Student(String gbNm, String ww) {
-		gebruikersNaam = gbNm;
-		wachtwoord = ww;
+
+	public Student(String wachtwoord, String gebruikersNaam) {
+		this.wachtwoord = wachtwoord;
+		this.gebruikersNaam = gebruikersNaam;
 	}
-	
+
 	public String getGebruikersNaam() {
 		return gebruikersNaam;
 	}
-	
-	public boolean controleerWachtwoord(String ww) {
-		return ww.equals(wachtwoord);
+
+	public boolean controleerWachtwoord(String wachtwoord) {
+		return wachtwoord.equals(this.wachtwoord);
 	}
-	
-	public void setMijnKlas(Klas k) {
-		mijnKlas = k;
+
+	public void setMijnKlas(Klas mijnKlas) {
+		this.mijnKlas = mijnKlas;
 	}
-	
+
 	public Klas getMijnKlas() {
 		return mijnKlas;
 	}

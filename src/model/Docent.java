@@ -6,23 +6,23 @@ public class Docent {
 	private String gebruikersNaam;
 	private String wachtwoord;
 	private ArrayList<Vak> mijnVakken;
-	
-	public Docent(String gbNm, String ww) {
+
+	public Docent(String gebruikersNaam, String wachtwoord) {
 		mijnVakken = new ArrayList<Vak>();
-		gebruikersNaam = gbNm;
-		wachtwoord = ww;
+		this.gebruikersNaam = gebruikersNaam;
+		this.wachtwoord = wachtwoord;
 	}
-	
+
 	public String getGebruikersNaam() {
 		return gebruikersNaam;
 	}
-	
-	public boolean controleerWachtwoord(String ww) {
-		return wachtwoord.equals(ww);
+
+	public boolean controleerWachtwoord(String wachtwoord) {
+		return wachtwoord.equals(this.wachtwoord);
 	}
-	
-	public void voegVakToe(Vak nwV) {
-		mijnVakken.add(nwV);
+
+	public void voegVakToe(Vak nieuwvak) {
+		mijnVakken.add(nieuwvak);
 	}
 	
 	public ArrayList<Vak> getVakken() {
