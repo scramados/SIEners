@@ -5,7 +5,7 @@ public class Student {
 	private String wachtwoord;
 	private Klas mijnKlas;
 
-	public Student(String wachtwoord, String gebruikersNaam) {
+	public Student(String gebruikersNaam, String wachtwoord) {
 		this.wachtwoord = wachtwoord;
 		this.gebruikersNaam = gebruikersNaam;
 	}
