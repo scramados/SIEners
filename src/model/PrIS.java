@@ -5,6 +5,11 @@ import java.util.ArrayList;
 public class PrIS {
     private ArrayList<Docent> deDocenten;
     private ArrayList<Student> deStudenten;
+    private ArrayList<Klas> deKlassen;
+
+    public ArrayList<Klas> getDeKlassen() {
+            return deKlassen;
+    }
 
     /**
      * De constructor maakt een set met standaard-data aan. Deze data
@@ -31,9 +36,13 @@ public class PrIS {
     public PrIS() {
         deDocenten = new ArrayList<Docent>();
         deStudenten = new ArrayList<Student>();
+        deKlassen = new ArrayList<Klas>();
 
         ReadCSV readCSV = new ReadCSV();
-        readCSV.studentRead("klassen.csv");
+        deKlassen = readCSV.klasRead();
+        deStudenten =readCSV.studentRead();
+
+
 
         Docent d1 = new Docent("Wim", "geheim");
         Docent d2 = new Docent("Hans", "geheim");
@@ -46,23 +55,6 @@ public class PrIS {
         deDocenten.add(d1);
         deDocenten.add(d2);
         deDocenten.add(d3);
-
-        Student s1 = new Student("Roel", "geheim");
-        Student s2 = new Student("Frans", "geheim");
-        Student s3 = new Student("Daphne", "geheim");
-        Student s4 = new Student("Jeroen", "geheim");
-
-        Klas k1 = new Klas("SIE-V1X");
-
-        s1.setMijnKlas(k1);
-        s2.setMijnKlas(k1);
-        s3.setMijnKlas(k1);
-        s4.setMijnKlas(k1);
-
-        deStudenten.add(s1);
-        deStudenten.add(s2);
-        deStudenten.add(s3);
-        deStudenten.add(s4);
     }
 
 
@@ -78,7 +70,7 @@ public class PrIS {
         for (Student s : deStudenten) {
             if (s.getGebruikersNaam().equals(gebruikersnaam)) {
                 if (s.controleerWachtwoord(wachtwoord)) {
-                    return "studentRead";
+                    return "student";
                 }
             }
         }

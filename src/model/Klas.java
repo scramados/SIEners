@@ -10,4 +10,11 @@ public class Klas {
 	public String getKlasCode() {
 		return klasCode;
 	}
+
+	@Override
+	public String toString() {
+		return "Klas{" +
+				"klasCode='" + klasCode + '\'' +
+				'}';
+	}
 }
