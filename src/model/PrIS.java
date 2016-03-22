@@ -24,13 +24,16 @@ public class PrIS {
      * ArrayList<Student> getStudentenVanKlas(String klasCode)
      * <p>
      * Methode login geeft de rol van de gebruiker die probeert in te loggen,
-     * dat kan 'student', 'docent' of 'undefined' zijn! Die informatie kan gebruikt
+     * dat kan 'studentRead', 'docent' of 'undefined' zijn! Die informatie kan gebruikt
      * worden om in de Polymer-GUI te bepalen wat het volgende scherm is dat getoond
      * moet worden.
      */
     public PrIS() {
         deDocenten = new ArrayList<Docent>();
         deStudenten = new ArrayList<Student>();
+
+        ReadCSV readCSV = new ReadCSV();
+        readCSV.studentRead("klassen.csv");
 
         Docent d1 = new Docent("Wim", "geheim");
         Docent d2 = new Docent("Hans", "geheim");
@@ -75,7 +78,7 @@ public class PrIS {
         for (Student s : deStudenten) {
             if (s.getGebruikersNaam().equals(gebruikersnaam)) {
                 if (s.controleerWachtwoord(wachtwoord)) {
-                    return "student";
+                    return "studentRead";
                 }
             }
         }
