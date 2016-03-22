@@ -4,22 +4,25 @@ public class Student {
 	private String studentNummer;
 	private String voorNaam, tussenVoegsel, achterNaam, wachtwoord;
 	private Klas mijnKlas;
+	private PrIS prls;
 
-	public Student(String studentNummer, String wachtwoord, Klas mijnKlas, String voorNaam, String achterNaam, String tussenVoegsel) {
+	public Student(String studentNummer, String voorNaam, String achterNaam, String tussenVoegsel) {
 		this.studentNummer = studentNummer;
 		this.voorNaam = voorNaam;
 		this.tussenVoegsel = tussenVoegsel;
 		this.achterNaam = achterNaam;
-		this.wachtwoord = wachtwoord;
-		this.mijnKlas = mijnKlas;
+		wachtwoord = "test";
 	}
 
-	public Student(String studentNummer, String wachtwoord, Klas mijnKlas, String voorNaam, String achterNaam) {
+	public Student(String studentNummer, String voorNaam, String achterNaam) {
 		this.studentNummer = studentNummer;
 		this.voorNaam = voorNaam;
 		this.achterNaam = achterNaam;
+		wachtwoord = "";
+	}
+
+	public void setWachtwoord(String wachtwoord) {
 		this.wachtwoord = wachtwoord;
-		this.mijnKlas = mijnKlas;
 	}
 
 	public String getGebruikersNaam() {
@@ -32,6 +35,15 @@ public class Student {
 
 	public void setMijnKlas(Klas mijnKlas) {
 		this.mijnKlas = mijnKlas;
+	}
+
+	public void matchMijnKlas(String klasCode) {
+		for (Klas k : prls.getDeKlassen()) {
+			if (k.getKlasCode() == klasCode) {
+				mijnKlas = k;
+			}
+		}
+
 	}
 
 	public Klas getMijnKlas() {
