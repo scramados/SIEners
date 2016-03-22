@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Klas {
 	private String klasCode;
 
@@ -12,9 +14,20 @@ public class Klas {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Klas)) return false;
+		Klas klas = (Klas) o;
+		return Objects.equals(klasCode, klas.klasCode);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(klasCode);
+	}
+
+	@Override
 	public String toString() {
-		return "Klas{" +
-				"klasCode='" + klasCode + '\'' +
-				'}';
+		return klasCode + "\n";
 	}
 }

@@ -17,9 +17,9 @@ public class ReadCSV {
     private ArrayList<String> tussenVoegselList = new ArrayList<>();
     private ArrayList<String> studentNummerList = new ArrayList<>();
     private ArrayList<String> klasCodeList = new ArrayList<>();
+    private ArrayList<Klas> klasArrayList = new ArrayList<>();
+    private ArrayList<Student> studentArrayList = new ArrayList<>();
 
-    public static void main(String[] args) {
-    }
 
     public ArrayList<Klas> klasRead(){
         BufferedReader br = null;
@@ -45,14 +45,12 @@ public class ReadCSV {
                 }
             }
         }
-        ArrayList<Klas> klasArrayList = new ArrayList<>();
         for (int i = 0; i < klasCodeList.size(); i++) {
             String klasCode = klasCodeList.get(i);
-            if (klasArrayList.contains(klasCode) != true) {
+            if (!klasArrayList.contains(new Klas(klasCode))) {
                 klasArrayList.add(new Klas(klasCode));
             }
         }
-        System.out.println(klasArrayList);
         return klasArrayList;
     }
 
@@ -87,7 +85,7 @@ public class ReadCSV {
                 }
             }
         }
-        ArrayList<Student> studentArrayList = new ArrayList<>();
+
         for (int i = 0; i < studentNummerList.size(); i++) {
             String studentNummer = studentNummerList.get(i);
             String klasCode = klasCodeList.get(i);
@@ -99,7 +97,12 @@ public class ReadCSV {
             } else {
                 studentArrayList.add(new Student(studentNummer, voorNaam, achterNaam));
             }
-            studentArrayList.get(i).matchMijnKlas(klasCode);
+
+            for (Klas k : klasArrayList) {
+                if (k.getKlasCode().equals(klasCode)) {
+                    studentArrayList.get(i).setMijnKlas(k);
+                }
+            }
         }
         return studentArrayList;
     }

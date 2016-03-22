@@ -4,7 +4,6 @@ public class Student {
 	private String studentNummer;
 	private String voorNaam, tussenVoegsel, achterNaam, wachtwoord;
 	private Klas mijnKlas;
-	private PrIS prls;
 
 	public Student(String studentNummer, String voorNaam, String achterNaam, String tussenVoegsel) {
 		this.studentNummer = studentNummer;
@@ -37,13 +36,8 @@ public class Student {
 		this.mijnKlas = mijnKlas;
 	}
 
-	public void matchMijnKlas(String klasCode) {
-		for (Klas k : prls.getDeKlassen()) {
-			if (k.getKlasCode() == klasCode) {
-				mijnKlas = k;
-			}
-		}
-
+	public String getAchterNaam() {
+		return achterNaam;
 	}
 
 	public Klas getMijnKlas() {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class PrIS {
     private ArrayList<Docent> deDocenten;
     private ArrayList<Student> deStudenten;
-    private ArrayList<Klas> deKlassen;
+    public ArrayList<Klas> deKlassen;
 
     public ArrayList<Klas> getDeKlassen() {
             return deKlassen;
@@ -41,8 +41,6 @@ public class PrIS {
         ReadCSV readCSV = new ReadCSV();
         deKlassen = readCSV.klasRead();
         deStudenten =readCSV.studentRead();
-
-
 
         Docent d1 = new Docent("Wim", "geheim");
         Docent d2 = new Docent("Hans", "geheim");
