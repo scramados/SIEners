@@ -8,7 +8,7 @@ public class Docent {
 	private ArrayList<Vak> mijnVakken;
 
 	public Docent(String gebruikersNaam, String wachtwoord) {
-		mijnVakken = new ArrayList<>();
+		mijnVakken = new ArrayList<Vak>();
 		this.gebruikersNaam = gebruikersNaam;
 		this.wachtwoord = wachtwoord;
 	}
