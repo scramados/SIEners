@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+bin
+# Created by .ignore support plugin (hsz.mobi)
+=======
 ### Example user template template
 ### Example user template
 
@@ -9,3 +21,4 @@ gen
 bin
 # Created by .ignore support plugin (hsz.mobi)
 nbproject
+>>>>>>> Backend

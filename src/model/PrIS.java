@@ -37,13 +37,14 @@ public class PrIS {
         deDocenten = new ArrayList<Docent>();
         deStudenten = new ArrayList<Student>();
         deKlassen = new ArrayList<Klas>();
-        Les l1=new Les("19-23-2016", "10:00");
-        Les l2=new Les("19-23-2016", "10:00");
+//        Les l1=new Les("19-23-2016", "10:00");
+//        Les l2=new Les("19-23-2016", "10:00");
         Rooster r1=new Rooster("rooster1");
 
         ReadCSV readCSV = new ReadCSV();
         deKlassen = readCSV.klasRead();
         deStudenten =readCSV.studentRead();
+        deStudenten.get(0).setRooster(r1);
 
         Docent d1 = new Docent("Wim", "geheim");
         Docent d2 = new Docent("Hans", "geheim");
@@ -57,8 +58,8 @@ public class PrIS {
         deDocenten.add(d2);
         deDocenten.add(d3);
         d1.setRooster(r1);
-        r1.setLes(l1);
-        r1.setLes(l2);
+//        r1.setLes(l1);
+//        r1.setLes(l2);
     }
 
 

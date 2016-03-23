@@ -4,7 +4,7 @@ import model.PrIS;
 import model.Student;
 import server.Conversation;
 import server.Handler;
-
+import model.*;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class StudentController implements Handler {
     private PrIS informatieSysteem;
+    private Student s;
 
     /**
      * De StudentController klasse moet alle student-gerelateerde aanvragen
@@ -28,6 +29,9 @@ public class StudentController implements Handler {
     public void handle(Conversation conversation) {
         if (conversation.getRequestedURI().startsWith("/student/mijnmedestudenten")) {
             mijnMedestudenten(conversation);
+        }
+        if (conversation.getRequestedURI().startsWith("/student/mijnLessen")) {
+            mijnStudentRooster(conversation);
         }
     }
 
@@ -59,4 +63,15 @@ public class StudentController implements Handler {
 
         conversation.sendJSONMessage(jab.build().toString());                    // terug naar de Polymer-GUI!
     }
+
+    private void mijnStudentRooster(Conversation conversation) {
+        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+        String gebruikersnaam = jsonObjectIn.getString("username");
+        Student student = informatieSysteem.getStudent(gebruikersnaam);
+        JsonArrayBuilder jab = Json.createArrayBuilder();
+
+        conversation.sendJSONMessage(jab.build().toString());                    // terug naar de Polymer-GUI!
+    }
+
+
 }
