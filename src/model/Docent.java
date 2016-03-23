@@ -12,6 +12,7 @@ public class Docent {
 		this.gebruikersNaam = gebruikersNaam;
 		this.wachtwoord = wachtwoord;
 	}
+
 	public String getGebruikersNaam() {
 		return gebruikersNaam;
 	}
