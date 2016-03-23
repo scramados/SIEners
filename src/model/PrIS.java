@@ -44,6 +44,7 @@ public class PrIS {
         ReadCSV readCSV = new ReadCSV();
         deKlassen = readCSV.klasRead();
         deStudenten =readCSV.studentRead();
+        deStudenten.get(0).setRooster(r1);
 
         Docent d1 = new Docent("Wim", "geheim");
         Docent d2 = new Docent("Hans", "geheim");
