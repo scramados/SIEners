@@ -9,14 +9,16 @@ public class Docent {
 	private Rooster mijnRooster;
 
 	public Docent(String gebruikersNaam, String wachtwoord) {
-		mijnVakken = new ArrayList<Vak>();
+		mijnVakken = new ArrayList<>();
 		this.gebruikersNaam = gebruikersNaam;
 		this.wachtwoord = wachtwoord;
 	}
-	public void setRooster(Rooster mijnRooster){
-		this.mijnRooster=mijnRooster;
+
+	public void setRooster(Rooster mijnRooster) {
+		this.mijnRooster = mijnRooster;
 	}
-	public Rooster getRooster(){
+
+	public Rooster getRooster() {
 		return mijnRooster;
 	}
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class ReadCSV {
     private String csvFileKlas = System.getProperty("user.dir") + "/CSV/klassen.csv";
-    private String csvFileRooster = System.getProperty("user.dir") + "/CSV/klassen.csv";
+    private String csvFileRooster = System.getProperty("user.dir") + "/CSV/rooster_C.csv";
     private ArrayList<String> voornaamList = new ArrayList<>();
     private ArrayList<String> achternaamList = new ArrayList<>();
     private ArrayList<String> tussenVoegselList = new ArrayList<>();
@@ -21,6 +21,8 @@ public class ReadCSV {
     private ArrayList<Klas> klasArrayList = new ArrayList<>();
     private ArrayList<Student> studentArrayList = new ArrayList<>();
     private ArrayList<Docent> docentArrayList = new ArrayList<>();
+
+    //De ArrayLists voor
 
 //    public ArrayList<Docent> docentread(){
 //        BufferedReader br = null;
@@ -141,5 +143,9 @@ public class ReadCSV {
             }
         }
         return studentArrayList;
+    }
+
+    public void readRoosterCSV(){
+
     }
 }
