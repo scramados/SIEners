@@ -1,8 +1,6 @@
 package controller;
 
-import model.Docent;
-import model.PrIS;
-import model.Vak;
+import model.*;
 import server.Conversation;
 import server.Handler;
 
@@ -30,8 +28,8 @@ public class DocentController implements Handler {
         if (conversation.getRequestedURI().startsWith("/docent/mijnvakken")) {
             mijnVakken(conversation);
         }
-        if (conversation.getRequestedURI().startsWith("/docent/mijnrooster")) {
-            mijnRooster(conversation);
+        if (conversation.getRequestedURI().startsWith("/docent/mijnRooster")) {
+            mijnLessen(conversation);
         }
     }
 
@@ -55,26 +53,29 @@ public class DocentController implements Handler {
             jab.add(Json.createObjectBuilder()                            // daarin voor elk vak een JSON-object...
                     .add("vakcode", v.getVakCode())
                     .add("vaknaam", v.getVakNaam()));
-        }
 
+        }
 
         conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
     }
 
-    private void mijnRooster(Conversation conversation){
+    private void mijnLessen(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
-        Docent docent = informatieSysteem.getDocent(gebruikersnaam);
-        ArrayList<Vak>
+
+        Docent docent = informatieSysteem.getDocent(gebruikersnaam);    // Docent-object ophalen!
+        Rooster mijnRooster = informatieSysteem.getDocent(gebruikersnaam).getRooster();
+        ArrayList<Les> deLessen = mijnRooster.getLessen();                        // Vakken van de docent ophalen!
+
+        JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
+
+        for (Les l : deLessen) {
+            jab.add(Json.createObjectBuilder()                            // daarin voor elk vak een JSON-object...
+                    .add("datum", l.getDatum())
+                    .add("tijd", l.getTijd()));
+
+        }
+
         conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
     }
 }
-//       rooster_C.csv inlezen in een ArrayList
-//       In DocentController wordt deze ArrayList gelezen en wordt er gekeken welke docent ingelogd is
-//       Als de docent ingelogd is EN hij staat in de ArrayList dan wordt het rooster voor die docent geshowed
-//
-//        In StudentController wordt ook deze ArrayList gelezen
-//        Echter hier wordt er eerst gekeken in welke klas de Student zit
-//        Als de klas bekend is wordt uit de ArrayList het rooster gehaald behorende bij die klas
-//
-

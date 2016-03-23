@@ -6,11 +6,18 @@ public class Docent {
 	private String gebruikersNaam;
 	private String wachtwoord;
 	private ArrayList<Vak> mijnVakken;
+	private Rooster mijnRooster;
 
 	public Docent(String gebruikersNaam, String wachtwoord) {
 		mijnVakken = new ArrayList<Vak>();
 		this.gebruikersNaam = gebruikersNaam;
 		this.wachtwoord = wachtwoord;
+	}
+	public void setRooster(Rooster mijnRooster){
+		this.mijnRooster=mijnRooster;
+	}
+	public Rooster getRooster(){
+		return mijnRooster;
 	}
 
 	public String getGebruikersNaam() {

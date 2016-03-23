@@ -1,0 +1,78 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="my-lessen">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            span {
+                @apply(--paper-font-body1);
+            }
+        </style>
+
+        <h1 class="page-title">Overzicht van mijn vakken ( {{username}} )</h1>
+        <table>
+            <tr>
+                <th>Datum</th>
+                <th>Tijd</th>
+            </tr>
+            <template is="dom-repeat" items="{{deLessen}}">
+                <tr>
+                    <td>{{item.datum}}</td>
+                    <td>{{item.tijd}}</td>
+                </tr>
+            </template>
+        </table>
+
+
+        <iron-ajax
+                id="ajax"
+                method="POST"
+                url="/docent/mijnRooster"
+                handle-as="json"
+                on-response="responseHandler">
+        </iron-ajax>
+
+    </template>
+
+    <script>
+        (function () {
+            'use strict';
+
+            Polymer({
+                is: 'my-lessen',
+
+                properties: {
+                    username: String,
+                    rol: {
+                        observer: 'fetchLessen'
+                    }
+                },
+
+                responseHandler: function (request) {
+                    console.log(request.detail.response);
+                    this.deLessen = request.detail.response;
+                    console.log(this.deLessen);
+                },
+
+                fetchLessen: function () {
+                    console.log("FetchLessen user=" + this.username);
+                    if (this.rol == "docent") {
+                        this.$.ajax.contentType = "application/json";
+                        this.$.ajax.body = {
+                            "username": this.username
+                        };
+                        this.$.ajax.generateRequest();
+                    }
+                }
+
+            });
+        })();
+    </script>
+</dom-module>
