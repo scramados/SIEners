@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Docent {
 	private String gebruikersNaam;
@@ -42,5 +43,26 @@ public class Docent {
 	
 	public ArrayList<Vak> getVakken() {
 		return mijnVakken;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Docent)) return false;
+		Docent docent = (Docent) o;
+		return Objects.equals(gebruikersNaam, docent.gebruikersNaam) &&
+				Objects.equals(wachtwoord, docent.wachtwoord) &&
+				Objects.equals(mijnVakken, docent.mijnVakken) &&
+				Objects.equals(mijnRooster, docent.mijnRooster);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(gebruikersNaam, wachtwoord, mijnVakken, mijnRooster);
+	}
+
+	@Override
+	public String toString() {
+		return gebruikersNaam;
 	}
 }

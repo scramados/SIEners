@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by jason on 22-3-2016.
@@ -16,15 +17,19 @@ public class Les {
     private Klas klas;
 
 
-    public Les(Klas klas, Docent docent, String date, String startTijd, String eindTijd, Lokaal lokaal) {
+    public Les(Klas klas, Docent docent, String date, String startTijd, String eindTijd) {
         this.klas = klas;
         this.docent = docent;
         this.date = date;
         this.startTijd = startTijd;
         this.eindTijd = eindTijd;
-        this.lokaal = lokaal;
     }
 
+    public Les(String date, String startTijd, String eindTijd) {
+        this.date = date;
+        this.startTijd = startTijd;
+        this.eindTijd = eindTijd;
+    }
 
     public String getDate() {
         return date;
@@ -56,6 +61,33 @@ public class Les {
 
     public void setVak(Vak vak) {
         this.vak = vak;
+    }
+
+    public void setLokaal(Lokaal lokaal) {
+        this.lokaal = lokaal;
+    }
+
+    public void setDocent(Docent docent) {
+        this.docent = docent;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Les)) return false;
+        Les les = (Les) o;
+        return Objects.equals(date, les.date) &&
+                Objects.equals(startTijd, les.startTijd) &&
+                Objects.equals(eindTijd, les.eindTijd) &&
+                Objects.equals(vak, les.vak) &&
+                Objects.equals(docent, les.docent) &&
+                Objects.equals(lokaal, les.lokaal) &&
+                Objects.equals(klas, les.klas);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, startTijd, eindTijd, vak, docent, lokaal, klas);
     }
 
     @Override
