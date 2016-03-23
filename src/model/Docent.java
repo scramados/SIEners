@@ -14,6 +14,12 @@ public class Docent {
 		this.wachtwoord = wachtwoord;
 	}
 
+	public Docent(String gebruikersNaam){
+		mijnVakken = new ArrayList<>();
+		this.gebruikersNaam = gebruikersNaam;
+		wachtwoord = "test";
+	}
+
 	public void setRooster(Rooster mijnRooster) {
 		this.mijnRooster = mijnRooster;
 	}

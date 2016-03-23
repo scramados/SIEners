@@ -9,6 +9,7 @@ public class Student {
 	private ArrayList<Vak> mijnVakken;
 	private Rooster mijnRooster;
 
+	// TODO: 23-3-2016 vak aan student of vak aan klas
 	public Student(String studentNummer, String voorNaam, String achterNaam, String tussenVoegsel) {
 		this.studentNummer = studentNummer;
 		this.voorNaam = voorNaam;

@@ -46,9 +46,9 @@ public class PrIS {
         deStudenten =readCSV.studentRead();
         deStudenten.get(0).setRooster(r1);
 
-        Docent d1 = new Docent("Wim", "geheim");
-        Docent d2 = new Docent("Hans", "geheim");
-        Docent d3 = new Docent("Jan", "geheim");
+        Docent d1 = new Docent("Wim", "test");
+        Docent d2 = new Docent("Hans", "test");
+        Docent d3 = new Docent("Jan", "test");
 
         d1.voegVakToe(new Vak("TCIF-V1AUI-15", "Analyse en User Interfaces"));
         d1.voegVakToe(new Vak("TICT-V1GP-15", "Group Project"));

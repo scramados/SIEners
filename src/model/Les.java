@@ -16,8 +16,7 @@ public class Les {
     private Klas klas;
 
 
-    public Les(Vak vak, Klas klas, Docent docent, String date, String startTijd, String eindTijd, Lokaal lokaal) {
-        this.vak = vak;
+    public Les(Klas klas, Docent docent, String date, String startTijd, String eindTijd, Lokaal lokaal) {
         this.klas = klas;
         this.docent = docent;
         this.date = date;
@@ -53,6 +52,10 @@ public class Les {
 
     public Klas getKlas() {
         return klas;
+    }
+
+    public void setVak(Vak vak) {
+        this.vak = vak;
     }
 
     @Override

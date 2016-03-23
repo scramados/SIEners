@@ -30,6 +30,7 @@ public class ReadCSV {
     private ArrayList<String> vakCodeArrayList = new ArrayList<>();
     private ArrayList<String> docentArrayList = new ArrayList<>();
     private ArrayList<String> lokaalArrayList = new ArrayList<>();
+    private ArrayList<Les> lesArrayList = new ArrayList<>();
     //klasArrayList hoort hierbij
 
 //    public ArrayList<Docent> docentread(){
@@ -183,5 +184,18 @@ public class ReadCSV {
                 }
             }
         }
+        // TODO: 23-3-2016 object docent en lokaal genereren uit csv 
+        for (int i = 0; i <= studentNummerList.size(); i++) {
+            Klas klas = klasArrayList.get(i);
+            Docent docent = new Docent(docentArrayList.get(i));
+            String startTijd = startTijdArrayList.get(i);
+            String eindTijd = eindTijdArrayList.get(i);
+            Lokaal lokaal = new Lokaal(lokaalArrayList.get(i));
+            String datum = datumArrayList.get(i);
+            lesArrayList.add(new Les(klas, docent, datum, startTijd, eindTijd, lokaal));
+        }
+
+        return lesArrayList;
+
     }
 }
