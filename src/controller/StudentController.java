@@ -67,21 +67,9 @@ public class StudentController implements Handler {
     private void mijnStudentRooster(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
+        Student student = informatieSysteem.getStudent(gebruikersnaam);
+        JsonArrayBuilder jab = Json.createArrayBuilder();
 
-        Student student = informatieSysteem.getStudent(gebruikersnaam);            // Student-object opzoeken
-        Rooster mijnRooster = informatieSysteem.getStudent(gebruikersnaam).getRooster();
-        String klasCode = student.getMijnKlas().getKlasCode();                    // klascode van de student opzoeken
-        ArrayList<Les> lessen = mijnRooster.getLessen();
-
-        JsonArrayBuilder jab = Json.createArrayBuilder(); // Uiteindelijk gaat er een array...
-
-        for (Les l : lessen) {                                    // met daarin voor elke medestudent een JSON-object...
-            if (s.getMijnKlas().equals(klasCode))                    // behalve de student zelf...
-                jab.add(Json.createObjectBuilder()                            // daarin voor elk vak een JSON-object...
-                        .add("Datum:", l.getDatum())
-                        .add("Tijd:", l.getTijd()));
-
-        }
         conversation.sendJSONMessage(jab.build().toString());                    // terug naar de Polymer-GUI!
     }
 

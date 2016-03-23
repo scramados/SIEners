@@ -7,16 +7,16 @@ import java.util.Date;
  * Created by jason on 22-3-2016.
  */
 public class Les {
-    private Date date;
-    private Time startTijd;
-    private Time eindTijd;
+    private String date;
+    private String startTijd;
+    private String eindTijd;
     private Vak vak;
     private Docent docent;
     private Lokaal lokaal;
     private Klas klas;
 
 
-    public Les(Vak vak, Klas klas, Docent docent, Date date, Time startTijd, Time eindTijd, Lokaal lokaal) {
+    public Les(Vak vak, Klas klas, Docent docent, String date, String startTijd, String eindTijd, Lokaal lokaal) {
         this.vak = vak;
         this.klas = klas;
         this.docent = docent;
@@ -26,15 +26,15 @@ public class Les {
         this.lokaal = lokaal;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public Time getStartTijd() {
+    public String getStartTijd() {
         return startTijd;
     }
 
-    public Time getEindTijd() {
+    public String getEindTijd() {
         return eindTijd;
     }
 

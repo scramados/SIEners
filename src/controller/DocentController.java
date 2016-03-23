@@ -72,8 +72,8 @@ public class DocentController implements Handler {
 
         for (Les l : deLessen) {
             jab.add(Json.createObjectBuilder()                            // daarin voor elk vak een JSON-object...
-                    .add("datum", l.getDatum())
-                    .add("tijd", l.getTijd()));
+                    .add("datum",l.getDate())
+                    .add("tijd", l.getStartTijd()));
 
         }
 
