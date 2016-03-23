@@ -89,9 +89,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <span>Uitloggen</span>
                 </a>
 
+
+
                 <a data-route="toonvakken" href="{{baseUrl}}toonvakken" hidden="{{!roldocent}}">
                     <iron-icon icon="social:school"></iron-icon>
                     <span>Toon vakken</span>
+                </a>
+
+
+                <a data-route="toonlessen" href="{{baseUrl}}toonlessen" hidden="{{!roldocent}}">
+                    <iron-icon icon="social:school"></iron-icon>
+                    <span>Toon Lessen</span>
                 </a>
 
                 <a data-route="toonmedestudenten" href="{{baseUrl}}users" hidden="{{!rolstudent}}">
@@ -99,17 +107,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <span>Toon medestudenten</span>
                 </a>
 
-                <a data-route="rooster" href="{{baseUrl}}schedule" hidden="{{!loggedin}}">
-                    <iron-icon icon="icons:schedule"></iron-icon>
-                    <span>Toon rooster</span>
-                </a>
-
-                <a data-route="absentieZetten" href="{{baseUrl}}absentie" hidden="{{!roldocent}}">
-                    <iron-icon icon="icons:cancel"></iron-icon>
-                    <span>Regel absenties</span>
-                </a>
-
             </paper-menu>
+
         </paper-scroll-header-panel>
 
         <!-- Main Area -->
@@ -126,7 +125,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                 <!-- Application name -->
                 <div class="middle middle-container">
-                    <div class="app-name">Magister</div>
+                    <div class="app-name">Demo App</div>
                 </div>
 
                 <!-- Application sub title -->
@@ -165,6 +164,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         </paper-material>
                     </section>
 
+                    <section data-route="toonlessen">
+                        <paper-material elevation="1">
+                            <my-lessen rol="[[rol]]" username="[[username]]"></my-lessen>
+                        </paper-material>
+                    </section>
+
                     <section data-route="toonmedestudenten">
                         <paper-material elevation="1">
                             <my-medestudenten rol="[[rol]]" username="[[username]]"></my-medestudenten>
@@ -175,17 +180,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <paper-material elevation="1">
                             <h2 class="page-title">User: {{params.name}}</h2>
                             <div>This is {{params.name}}'s section</div>
-                        </paper-material>
-                    </section>
-                    <section data-route="rooster">
-                        <paper-material elevation="1">
-                            <my-rooster rol="[[rol]]" username="[[username]]" ></my-rooster>
-                        </paper-material>
-                    </section>
-
-                    <section data-route="absentie">
-                        <paper-material elevation="1">
-                            <my-absentieZet rol="[[rol]]" username="[[username]]" ></my-absentieZet>
                         </paper-material>
                     </section>
 
@@ -206,3 +200,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </body>
 
 </html>
+ 
