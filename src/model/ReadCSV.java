@@ -20,9 +20,16 @@ public class ReadCSV {
     private ArrayList<String> klasCodeList = new ArrayList<>();
     private ArrayList<Klas> klasArrayList = new ArrayList<>();
     private ArrayList<Student> studentArrayList = new ArrayList<>();
-    private ArrayList<Docent> docentArrayList = new ArrayList<>();
 
-    //De ArrayLists voor
+
+    //De ArrayLists voor Rooster_C
+    private ArrayList<String> datumArrayList = new ArrayList<>();
+    private ArrayList<String> startTijdArrayList = new ArrayList<>();
+    private ArrayList<String> eindTijdArrayList = new ArrayList<>();
+    private ArrayList<String> vakCodeArrayList = new ArrayList<>();
+    private ArrayList<String> docentArrayList = new ArrayList<>();
+    private ArrayList<String> lokaalArrayList = new ArrayList<>();
+    //klasArrayList hoort hierbij
 
 //    public ArrayList<Docent> docentread(){
 //        BufferedReader br = null;
@@ -64,7 +71,7 @@ public class ReadCSV {
         String line = "";
         String cvsSplitBy = ",";
         try {
-            br = new BufferedReader(new FileReader(csvFileKlas));
+            br = new BufferedReader(new FileReader(csvFileRooster));
             while ((line = br.readLine()) != null) {
                 // use comma as separator
                 String[] country = line.split(cvsSplitBy);
@@ -145,7 +152,35 @@ public class ReadCSV {
         return studentArrayList;
     }
 
-    public void readRoosterCSV(){
-
+    public ArrayList<Les> readRoosterCSV(){
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";
+        try {
+            br = new BufferedReader(new FileReader(csvFileRooster));
+            while ((line = br.readLine()) != null) {
+                // use comma as separator
+                String[] country = line.split(cvsSplitBy);
+                datumArrayList.add(country[0]);
+                startTijdArrayList.add(country[1]);
+                eindTijdArrayList.add(country[2]);
+                vakCodeArrayList.add(country[3]);
+                docentArrayList.add(country[4]);
+                lokaalArrayList.add(country[5]);
+                klasCodeList.add(country[6]);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
