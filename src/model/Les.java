@@ -26,6 +26,7 @@ public class Les {
         this.lokaal = lokaal;
     }
 
+
     public String getDate() {
         return date;
     }
