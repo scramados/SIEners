@@ -4,7 +4,7 @@ import model.PrIS;
 import model.Student;
 import server.Conversation;
 import server.Handler;
-
+import model.Vak;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -59,4 +59,24 @@ public class StudentController implements Handler {
 
         conversation.sendJSONMessage(jab.build().toString());                    // terug naar de Polymer-GUI!
     }
+    private void mijnStudentRooster(Conversation conversation) {
+        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+        String gebruikersnaam = jsonObjectIn.getString("username");
+
+        Student student = informatieSysteem.getStudent(gebruikersnaam);            // Student-object opzoeken
+        String klasCode = student.getMijnKlas().getKlasCode();                    // klascode van de student opzoeken
+
+
+        JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
+
+        for (Vak v : vakken) {                                    // met daarin voor elke medestudent een JSON-object...
+            if (s.getGebruikersNaam().equals(gebruikersnaam))                    // behalve de student zelf...
+                jab.add(Json.createObjectBuilder()                            // daarin voor elk vak een JSON-object...
+                        .add("vakcode", v.getVakCode())
+                        .add("vaknaam", v.getVakNaam()));;
+
+        }
+        conversation.sendJSONMessage(jab.build().toString());                    // terug naar de Polymer-GUI!
+    }
+
 }

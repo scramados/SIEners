@@ -28,9 +28,15 @@ public class DocentController implements Handler {
         if (conversation.getRequestedURI().startsWith("/docent/mijnvakken")) {
             mijnVakken(conversation);
         }
+<<<<<<< Updated upstream
         if (conversation.getRequestedURI().startsWith("/docent/mijnRooster")) {
             mijnLessen(conversation);
         }
+=======
+//        if (conversation.getRequestedURI().startsWith("/docent/mijnrooster")) {
+//            mijnRooster(conversation);
+//        }
+>>>>>>> Stashed changes
     }
 
     /**
@@ -59,6 +65,7 @@ public class DocentController implements Handler {
         conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
     }
 
+<<<<<<< Updated upstream
     private void mijnLessen(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
@@ -78,4 +85,13 @@ public class DocentController implements Handler {
 
         conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
     }
+=======
+//    private void mijnRooster(Conversation conversation){
+//        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+//        String gebruikersnaam = jsonObjectIn.getString("username");
+//        Docent docent = informatieSysteem.getDocent(gebruikersnaam);
+//        ArrayList<Vak>
+//        conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
+//    }
+>>>>>>> Stashed changes
 }
