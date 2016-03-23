@@ -1,25 +1,67 @@
 package model;
 
+import java.sql.Time;
+import java.util.Date;
+
 /**
- * Created by Carl on 22-3-2016.
+ * Created by jason on 22-3-2016.
  */
 public class Les {
-    private String datum;
-    private String tijd;
-    private Klas deKlas;
-    private Vak leVak;
-    private Student deStudent;
-    private Docent deDocent;
+    private Date date;
+    private Time startTijd;
+    private Time eindTijd;
+    private Vak vak;
+    private Docent docent;
+    private Lokaal lokaal;
+    private Klas klas;
 
-    public Les(String datum, String tijd){
-        this.datum=datum;
-        this.tijd=tijd;
 
+    public Les(Vak vak, Klas klas, Docent docent, Date date, Time startTijd, Time eindTijd, Lokaal lokaal) {
+        this.vak = vak;
+        this.klas = klas;
+        this.docent = docent;
+        this.date = date;
+        this.startTijd = startTijd;
+        this.eindTijd = eindTijd;
+        this.lokaal = lokaal;
     }
-    public String getDatum(){
-        return datum;
+
+    public Date getDate() {
+        return date;
     }
-    public String getTijd(){
-        return tijd;
+
+    public Time getStartTijd() {
+        return startTijd;
+    }
+
+    public Time getEindTijd() {
+        return eindTijd;
+    }
+
+    public Vak getVak() {
+        return vak;
+    }
+
+    public Docent getDocent() {
+        return docent;
+    }
+
+    public Lokaal getLokaal() {
+        return lokaal;
+    }
+
+    public Klas getKlas() {
+        return klas;
+    }
+
+    @Override
+    public String toString() {
+        return "Les{" +
+                "vak=" + vak +
+                ", klas=" + klas +
+                ", docent=" + docent +
+                ", date=" + date +
+                ", time=" + startTijd + " - " + eindTijd +
+                '}';
     }
 }
