@@ -1,23 +1,23 @@
 package model;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-/**
- * Created by jason on 22-3-2016.
- */
 public class Les {
-    private String date;
-    private String startTijd;
-    private String eindTijd;
+    private Date date;
+    private Date startTijd;
+    private Date eindTijd;
     private Vak vak;
     private Docent docent;
     private Lokaal lokaal;
     private Klas klas;
 
 
-    public Les(Klas klas, Docent docent, String date, String startTijd, String eindTijd) {
+    public Les(Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd) {
         this.klas = klas;
         this.docent = docent;
         this.date = date;
@@ -25,22 +25,26 @@ public class Les {
         this.eindTijd = eindTijd;
     }
 
-    public Les(String date, String startTijd, String eindTijd) {
+    public Les(Date date, Date startTijd, Date eindTijd) {
         this.date = date;
         this.startTijd = startTijd;
         this.eindTijd = eindTijd;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateString() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(date);
+
     }
 
-    public String getStartTijd() {
-        return startTijd;
+    public String getStartTijdString() {
+        DateFormat sdf = new SimpleDateFormat("hh:mm");
+        return sdf.format(startTijd);
     }
 
-    public String getEindTijd() {
-        return eindTijd;
+    public String getEindTijdString() {
+        DateFormat sdf = new SimpleDateFormat("hh:mm");
+        return sdf.format(eindTijd);
     }
 
     public Vak getVak() {

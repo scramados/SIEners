@@ -4,7 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PrIS {
     private ArrayList<Docent> deDocenten;
@@ -13,9 +17,6 @@ public class PrIS {
     public ArrayList<Les> deLessen;
     public ArrayList<Lokaal> deLokalen;
 
-    public ArrayList<Klas> getDeKlassen() {
-            return deKlassen;
-    }
 
     /**
      * De constructor maakt een set met standaard-data aan. Deze data
@@ -40,24 +41,15 @@ public class PrIS {
      * moet worden.
      */
     public PrIS() {
-        deDocenten = new ArrayList<Docent>();
-        deStudenten = new ArrayList<Student>();
-        deKlassen = new ArrayList<Klas>();
-        deLessen = new ArrayList<Les>();
-        deLokalen = new ArrayList<Lokaal>();
+        deDocenten = new ArrayList<>();
+        deStudenten = new ArrayList<>();
+        deKlassen = new ArrayList<>();
+        deLessen = new ArrayList<>();
+        deLokalen = new ArrayList<>();
 
 //      Les l1 = new Les("19-23-2016", "10:00");
 //      Les l2 = new Les("19-23-2016", "10:00");
         Rooster r1 = new Rooster("rooster1");
-
-        ReadCSV readCSV = new ReadCSV();
-        deKlassen = readCSV.klasRead()
-        deStudenten.get(0).setRooster(r1);
-        deDocenten = readCSV.docentRead();
-        deLokalen = readCSV.lokaalRead();
-        deLessen = readCSV.readLes();
-        System.out.println(deLessen);
-
 
         Docent d1 = new Docent("Wim", "test");
         Docent d2 = new Docent("Hans", "test");
@@ -75,28 +67,29 @@ public class PrIS {
 //      r1.setLes(l1);
 //      r1.setLes(l2);
     }
+
     public void readKlassen(String filename){
         BufferedReader br = null;
+        String filedir = System.getProperty("user.dir") + "/CSV/" + filename;
         String line = "";
         String cvsSplitBy = ",";
         try {
-            br = new BufferedReader(new FileReader(filename));
+            br = new BufferedReader(new FileReader(filedir));
             while ((line = br.readLine()) != null) {
                 // use comma as separator
-                String[] country = line.split(cvsSplitBy);
-                Klas temp = zoekKlas(country[4]);
-                if (temp == null){
-                    temp = new Klas(country[4]);
-                    deKlassen.add(temp);
+                String[] block = line.split(cvsSplitBy);
+                Klas k = getKlas(block[4]);
+                if (k == null){
+                    k = new Klas(block[4]);
+                    deKlassen.add(k);
                 }
-
                 Student s = null;
-                if (country[2] != "") {
-                    s = new Student(country[0], country[1], country[3], country[2]);
+                if (block[2] != "") {
+                    s = new Student(block[0], block[1], block[3], block[2]);
                 } else {
-                    s = new Student(country[0], country[1], country[3]);
+                    s = new Student(block[0], block[1], block[3]);
                 }
-                temp.addStudentKlas(s);
+                k.addStudentKlas(s);
                 if(!deStudenten.contains(s)){
                     deStudenten.add(s);
                 }
@@ -116,14 +109,45 @@ public class PrIS {
         }
     }
 
-    public Klas zoekKlas(String kC) {
-        Klas gezochte = null;
-        for (Klas k :deKlassen) {
-            if (deKlassen.contains(new Klas(kC))) {
-                gezochte = k;
+    public void readRooster(String filename) {
+        BufferedReader br = null;
+        String filedir = System.getProperty("user.dir") + "/CSV/" + filename;
+        String line = "";
+        String cvsSplitBy = ",";
+        try {
+            br = new BufferedReader(new FileReader(filedir));
+            while ((line = br.readLine()) != null) {
+                // use comma as separator
+                String[] block = line.split(cvsSplitBy);
+                Klas k = getKlas(block[6]);
+                if (k == null){
+                    k = new Klas(block[6]);
+                    deKlassen.add(k);
+                }
+                Docent d = getDocent(block[5]);
+                if (k == null){
+                    d = new Docent(block[5]);
+                    deDocenten.add(d);
+                }
+                Les l = getLes(k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
+                if (!deLessen.contains(l)){
+                    deLessen.add(l);
+                }
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        return gezochte;
     }
 
 
@@ -145,6 +169,29 @@ public class PrIS {
         }
 
         return "undefined";
+    }
+
+    public Klas getKlas(String klasCode) {
+        Klas resultaat = null;
+
+        for (Klas k : deKlassen) {
+            if (k.getKlasCode().equals(klasCode)) {
+                resultaat = k;
+                break;
+            }
+        }
+        return resultaat;
+    }
+    public Les getLes(Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd){
+        Les resultaat = null;
+
+        for (Les l :deLessen) {
+            if (deLessen.contains(new Les(klas,docent,date,startTijd,eindTijd))) {
+                resultaat = l;
+                break;
+            }
+        }
+        return resultaat;
     }
 
     public Docent getDocent(String gebruikersnaam) {
@@ -174,14 +221,41 @@ public class PrIS {
     }
 
     public ArrayList<Student> getStudentenVanKlas(String klasCode) {
-        ArrayList<Student> resultaat = new ArrayList<Student>();
+        Klas k = getKlas(klasCode);
+        return k.getStudentenKlas();
+    }
 
-        for (Student s : deStudenten) {
-            if (s.getMijnKlas().getKlasCode().equals(klasCode)) {
-                resultaat.add(s);
+    public Klas getKlasVanStudent(Student student){
+        for (Klas k : deKlassen){
+            for (Student s : k.getStudentenKlas()){
+                if(s.equals(student)){
+                    return k;
+                }
             }
         }
-
-        return resultaat;
+        return null;
     }
+
+    public Date stringToDateConvert(String dateString){
+        Date startDate = null;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            startDate = df.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return startDate;
+    }
+
+    public Date stringToTimeConvert(String timeString){
+        Date time = null;
+        DateFormat df = new SimpleDateFormat("hh:mm");
+        try {
+            time = df.parse(timeString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
+
 }

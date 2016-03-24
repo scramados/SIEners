@@ -9,13 +9,17 @@ public class Klas {
 
     public Klas(String klasCode) {
         this.klasCode = klasCode;
-        studentenKlas = new ArrayList<Student>();
+        studentenKlas = new ArrayList<>();
     }
 
     public void addStudentKlas(Student student) {
         if (!studentenKlas.contains(student)) {
             studentenKlas.add(student);
         }
+    }
+
+    public ArrayList<Student> getStudentenKlas() {
+        return studentenKlas;
     }
 
     public String getKlasCode() {
@@ -37,7 +41,7 @@ public class Klas {
 
     @Override
     public String toString() {
-        return klasCode + "\n";
+        return klasCode + studentenKlas;
     }
 
 }

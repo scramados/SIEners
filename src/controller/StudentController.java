@@ -48,8 +48,8 @@ public class StudentController implements Handler {
         String gebruikersnaam = jsonObjectIn.getString("username");
 
         Student student = informatieSysteem.getStudent(gebruikersnaam);            // Student-object opzoeken
-        String klasCode = student.getMijnKlas().getKlasCode();                    // klascode van de student opzoeken
-        ArrayList<Student> studentenVanKlas = informatieSysteem.getStudentenVanKlas(klasCode);    // medestudenten opzoeken
+        Klas klas = informatieSysteem.getKlasVanStudent(student);                // klascode van de student opzoeken
+        ArrayList<Student> studentenVanKlas = klas.getStudentenKlas();    // medestudenten opzoeken
 
         JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
 
@@ -73,9 +73,9 @@ public class StudentController implements Handler {
         ArrayList<Les> lessen = new ArrayList<>();
         for(Les l : lessen){
             jab.add(Json.createObjectBuilder()
-                    .add("datum", l.getDate())
-                    .add("begintijd", l.getStartTijd())
-                    .add("eindtijd", l.getEindTijd())
+                    .add("datum", l.getDateString())
+                    .add("begintijd", l.getStartTijdString())
+                    .add("eindtijd", l.getEindTijdString())
                     .add("lokaal", l.getLokaal().getLokaalNaam())
                     .add("docent", l.getDocent().getGebruikersNaam())
                     .add("klas", l.getKlas().getKlasCode())
