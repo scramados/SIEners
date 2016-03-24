@@ -22,10 +22,14 @@
                 <th>Vakcode</th>
                 <th>Vaknaam</th>
             </tr>
-            <template is="dom-repeat" items="{{deLessen}}">
+            <template is="dom-repeat" items="{{lessen}}">
                 <tr>
                     <td>{{item.datum}}</td>
-                    <td>{{item.tijd}}</td>
+                    <td>{{item.begintijd}}</td>
+                    <td>{{item.eindtijd}}</td>
+                    <td>{{item.lokaal}}</td>
+                    <td>{{item.docent}}</td>
+                    <td>{{item.klas}}</td>
                 </tr>
             </template>
         </table>
