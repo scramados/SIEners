@@ -24,6 +24,7 @@ public class Docent {
 	public void voegVakToe(Vak nieuwvak) {
 		mijnVakken.add(nieuwvak);
 	}
+	
 	public ArrayList<Vak> getVakken() {
 		return mijnVakken;
 	}

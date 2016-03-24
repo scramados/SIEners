@@ -40,10 +40,6 @@ public class Student {
 		return achterNaam;
 	}
 
-	public String getVoorNaam() {
-		return voorNaam;
-	}
-
 	public Klas getMijnKlas() {
 		return mijnKlas;
 	}

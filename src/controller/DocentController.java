@@ -30,9 +30,6 @@ public class DocentController implements Handler {
         if (conversation.getRequestedURI().startsWith("/docent/mijnvakken")) {
             mijnVakken(conversation);
         }
-        if (conversation.getRequestedURI().startsWith("/docent/mijnrooster")) {
-            mijnRooster(conversation);
-        }
     }
 
     /**
@@ -57,24 +54,6 @@ public class DocentController implements Handler {
                     .add("vaknaam", v.getVakNaam()));
         }
 
-
-        conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
-    }
-
-    private void mijnRooster(Conversation conversation){
-        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
-        String gebruikersnaam = jsonObjectIn.getString("username");
-        Docent docent = informatieSysteem.getDocent(gebruikersnaam);
-        ArrayList<Vak>
         conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
     }
 }
-//       rooster_C.csv inlezen in een ArrayList
-//       In DocentController wordt deze ArrayList gelezen en wordt er gekeken welke docent ingelogd is
-//       Als de docent ingelogd is EN hij staat in de ArrayList dan wordt het rooster voor die docent geshowed
-//
-//        In StudentController wordt ook deze ArrayList gelezen
-//        Echter hier wordt er eerst gekeken in welke klas de Student zit
-//        Als de klas bekend is wordt uit de ArrayList het rooster gehaald behorende bij die klas
-//
-
