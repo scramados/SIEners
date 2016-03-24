@@ -1,9 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Student {
 	private String studentNummer;
 	private String voorNaam, tussenVoegsel, achterNaam, wachtwoord;
 	private Klas mijnKlas;
+	private ArrayList<Vak> mijnVakken;
+	private Rooster mijnRooster;
 
 	public Student(String studentNummer, String voorNaam, String achterNaam, String tussenVoegsel) {
 		this.studentNummer = studentNummer;
@@ -28,6 +32,13 @@ public class Student {
 		return studentNummer;
 	}
 
+	public void setRooster(Rooster mijnRooster){
+		this.mijnRooster=mijnRooster;
+	}
+	public Rooster getRooster(){
+		return mijnRooster;
+	}
+
 	public boolean controleerWachtwoord(String wachtwoord) {
 		return wachtwoord.equals(this.wachtwoord);
 	}
@@ -38,6 +49,15 @@ public class Student {
 
 	public String getAchterNaam() {
 		return achterNaam;
+	}
+
+	public String getTussenVoegsel() {
+		if (tussenVoegsel !=null){
+			return tussenVoegsel;
+		}
+		else {
+			return "";
+		}
 	}
 
 	public String getVoorNaam() {
