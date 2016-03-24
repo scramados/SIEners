@@ -230,7 +230,6 @@ public class ReadCSV {
             for (Docent d : docentArrayList) {
                 if (d.getGebruikersNaam().equals(docentNaam)) {
                     lesArrayList.get(i).setDocent(d);
-                    System.out.println(d);
                 }
             }
             for (Lokaal l : lokaalArrayList) {
@@ -238,6 +237,7 @@ public class ReadCSV {
                     lesArrayList.get(i).setLokaal(l);
                 }
             }
+
 
 
 

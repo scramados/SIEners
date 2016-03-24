@@ -52,6 +52,15 @@ public class Student {
 		return achterNaam;
 	}
 
+	public String getTussenVoegsel() {
+		if (tussenVoegsel !=null){
+			return tussenVoegsel;
+		}
+		else {
+			return "";
+		}
+	}
+
 	public String getVoorNaam() {
 		return voorNaam;
 	}

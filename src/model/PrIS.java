@@ -53,6 +53,7 @@ public class PrIS {
         deDocenten = readCSV.docentRead();
         deLokalen = readCSV.lokaalRead();
         deLessen = readCSV.readLes();
+        System.out.println(deLessen);
 
 
         Docent d1 = new Docent("Wim", "test");
