@@ -98,6 +98,6 @@ public class Les {
                 ", docent=" + docent +
                 ", date=" + date +
                 ", time=" + startTijd + " - " + eindTijd +
-                '}';
+                '}' + "\n";
     }
 }

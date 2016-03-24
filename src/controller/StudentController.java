@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class StudentController implements Handler {
     private PrIS informatieSysteem;
     private Student s;
+    private Les l;
 
     /**
      * De StudentController klasse moet alle student-gerelateerde aanvragen
@@ -57,7 +58,7 @@ public class StudentController implements Handler {
                 continue;
             else {
                 jab.add(Json.createObjectBuilder()
-                        .add("naam", s.getGebruikersNaam()));
+                        .add("naam", s.getVoorNaam()+ " "+ s.getAchterNaam()));
             }
         }
 
@@ -69,6 +70,17 @@ public class StudentController implements Handler {
         String gebruikersnaam = jsonObjectIn.getString("username");
         Student student = informatieSysteem.getStudent(gebruikersnaam);
         JsonArrayBuilder jab = Json.createArrayBuilder();
+        ArrayList<Les> lessen = new ArrayList<>();
+        for(Les l : lessen){
+            jab.add(Json.createObjectBuilder()
+                    .add("datum", l.getDate())
+                    .add("begintijd", l.getStartTijd())
+                    .add("eindtijd", l.getEindTijd())
+                    .add("lokaal", l.getLokaal().getLokaalNaam())
+                    .add("docent", l.getDocent().getGebruikersNaam())
+                    .add("klas", l.getKlas().getKlasCode())
+                    );
+        }
 
         conversation.sendJSONMessage(jab.build().toString());                    // terug naar de Polymer-GUI!
     }
