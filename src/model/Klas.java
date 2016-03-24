@@ -1,14 +1,22 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Klas {
     private String klasCode;
+    private ArrayList<Student> studentenKlas;
 
     public Klas(String klasCode) {
         this.klasCode = klasCode;
+        studentenKlas = new ArrayList<Student>();
     }
 
+    public void addStudentKlas(Student student) {
+        if (!studentenKlas.contains(student)) {
+            studentenKlas.add(student);
+        }
+    }
 
     public String getKlasCode() {
         return klasCode;

@@ -1,5 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PrIS {
@@ -47,8 +51,7 @@ public class PrIS {
         Rooster r1 = new Rooster("rooster1");
 
         ReadCSV readCSV = new ReadCSV();
-        deKlassen = readCSV.klasRead();
-        deStudenten = readCSV.studentRead();
+        deKlassen = readCSV.klasRead()
         deStudenten.get(0).setRooster(r1);
         deDocenten = readCSV.docentRead();
         deLokalen = readCSV.lokaalRead();
@@ -72,8 +75,56 @@ public class PrIS {
 //      r1.setLes(l1);
 //      r1.setLes(l2);
     }
+    public void readKlassen(String filename){
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";
+        try {
+            br = new BufferedReader(new FileReader(filename));
+            while ((line = br.readLine()) != null) {
+                // use comma as separator
+                String[] country = line.split(cvsSplitBy);
+                Klas temp = zoekKlas(country[4]);
+                if (temp == null){
+                    temp = new Klas(country[4]);
+                    deKlassen.add(temp);
+                }
 
+                Student s = null;
+                if (country[2] != "") {
+                    s = new Student(country[0], country[1], country[3], country[2]);
+                } else {
+                    s = new Student(country[0], country[1], country[3]);
+                }
+                temp.addStudentKlas(s);
+                if(!deStudenten.contains(s)){
+                    deStudenten.add(s);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
+    public Klas zoekKlas(String kC) {
+        Klas gezochte = null;
+        for (Klas k :deKlassen) {
+            if (deKlassen.contains(new Klas(kC))) {
+                gezochte = k;
+            }
+        }
+        return gezochte;
+    }
 
 
     public String login(String gebruikersnaam, String wachtwoord) {

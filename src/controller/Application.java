@@ -28,6 +28,8 @@ public class Application {
         JSONFileServer server = new JSONFileServer(new File("webapp/app"), 8888);
 
         PrIS infoSysteem = new PrIS();
+        infoSysteem.readKlassen("klassen.csv");
+        infoSysteem.readRooster("rooster_C.csv");
         UserController userController = new UserController(infoSysteem);
         DocentController docentController = new DocentController(infoSysteem);
         StudentController studentController = new StudentController(infoSysteem);
