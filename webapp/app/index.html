@@ -102,7 +102,7 @@
                     <span>Toon rooster</span>
                 </a>
 
-                <a data-route="absentieZetten" href="{{baseUrl}}absentie" hidden="{{!roldocent}}">
+                <a data-route="toonstudent-AbsentieOpgeven" href="{{baseUrl}}student-AbsentieOpgeven" hidden="{{!rolstudent}}">
                     <iron-icon icon="icons:cancel"></iron-icon>
                     <span>Regel absenties</span>
                 </a>
@@ -198,9 +198,9 @@
                         </paper-material>
                     </section>
 
-                    <section data-route="absentie">
+                    <section data-route="toonstudent-AbsentieOpgeven">
                         <paper-material elevation="1">
-                            <my-absentieZet rol="[[rol]]" username="[[username]]" ></my-absentieZet>
+                            <student-AbsentieOpgeven rol="[[rol]]" username="[[username]]" ></student-AbsentieOpgeven>
                         </paper-material>
                     </section>
 

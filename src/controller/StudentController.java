@@ -7,6 +7,7 @@ import server.Handler;
 import model.*;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import java.util.ArrayList;
 
@@ -33,6 +34,9 @@ public class StudentController implements Handler {
         }
         if (conversation.getRequestedURI().startsWith("/student/mijnLessen")) {
             mijnStudentRooster(conversation);
+        }
+        if (conversation.getRequestedURI().startsWith("/student/student-AbsentieOpgeven")) {
+            studentAbsentieOpgeven(conversation);
         }
     }
 
@@ -84,6 +88,19 @@ public class StudentController implements Handler {
 
         conversation.sendJSONMessage(jab.build().toString());                    // terug naar de Polymer-GUI!
     }
+    private void studentAbsentieOpgeven(Conversation conversation){
+        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+        String gebruikersnaam = jsonObjectIn.getString("username");
 
+        Student student = informatieSysteem.getStudent(gebruikersnaam);            // Student-object opzoeken
+        Klas klas = informatieSysteem.getKlasVanStudent(student);                // klascode van de student opzoeken
+        ArrayList<Student> studentenVanKlas = klas.getStudentenKlas();    // medestudenten opzoeken
+
+        JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
+        jab.add("Succes");
+
+
+        conversation.sendJSONMessage(jab.build().toString());                       // terug naar de Polymer-GUI!
+    }
 
 }
