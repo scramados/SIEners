@@ -46,26 +46,6 @@ public class PrIS {
         deKlassen = new ArrayList<>();
         deLessen = new ArrayList<>();
         deLokalen = new ArrayList<>();
-
-//      Les l1 = new Les("19-23-2016", "10:00");
-//      Les l2 = new Les("19-23-2016", "10:00");
-        Rooster r1 = new Rooster("rooster1");
-
-        Docent d1 = new Docent("Wim", "test");
-        Docent d2 = new Docent("Hans", "test");
-        Docent d3 = new Docent("Jan", "test");
-
-        d1.voegVakToe(new Vak("TCIF-V1AUI-15", "Analyse en User Interfaces"));
-        d1.voegVakToe(new Vak("TICT-V1GP-15", "Group Project"));
-        d1.voegVakToe(new Vak("TICT-V1OODC-15", "Object Oriented Design & Construction"));
-
-        deDocenten.add(d1);
-        deDocenten.add(d2);
-        deDocenten.add(d3);
-        d1.setRooster(r1);
-
-//      r1.setLes(l1);
-//      r1.setLes(l2);
     }
 
     public void readKlassen(String filename){
@@ -124,13 +104,14 @@ public class PrIS {
                     k = new Klas(block[6]);
                     deKlassen.add(k);
                 }
-                Docent d = getDocent(block[5]);
-                if (k == null){
-                    d = new Docent(block[5]);
+                Docent d = getDocent(block[4]);
+                if (d == null){
+                    d = new Docent(block[4]);
                     deDocenten.add(d);
                 }
                 Les l = getLes(k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
-                if (!deLessen.contains(l)){
+                if (l == null){
+                    l = new Les(k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
                     deLessen.add(l);
                 }
 

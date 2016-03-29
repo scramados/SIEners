@@ -75,6 +75,10 @@ public class Les {
         this.docent = docent;
     }
 
+    public void setKlas(Klas klas) {
+        this.klas = klas;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
