@@ -65,9 +65,9 @@ public class PrIS {
                 }
                 Student s = null;
                 if (block[2] != "") {
-                    s = new Student(block[0], block[1], block[3], block[2]);
+                    s = new Student(block[0], block[3], block[1], block[2]);
                 } else {
-                    s = new Student(block[0], block[1], block[3]);
+                    s = new Student(block[0], block[3], block[1]);
                 }
                 k.addStudentKlas(s);
                 if(!deStudenten.contains(s)){

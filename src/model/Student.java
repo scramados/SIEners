@@ -81,4 +81,9 @@ public class Student {
 	public Klas getMijnKlas() {
 		return mijnKlas;
 	}
+
+	@Override
+	public String toString() {
+		return achterNaam;
+	}
 }

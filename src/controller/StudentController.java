@@ -61,7 +61,7 @@ public class StudentController implements Handler {
         for (Student s : studentenVanKlas) {                                    // met daarin voor elke medestudent een JSON-object...
             if (!s.getGebruikersNaam().equals(gebruikersnaam)) {    // behalve de student zelf...
                 jab.add(Json.createObjectBuilder()
-                        .add("naam", s.getVoorNaam() + " " + s.getAchterNaam()));
+                        .add("naam", s.getVoorNaam()));
             }
 
         }
