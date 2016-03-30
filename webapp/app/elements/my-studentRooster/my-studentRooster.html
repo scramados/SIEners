@@ -16,29 +16,40 @@
             }
         </style>
 
-        <h1 class="page-title">Overzicht van mijn vakken ( {{username}} )</h1>
+        <h1 class="page-title">Overzicht van mijn opgegeven absenties ( {{username}} )</h1>
         <table>
             <tr>
-                <th>Vakcode</th>
-                <th>Vaknaam</th>
+                <th>Les informatie:</th>
+
             </tr>
-            <template is="dom-repeat" items="{{lessen}}">
+            <template is="dom-repeat" items="{{absenties}}">
                 <tr>
-                    <td>{{item.datum}}</td>
-                    <td>{{item.begintijd}}</td>
-                    <td>{{item.eindtijd}}</td>
-                    <td>{{item.lokaal}}</td>
-                    <td>{{item.docent}}</td>
-                    <td>{{item.klas}}</td>
+                    <paper-item >{{item}}
+
+
+                    </paper-item>
                 </tr>
             </template>
         </table>
+
+        <td>
+            <template is="dom-repeat" items={{result}}>
+                <tr >
+
+                </tr>
+            </template>
+
+
+       </td>
+
+
+        <paper-button on-click="fetchRooster"> Refresh</paper-button>
 
 
         <iron-ajax
                 id="ajax"
                 method="POST"
-                url="/student/mijnLessen"
+                url="/student/absentietonen"
                 handle-as="json"
                 on-response="responseHandler">
         </iron-ajax>
@@ -61,7 +72,7 @@
 
                 responseHandler: function (request) {
                     console.log(request.detail.response);
-                    this.deLessen = request.detail.response;
+                    this.absenties = request.detail.response;
                 },
 
                 fetchRooster: function () {

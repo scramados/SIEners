@@ -39,6 +39,9 @@ public class StudentController implements Handler {
         if (conversation.getRequestedURI().startsWith("/student/student-AbsentieOpgeven")) {
             studentAbsentieOpgeven(conversation);
         }
+        if (conversation.getRequestedURI().startsWith("/student/absentietonen")) {
+            toonabsenties(conversation);
+        }
     }
 
     /**
@@ -115,13 +118,33 @@ public class StudentController implements Handler {
                 student.addabsentie(datum, l);
             }
         }
-
-
         JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
         jab.add(student.getAbsentie().get(0).getLes().getDateString());
 
+        conversation.sendJSONMessage(jab.build().toString());                       // terug naar de Polymer-GUI!
+    }
+
+    private void toonabsenties(Conversation conversation){
+        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+        String gebruikersnaam = jsonObjectIn.getString("username");
+
+
+        Student student = informatieSysteem.getStudent(gebruikersnaam);            // Student-object opzoeken
+
+        Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken
+
+
+
+
+        JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
+        for (Absentie ab: student.getAbsentie()){
+        jab.add(ab.getLes().getDateString()+" Datum");
+        jab.add(ab.getLes().getEindTijdString()+ " Eindtijd");
+            jab.add(ab.getLes().getStartTijdString()+" Starttijd");
+            jab.add(ab.getLes().getDocent().getGebruikersNaam()+ "Docent");}
 
         conversation.sendJSONMessage(jab.build().toString());                       // terug naar de Polymer-GUI!
     }
+
 
 }
