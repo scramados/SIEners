@@ -113,15 +113,20 @@ public class StudentController implements Handler {
         Student student = informatieSysteem.getStudent(gebruikersnaam);            // Student-object opzoeken
 
         Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken
+
         for (Les l : informatieSysteem.deLessen) {
-            if (l.getKlas().getKlasCode().contains(klas.getKlasCode())) {
-                student.addabsentie(datum, l);
+            if (l.getKlas().getKlasCode().contains(klas.getKlasCode()) && l.getDateString().contains(datum)) {
+                Absentie absentie = new Absentie(l, student);
+                if (!student.getAbsentie().contains(absentie)) {
+                    student.addabsentie(absentie);
+                    JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
+                    jab.add(absentie.getLes().getDateString());
+
+                    conversation.sendJSONMessage(jab.build().toString());
+                }
             }
         }
-        JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
-        jab.add(student.getAbsentie().get(0).getLes().getDateString());
-
-        conversation.sendJSONMessage(jab.build().toString());                       // terug naar de Polymer-GUI!
+                              //terug naar de Polymer-GUI!
     }
 
     private void toonabsenties(Conversation conversation){

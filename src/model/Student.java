@@ -34,13 +34,8 @@ public class Student {
 		return studentNummer;
 	}
 
-	public void addabsentie(String datum, Les les) {
-
-
-		if (les.getDateString().contains(datum)) {
-			Absentie nieuweab = new Absentie(les, this);
-			mijnabsenties.add(nieuweab);
-		}
+	public void addabsentie(Absentie absentie) {
+			mijnabsenties.add(absentie);
 	}
 
 	public ArrayList<Absentie> getAbsentie(){

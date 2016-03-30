@@ -233,7 +233,7 @@ public class PrIS {
         Vak resultaat = null;
 
         for (Vak v : deVakken) {
-            if (v.getVakCode().equals(vakcode)) {
+            if (v.getVakCode()==(vakcode)) {
                 resultaat = v;
                 break;
             }
@@ -263,5 +263,12 @@ public class PrIS {
         }
         return time;
     }
+//    public maakAbsentie(Student student){
+//        for (Les l : deLessen) {
+//            if (l.getKlas().getKlasCode().contains(klas.getKlasCode())) {
+//                Absentie absentie = new Absentie(l, student);
+//                if(!student.getAbsentie().contains(absentie)) {
+//                    student.addabsentie(absentie);
+//    }
 
 }
