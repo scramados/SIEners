@@ -103,6 +103,8 @@ public class StudentController implements Handler {
     private void studentAbsentieOpgeven(Conversation conversation){
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
+        String datum=jsonObjectIn.getString("gekozendatum");
+        System.out.println(datum);
 
         Student student = informatieSysteem.getStudent(gebruikersnaam);            // Student-object opzoeken
         Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken

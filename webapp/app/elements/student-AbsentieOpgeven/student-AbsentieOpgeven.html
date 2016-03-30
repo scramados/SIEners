@@ -58,6 +58,14 @@
                 on-response="responseHandler">
         </iron-ajax>
 
+        <iron-ajax
+                id="absdoorgeven"
+                method="POST"
+                url="/student/student-AbsentieOpgeven"
+                handle-as="json"
+                on-response="teruggaveabsdoorgeven">
+        </iron-ajax>
+
     </template>
 
     <script>
@@ -80,9 +88,26 @@
 
                 },
 
-                absentieverzenden: function () {
+                    teruggaveabsdoorgeven: function (request) {
+                    console.log(request.detail.response);
+
 
                 },
+
+                absentieverzenden: function () {
+                    console.log("absentieverzenden user=" + this.username);
+                    if (this.rol == "student") {
+                        this.$.absdoorgeven.contentType = "application/json";
+                        console.debug(this.$.domRepeat.modelForElement(event.target));
+                        this.$.absdoorgeven.body = {
+                            "username": this.username,
+
+                        };
+                        this.$.absdoorgeven.generateRequest();
+                    }
+                },
+
+
 
                 studentAbsentieOpgeven: function () {
                     console.log("studentAbsentieOpgeven user=" + this.username);
