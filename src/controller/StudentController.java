@@ -103,20 +103,22 @@ public class StudentController implements Handler {
     private void studentAbsentieOpgeven(Conversation conversation){
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
-        String datum=jsonObjectIn.getString("gekozendatum");
-        System.out.println(datum);
+        String datum=jsonObjectIn.getString("datum");
+
+        //System.out.println(datum);
 
         Student student = informatieSysteem.getStudent(gebruikersnaam);            // Student-object opzoeken
-        Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken
 
+        Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken
+        for (Les l : informatieSysteem.deLessen) {
+            if (l.getKlas().getKlasCode().contains(klas.getKlasCode())) {
+                student.addabsentie(datum, l);
+            }
+        }
 
 
         JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
-        jab.add("Succes");
-        jab.add("Succes");
-        jab.add("Succes");
-        jab.add("Succes");
-        jab.add("Succes");
+        jab.add(student.getAbsentie().get(0).getLes().getDateString());
 
 
         conversation.sendJSONMessage(jab.build().toString());                       // terug naar de Polymer-GUI!

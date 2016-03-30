@@ -9,6 +9,7 @@ public class Student {
 	private Klas mijnKlas;
 	private ArrayList<Vak> mijnVakken;
 	private Rooster mijnRooster;
+	private ArrayList<Absentie> mijnabsenties= new ArrayList<>();
 
 	public Student(String studentNummer, String voorNaam, String achterNaam, String tussenVoegsel) {
 		this.studentNummer = studentNummer;
@@ -31,6 +32,19 @@ public class Student {
 
 	public String getGebruikersNaam() {
 		return studentNummer;
+	}
+
+	public void addabsentie(String datum, Les les) {
+
+
+		if (les.getDateString().contains(datum)) {
+			Absentie nieuweab = new Absentie(les, this);
+			mijnabsenties.add(nieuweab);
+		}
+	}
+
+	public ArrayList<Absentie> getAbsentie(){
+		return mijnabsenties;
 	}
 
 	public void setRooster(Rooster mijnRooster){

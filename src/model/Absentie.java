@@ -8,40 +8,28 @@ import java.util.Objects;
 public class Absentie {
     private Les les;
     private Student student;
-    private boolean aanwezig;
 
 
-    public Absentie(Les les, Student student, boolean aanwezig) {
+
+    public Absentie(Les les, Student student) {
         this.les = les;
         this.student = student;
-        this.aanwezig = aanwezig;
+
     }
 
-    public boolean setAfwezig(){
-        return aanwezig = false;
-    }
+
 
 
     public Student getStudent() {
         return student;
     }
+    public Les getLes(){return les;}
 
-    public boolean isAanwezig() {
-        return aanwezig;
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Absentie)) return false;
-        Absentie absentie = (Absentie) o;
-        return aanwezig == absentie.aanwezig &&
-                Objects.equals(les, absentie.les) &&
-                Objects.equals(student, absentie.student);
-    }
+
 
     @Override
     public int hashCode() {
-        return Objects.hash(les, student, aanwezig);
+        return Objects.hash(les, student);
     }
 }

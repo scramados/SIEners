@@ -27,15 +27,15 @@
                     <th>Datum Begintijd Eindtijd Klas Docent</th>
 
                 </tr>
-                        <td><paper-listbox label="Dinosaurs" on-click="absentieverzenden" id="absl">
+                        <td><paper-listbox label="Dinosaurs" id="absl">
                                 <template is="dom-repeat" items={{result}}>
-                                    <tr>
-                                    <paper-item>{{item.datum}} -
+                                    <tr >
+                                        <paper-item on-tap="absentieverzenden">{{item.datum}} -
                                         {{item.begintijd}} -
                                         {{item.eindtijd}} -
                                         {{item.klas}} -
                                         {{item.docent}}
-                                    </paper-item>
+                                        </paper-item>
                                     </tr>
                                 </template>
 
@@ -94,13 +94,14 @@
 
                 },
 
-                absentieverzenden: function () {
+                absentieverzenden: function (event) {
                     console.log("absentieverzenden user=" + this.username);
                     if (this.rol == "student") {
                         this.$.absdoorgeven.contentType = "application/json";
-                        console.debug(this.$.domRepeat.modelForElement(event.target));
+                        console.debug(event.model.item.datum);
                         this.$.absdoorgeven.body = {
                             "username": this.username,
+                            "datum": event.model.item.datum
 
                         };
                         this.$.absdoorgeven.generateRequest();
