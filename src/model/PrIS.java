@@ -16,7 +16,7 @@ public class PrIS {
     public ArrayList<Klas> deKlassen;
     public ArrayList<Les> deLessen;
     public ArrayList<Lokaal> deLokalen;
-
+    public ArrayList<Vak> deVakken;
 
     /**
      * De constructor maakt een set met standaard-data aan. Deze data
@@ -46,6 +46,11 @@ public class PrIS {
         deKlassen = new ArrayList<>();
         deLessen = new ArrayList<>();
         deLokalen = new ArrayList<>();
+        deVakken = new ArrayList<>();
+
+        deVakken.add(new Vak("TICT-V1GP-15", "Group Project"));
+        deVakken.add(new Vak("TCIF-V1AUI-15", "Analysis & User Interfacing"));
+        deVakken.add(new Vak("TICT-V1OODC-15", "OO Design & Construction"));
     }
 
     public void readKlassen(String filename){
@@ -104,13 +109,21 @@ public class PrIS {
                     k = new Klas(block[6]);
                     deKlassen.add(k);
                 }
+                Vak v = getVak(block[3]);
                 Docent d = getDocent(block[4]);
                 if (d == null){
+                    if (v != null){
+                        d.voegVakToe(v);
+                    }
                     d = new Docent(block[4]);
                     deDocenten.add(d);
                 }
+
                 Les l = getLes(k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
                 if (l == null){
+                    if (v != null){
+                        l.setVak(v);
+                    }
                     l = new Les(k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
                     deLessen.add(l);
                 }
@@ -215,6 +228,18 @@ public class PrIS {
             }
         }
         return null;
+    }
+    public Vak getVak(String vakcode){
+        Vak resultaat = null;
+
+        for (Vak v : deVakken) {
+            if (v.getVakCode().equals(vakcode)) {
+                resultaat = v;
+                break;
+            }
+        }
+
+        return resultaat;
     }
 
     public Date stringToDateConvert(String dateString){
