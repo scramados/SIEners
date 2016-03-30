@@ -3,6 +3,8 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 
 <dom-module id="student-AbsentieOpgeven">
     <template>
@@ -17,22 +19,41 @@
         </style>
 
         <h1 class="page-title">Overzicht van mijn rooster ( {{username}} )</h1>
-        <table>
-            <tr>
-                <th>Naam</th>
-            </tr>
-            <template is="dom-repeat" items={{result}}>
+
+
+
+            <table>
                 <tr>
-                    <td>{{result}}</td>
+                    <th>Datum Begintijd Eindtijd Klas Docent</th>
+
                 </tr>
-            </template>
-        </table>
+                        <td><paper-listbox label="Dinosaurs" on-click="absentieverzenden" id="absl">
+                                <template is="dom-repeat" items={{result}}>
+                                    <tr>
+                                    <paper-item>{{item.datum}} -
+                                        {{item.begintijd}} -
+                                        {{item.eindtijd}} -
+                                        {{item.klas}} -
+                                        {{item.docent}}
+                                    </paper-item>
+                                    </tr>
+                                </template>
+
+
+                </paper-listbox></td>
+
+            </table>
+
+
+
+
+
 
 
         <iron-ajax
                 id="ajax"
                 method="POST"
-                url="/student/student-AbsentieOpgeven"
+                url="/student/mijnLessen"
                 handle-as="json"
                 on-response="responseHandler">
         </iron-ajax>
@@ -56,6 +77,10 @@
                 responseHandler: function (request) {
                     console.log(request.detail.response);
                     this.result = request.detail.response;
+
+                },
+
+                absentieverzenden: function () {
 
                 },
 
