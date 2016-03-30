@@ -9,24 +9,18 @@ public class Absentie {
     private Les les;
     private Student student;
 
-
-
     public Absentie(Les les, Student student) {
         this.les = les;
         this.student = student;
-
     }
-
-
-
 
     public Student getStudent() {
         return student;
     }
-    public Les getLes(){return les;}
 
-
-
+    public Les getLes() {
+        return les;
+    }
 
     @Override
     public int hashCode() {
