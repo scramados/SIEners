@@ -1,9 +1,6 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -298,6 +295,20 @@ public class PrIS {
             e.printStackTrace();
         }
         return time;
+    }
+
+    public void writeAbsentie(){
+        String s = System.getProperty("user.dir") + "/CSV/absenties.txt";
+        PrintWriter printWriter = null;
+        try {
+            printWriter = new PrintWriter(s);
+            printWriter.println(/*hier moet de absentie in van de student*/);
+        } catch (Exception e) {
+            System.out.println("someting wong");
+            e.printStackTrace();
+        } finally {
+            printWriter.close();
+        }
     }
 
 }
