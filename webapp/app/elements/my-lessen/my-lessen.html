@@ -50,6 +50,8 @@
                 </tr>
             </template>
         </table>
+        <div id="chart"></div>
+        <form><input id="b1" type="button" value="Change Value"/></form>
 
 
         <iron-ajax
@@ -72,6 +74,7 @@
     </template>
 
     <script>
+
         (function () {
             'use strict';
 
@@ -105,5 +108,57 @@
 
             });
         })();
+        </script>
+        <script>
+        function drawChart() {
+
+            // Create and populate the data table.
+            var options = {
+                title:"Yearly Coffee Consumption",
+                width:600,
+                height:400,
+                animation: {duration: 1000, easing: 'out',},
+                vAxis: {title: "Cups", minValue:0, maxValue:500},
+                hAxis: {title: "Year"}
+            };
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'N');
+            data.addColumn('number', 'Value');
+            data.addRow(['2003', 0]);
+            data.addRow(['2004', 0]);
+            data.addRow(['2005', 0]);
+
+            // Create and draw the visualization.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
+            chart.draw(data, options);
+            data.setValue(0, 1, 400);
+            data.setValue(1, 1, 300);
+            data.setValue(2, 1, 400);
+            chart.draw(data, options);
+
+            var button = document.getElementById('b1');
+            button.onclick = function() {
+
+                if (data.getNumberOfRows() > 5) {
+                    data.removeRow(Math.floor(Math.random() * data.getNumberOfRows()));
+                }
+                // Generating a random x, y pair and inserting it so rows are sorted.
+                var x = Math.floor(Math.random() * 10000);
+                var y = Math.floor(Math.random() * 1000);
+                var row = 0;
+                while (row < data.getNumberOfRows() && parseInt(data.getValue(row, 0)) < x) {
+                    row++;
+                }
+                data.insertRows(row, [[x.toString(), y]]);
+                chart.draw(data, options);
+            }
+
+        }
+
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+
     </script>
+
 </dom-module>
