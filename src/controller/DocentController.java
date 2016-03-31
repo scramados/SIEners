@@ -85,7 +85,7 @@ public class DocentController implements Handler {
                 }
                 conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
             } catch (NullPointerException error) {
-                System.out.println(error.getMessage());
+                //System.out.println(error.getMessage());
             }
     }
 
