@@ -1,16 +1,13 @@
 package controller;
 
-import model.PrIS;
-import model.Student;
+import model.*;
 import server.Conversation;
 import server.Handler;
-import model.*;
+
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
-import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import java.util.ArrayList;
-import java.util.List;
 
 public class StudentController implements Handler {
     private PrIS informatieSysteem;
@@ -89,8 +86,7 @@ public class StudentController implements Handler {
         }
 
 
-
-        for(Les l : lessen){
+        for (Les l : lessen) {
             jab.add(Json.createObjectBuilder()
                     .add("datum", l.getDateString())
                     .add("begintijd", l.getStartTijdString())
@@ -98,17 +94,18 @@ public class StudentController implements Handler {
                     //.add("lokaal", l.getLokaal().getLokaalNaam())
                     .add("docent", l.getDocent().getGebruikersNaam())
                     .add("klas", l.getKlas().getKlasCode())
-                    );
+            );
         }
 
         conversation.sendJSONMessage(jab.build().toString());                    // terug naar de Polymer-GUI!
     }
-    private void studentAbsentieOpgeven(Conversation conversation){
+
+    private void studentAbsentieOpgeven(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
-        String datum=jsonObjectIn.getString("datum");
-        String begintijd=jsonObjectIn.getString("begintijd");
-        String eindtijd=jsonObjectIn.getString("eindtijd");
+        String datum = jsonObjectIn.getString("datum");
+        String begintijd = jsonObjectIn.getString("begintijd");
+        String eindtijd = jsonObjectIn.getString("eindtijd");
 
 
         //System.out.println(datum);
@@ -126,10 +123,10 @@ public class StudentController implements Handler {
                 }
             }
         }
-                              //terug naar de Polymer-GUI!
+        //terug naar de Polymer-GUI!
     }
 
-    private void toonabsenties(Conversation conversation){
+    private void toonabsenties(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
 
@@ -139,10 +136,8 @@ public class StudentController implements Handler {
         Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken
 
 
-
-
         JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
-        for(Absentie ab : student.getAbsentie()){
+        for (Absentie ab : student.getAbsentie()) {
             jab.add(Json.createObjectBuilder()
                     .add("datum", ab.getLes().getDateString())
                     .add("begintijd", ab.getLes().getStartTijdString())

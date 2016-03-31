@@ -1,4 +1,5 @@
 package model;
+
 import java.util.ArrayList;
 
 /**
@@ -8,16 +9,17 @@ public class Rooster {
     private String mijnRooster;
     private ArrayList<Les> deLessen;
 
-    public Rooster(String mijnRooster){
-        this.mijnRooster=mijnRooster;
-        deLessen=new ArrayList<Les>();
+    public Rooster(String mijnRooster) {
+        this.mijnRooster = mijnRooster;
+        deLessen = new ArrayList<Les>();
 
     }
-    public void setLes(Les les){
+
+    public void setLes(Les les) {
         deLessen.add(les);
     }
 
-    public ArrayList<Les> getLessen(){
+    public ArrayList<Les> getLessen() {
         return deLessen;
     }
 

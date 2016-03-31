@@ -53,15 +53,15 @@ public class DocentController implements Handler {
         JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
         ArrayList<Vak> vakken = new ArrayList<>();
         vakken = informatieSysteem.getVakkenDocent(docent);
-        for (Vak v : informatieSysteem.deVakken){
-            if(vakken.contains(docent.getVakken())){
+        for (Vak v : informatieSysteem.deVakken) {
+            if (vakken.contains(docent.getVakken())) {
                 vakken.add(v);
             }
         }
         for (Vak v : vakken) {
             jab.add(Json.createObjectBuilder()
-            .add("vaknaam", v.getVakNaam())
-            .add("vakcode", v.getVakCode()));
+                    .add("vaknaam", v.getVakNaam())
+                    .add("vakcode", v.getVakCode()));
         }
 
         conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
@@ -73,24 +73,24 @@ public class DocentController implements Handler {
         String stdnr = jsonObjectIn.getString("stdnr");
         Docent docent = informatieSysteem.getDocent(gebruikersnaam);    // Docent-object ophalen!
 
-            try {
-                Student student = informatieSysteem.getStudent(stdnr);
-                JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
-                // Uiteindelijk gaat er een array...
-                for(Absentie ab : student.getAbsentie()){
-                    jab.add(Json.createObjectBuilder()
-                            .add("datum", ab.getLes().getDateString())
-                            .add("begintijd", ab.getLes().getStartTijdString())
-                            .add("eindtijd", ab.getLes().getEindTijdString())
-                            //.add("lokaal", l.getLokaal().getLokaalNaam())
-                            .add("docent", ab.getLes().getDocent().getGebruikersNaam())
-                            .add("klas", ab.getLes().getKlas().getKlasCode())
-                    );
-                }
-                conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
-            } catch (NullPointerException error) {
-                //System.out.println(error.getMessage());
+        try {
+            Student student = informatieSysteem.getStudent(stdnr);
+            JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
+            // Uiteindelijk gaat er een array...
+            for (Absentie ab : student.getAbsentie()) {
+                jab.add(Json.createObjectBuilder()
+                        .add("datum", ab.getLes().getDateString())
+                        .add("begintijd", ab.getLes().getStartTijdString())
+                        .add("eindtijd", ab.getLes().getEindTijdString())
+                        //.add("lokaal", l.getLokaal().getLokaalNaam())
+                        .add("docent", ab.getLes().getDocent().getGebruikersNaam())
+                        .add("klas", ab.getLes().getKlas().getKlasCode())
+                );
             }
+            conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
+        } catch (NullPointerException error) {
+            //System.out.println(error.getMessage());
+        }
     }
 
     private void mijnLessen(Conversation conversation) {
@@ -103,8 +103,8 @@ public class DocentController implements Handler {
 
         JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
         System.out.println(informatieSysteem.deVakken.toString());
-        for(Les l : deLessen) {
-            if(l.getDocent().getGebruikersNaam().contains(gebruikersnaam)) {
+        for (Les l : deLessen) {
+            if (l.getDocent().getGebruikersNaam().contains(gebruikersnaam)) {
                 jab.add(Json.createObjectBuilder()
                         .add("datum", l.getDateString())
                         .add("begintijd", l.getStartTijdString())
@@ -112,7 +112,7 @@ public class DocentController implements Handler {
                         //.add("lokaal", l.getLokaal().getLokaalNaam())
                         .add("docent", l.getDocent().getGebruikersNaam())
                         //.add("klas", l.getKlas().getKlasCode())
-                        .add("vak",docent.getVakken().toString())
+                        .add("vak", docent.getVakken().toString())
                 );
             }
         }

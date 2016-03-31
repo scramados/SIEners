@@ -1,8 +1,6 @@
 package model;
 
-import java.sql.Time;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
@@ -24,6 +22,7 @@ public class Les {
         this.startTijd = startTijd;
         this.eindTijd = eindTijd;
     }
+
     public Les(Lokaal lokaal, Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd) {
         this.klas = klas;
         this.docent = docent;
@@ -60,28 +59,28 @@ public class Les {
         return vak;
     }
 
+    public void setVak(Vak vak) {
+        this.vak = vak;
+    }
+
     public Docent getDocent() {
         return docent;
+    }
+
+    public void setDocent(Docent docent) {
+        this.docent = docent;
     }
 
     public Lokaal getLokaal() {
         return lokaal;
     }
 
-    public Klas getKlas() {
-        return klas;
-    }
-
-    public void setVak(Vak vak) {
-        this.vak = vak;
-    }
-
     public void setLokaal(Lokaal lokaal) {
         this.lokaal = lokaal;
     }
 
-    public void setDocent(Docent docent) {
-        this.docent = docent;
+    public Klas getKlas() {
+        return klas;
     }
 
     public void setKlas(Klas klas) {

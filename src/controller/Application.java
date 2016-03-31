@@ -41,8 +41,8 @@ public class Application {
         server.registerHandler("/docent/mijnrooster", docentController);
         server.registerHandler("/docent/studentabsenties", docentController);
         server.registerHandler("/student/student-AbsentieOpgeven", studentController);
-        server.registerHandler("/student/mijnLessen",studentController);
-        server.registerHandler("/student/absentietonen",studentController);
+        server.registerHandler("/student/mijnLessen", studentController);
+        server.registerHandler("/student/absentietonen", studentController);
         server.start();
     }
 }

@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class PrIS {
-    private ArrayList<Docent> deDocenten;
-    private ArrayList<Student> deStudenten;
     public ArrayList<Klas> deKlassen;
     public ArrayList<Les> deLessen;
     public ArrayList<Lokaal> deLokalen;
     public ArrayList<Vak> deVakken;
+    private ArrayList<Docent> deDocenten;
+    private ArrayList<Student> deStudenten;
 
     /**
      * De constructor maakt een set met standaard-data aan. Deze data
@@ -53,7 +53,7 @@ public class PrIS {
         deVakken.add(new Vak("TICT-V1OODC-15", "OO Design & Construction"));
     }
 
-    public void readKlassen(String filename){
+    public void readKlassen(String filename) {
         BufferedReader br = null;
         String filedir = System.getProperty("user.dir") + "/CSV/" + filename;
         String line = "";
@@ -64,7 +64,7 @@ public class PrIS {
                 // use comma as separator
                 String[] block = line.split(cvsSplitBy);
                 Klas k = getKlas(block[4]);
-                if (k == null){
+                if (k == null) {
                     k = new Klas(block[4]);
                     deKlassen.add(k);
                 }
@@ -75,7 +75,7 @@ public class PrIS {
                     s = new Student(block[0], block[3], block[1]);
                 }
                 k.addStudentKlas(s);
-                if(!deStudenten.contains(s)){
+                if (!deStudenten.contains(s)) {
                     deStudenten.add(s);
                 }
             }
@@ -105,25 +105,25 @@ public class PrIS {
                 // use comma as separator
                 String[] block = line.split(cvsSplitBy);
                 Klas k = getKlas(block[6]);
-                if (k == null){
+                if (k == null) {
                     k = new Klas(block[6]);
                     deKlassen.add(k);
                 }
                 Docent d = getDocent(block[4]);
-                if (d == null){
+                if (d == null) {
                     d = new Docent(block[4]);
                     deDocenten.add(d);
                 }
                 Lokaal loka = getLokaal(block[3]);
-                if (loka == null){
+                if (loka == null) {
                     loka = new Lokaal(block[3]);
                     deLokalen.add(loka);
                 }
                 Vak v = getVak(block[3]);
                 Les l = getLes(k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
-                if (l == null){
+                if (l == null) {
                     l = new Les(loka, k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
-                    if (v != null){
+                    if (v != null) {
                         l.setVak(v);
                     }
                     deLessen.add(l);
@@ -176,11 +176,12 @@ public class PrIS {
         }
         return resultaat;
     }
-    public Les getLes(Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd){
+
+    public Les getLes(Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd) {
         Les resultaat = null;
 
-        for (Les l :deLessen) {
-            if (deLessen.contains(new Les(klas,docent,date,startTijd,eindTijd))) {
+        for (Les l : deLessen) {
+            if (deLessen.contains(new Les(klas, docent, date, startTijd, eindTijd))) {
                 resultaat = l;
                 break;
             }
@@ -219,21 +220,22 @@ public class PrIS {
         return k.getStudentenKlas();
     }
 
-    public Klas getKlasVanStudent(Student student){
-        for (Klas k : deKlassen){
-            for (Student s : k.getStudentenKlas()){
-                if(s.equals(student)){
+    public Klas getKlasVanStudent(Student student) {
+        for (Klas k : deKlassen) {
+            for (Student s : k.getStudentenKlas()) {
+                if (s.equals(student)) {
                     return k;
                 }
             }
         }
         return null;
     }
-    public Vak getVak(String vakcode){
+
+    public Vak getVak(String vakcode) {
         Vak resultaat = null;
 
         for (Vak v : deVakken) {
-            if (v.getVakCode()==(vakcode)) {
+            if (v.getVakCode() == (vakcode)) {
                 resultaat = v;
                 break;
             }
@@ -241,11 +243,12 @@ public class PrIS {
 
         return resultaat;
     }
-    public Lokaal getLokaal(String lokaalnaam){
+
+    public Lokaal getLokaal(String lokaalnaam) {
         Lokaal resultaat = null;
 
         for (Lokaal l : deLokalen) {
-            if (l.getLokaalNaam()==(lokaalnaam)) {
+            if (l.getLokaalNaam() == (lokaalnaam)) {
                 resultaat = l;
                 break;
             }
@@ -254,27 +257,27 @@ public class PrIS {
         return resultaat;
     }
 
-    public ArrayList<Vak> getVakkenDocent (Docent docent){
+    public ArrayList<Vak> getVakkenDocent(Docent docent) {
         ArrayList<Vak> vakkenDocent = new ArrayList<>();
 
-        for (Les l: deLessen)
-            if(l.getDocent().equals(docent)){
+        for (Les l : deLessen)
+            if (l.getDocent().equals(docent)) {
                 vakkenDocent.add(l.getVak());
             }
         return vakkenDocent;
     }
 
-    public ArrayList<Vak> getVakkenStudent (Student student){
+    public ArrayList<Vak> getVakkenStudent(Student student) {
         ArrayList<Vak> vakkenStudent = new ArrayList<>();
 
-        for (Les l: deLessen)
-            if(l.getDocent().equals(student)){
+        for (Les l : deLessen)
+            if (l.getDocent().equals(student)) {
                 vakkenStudent.add(l.getVak());
             }
         return vakkenStudent;
     }
 
-    public Date stringToDateConvert(String dateString){
+    public Date stringToDateConvert(String dateString) {
         Date startDate = null;
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -285,7 +288,7 @@ public class PrIS {
         return startDate;
     }
 
-    public Date stringToTimeConvert(String timeString){
+    public Date stringToTimeConvert(String timeString) {
         Date time = null;
         DateFormat df = new SimpleDateFormat("hh:mm");
         try {
