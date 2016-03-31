@@ -85,6 +85,11 @@
                     <span>Toon vakken</span>
                 </a>
 
+                <a data-route="docent-toonabsenties" href="{{baseUrl}}docent-toonabsenties" hidden="{{!roldocent}}">
+                    <iron-icon icon="social:school"></iron-icon>
+                    <span>Toon student absenties</span>
+                </a>
+
                 <a data-route="toonlessen" href="{{baseUrl}}toonlessen" hidden="{{!roldocent}}">
                     <iron-icon icon="social:school"></iron-icon>
                     <span>Toon Lessen</span>
@@ -163,6 +168,12 @@
                     <section data-route="toonvakken">
                         <paper-material elevation="1">
                             <my-vakken rol="[[rol]]" username="[[username]]"></my-vakken>
+                        </paper-material>
+                    </section>
+
+                    <section data-route="docent-toonabsenties">
+                        <paper-material elevation="1">
+                            <docent-toonabsenties rol="[[rol]]" username="[[username]]"></docent-toonabsenties>
                         </paper-material>
                     </section>
 

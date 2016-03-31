@@ -1,0 +1,101 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="docent-toonabsenties">
+    <template>
+
+        <style>
+            :host {
+                display: block;
+            }
+
+            .collapse-content {
+                 padding: 15px;
+                 border: 1px solid #dedede;
+             }
+
+            span {
+                @apply(--paper-font-body1);
+            }
+
+        </style>
+
+        <h1 class="page-title">Overzicht van studentnummer: {{studentnummer}} absenties ( {{username}} )</h1>
+        <paper-input label="Geeft student nummer op" value="{{studentnummer}}"> </paper-input>
+
+        <table>
+            <tr>
+                <th>Datum Begintijd Eindtijd Klas Docent</th>
+
+            </tr>
+            <td><paper-listbox label="Dinosaurs" id="absl">
+                <template is="dom-repeat" items={{result}}>
+                    <tr >
+                        <paper-item on-tap="absentieverzenden">{{item.datum}} -
+                            {{item.begintijd}} -
+                            {{item.eindtijd}} -
+                            {{item.klas}} -
+                            {{item.docent}}
+                        </paper-item>
+                    </tr>
+                </template>
+            </paper-listbox></td>
+        </table>
+
+        <iron-ajax
+            id="ajax1"
+            method="POST"
+            url="/docent/studentabsenties"
+            handle-as="json"
+            on-response="responseHandler">
+        </iron-ajax>
+
+    </template>
+    <script>
+    (function () {
+    'use strict';
+
+    Polymer({
+    is: 'docent-toonabsenties',
+
+    properties: {
+    studentnummer:{
+    type: String,
+    observer: "studentnropgeven"
+    },
+
+    username: String,
+    rol: {
+    observer: 'studentnropgeven'
+
+    }
+    },
+                    responseHandler: function (request) {
+
+                    this.result = request.detail.response;
+
+                },
+
+
+    studentnropgeven: function (newValue) {
+    this.studentnummer = newValue;
+    if (this.rol == "docent") {
+    this.$.ajax1.contentType = "application/json";
+    this.$.ajax1.body = {
+    "username": this.username,
+    "stdnr": this.studentnummer
+    };
+    this.$.ajax1.generateRequest();
+    }
+
+
+    },
+
+
+    });
+    })();
+    </script>
+</dom-module>
