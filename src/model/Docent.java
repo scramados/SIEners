@@ -6,18 +6,48 @@ import java.util.Objects;
 public class Docent {
     private String gebruikersNaam;
     private String wachtwoord;
-    private ArrayList<Vak> mijnVakken;
     private Rooster mijnRooster;
 
+
     public Docent(String gebruikersNaam, String wachtwoord) {
-        mijnVakken = new ArrayList<>();
-        this.gebruikersNaam = gebruikersNaam;
-        this.wachtwoord = wachtwoord;
+        // checkt of de docentnaam 1 of 2 spaties heeft en voegt deze dan aan elkaar
+        String temp = "";
+        int counter = 0;
+        for (int i = 0; i < gebruikersNaam.length() + 1; i++) {
+            if (gebruikersNaam.charAt(i) == ' ') {
+                counter++;
+            }
+        }
+        String[] slice = gebruikersNaam.split(" ");
+        if (counter == 2) {
+            temp = slice[1] + slice[2];
+        } else if (counter == 1) {
+            temp = slice[1];
+
+            this.gebruikersNaam = temp;
+            this.wachtwoord = "test";
+        }
+    }
+
+    public void fixGebruikersnaam() {
+        // checkt of de docentnaam 1 of 2 spaties heeft en voegt deze dan aan elkaar
+        String temp = "";
+        int counter = 0;
+        for (int i = 0; i < gebruikersNaam.length() + 1; i++) {
+            if (gebruikersNaam.charAt(i) == ' ') {
+                counter++;
+            }
+        }
+        String[] slice = gebruikersNaam.split(" ");
+        if (counter == 2) {
+            temp = slice[1] + slice[2];
+        } else if (counter == 1) {
+            temp = slice[1];
+        }
+        gebruikersNaam = temp;
     }
 
     public Docent(String gebruikersNaam) {
-        System.out.println(gebruikersNaam);
-        mijnVakken = new ArrayList<>();
         this.gebruikersNaam = gebruikersNaam;
         wachtwoord = "test";
     }
@@ -38,13 +68,13 @@ public class Docent {
         return wachtwoord.equals(this.wachtwoord);
     }
 
-    public void voegVakToe(Vak nieuwvak) {
-        mijnVakken.add(nieuwvak);
-    }
+//    public void voegVakToe(Vak nieuwvak) {
+//        mijnVakken.add(nieuwvak);
+//    }
 
-    public ArrayList<Vak> getVakken() {
-        return mijnVakken;
-    }
+//    public ArrayList<Vak> getVakken() {
+//        return mijnVakken;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -53,13 +83,13 @@ public class Docent {
         Docent docent = (Docent) o;
         return Objects.equals(gebruikersNaam, docent.gebruikersNaam) &&
                 Objects.equals(wachtwoord, docent.wachtwoord) &&
-                Objects.equals(mijnVakken, docent.mijnVakken) &&
+                /*Objects.equals(mijnVakken, docent.mijnVakken) &&*/
                 Objects.equals(mijnRooster, docent.mijnRooster);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(gebruikersNaam, wachtwoord, mijnVakken, mijnRooster);
+        return Objects.hash(gebruikersNaam, wachtwoord, mijnRooster);
     }
 
     @Override
