@@ -20,12 +20,22 @@
         <table>
             <tr>
                 <th>Datum</th>
-                <th>Tijd</th>
+                <th>Begintijd</th>
+                <th>Eindtijd</th>
+                <th>Docent</th>
+                <th>Klas</th>
+                <th>Lokaal</th>
+                <th>Vak</th>
             </tr>
             <template is="dom-repeat" items="{{deLessen}}">
                 <tr>
                     <td>{{item.datum}}</td>
-                    <td>{{item.tijd}}</td>
+                    <td>{{item.begintijd}}</td>
+                    <td>{{item.eindtijd}}</td>
+                    <td>{{item.docent}}</td>
+                    <td>{{item.klas}}</td>
+                    <td>{{item.lokaal}}</td>
+                    <td>{{item.vak}}</td>
                 </tr>
             </template>
         </table>

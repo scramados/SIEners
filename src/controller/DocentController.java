@@ -32,6 +32,9 @@ public class DocentController implements Handler {
         if (conversation.getRequestedURI().startsWith("/docent/mijnRooster")) {
             mijnLessen(conversation);
         }
+        if (conversation.getRequestedURI().startsWith("/docent/studentabsenties")) {
+            stdab(conversation);
+        }
     }
 
     /**
@@ -60,21 +63,54 @@ public class DocentController implements Handler {
         conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
     }
 
+    private void stdab(Conversation conversation) {
+        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+        String gebruikersnaam = jsonObjectIn.getString("username");
+        String stdnr = jsonObjectIn.getString("stdnr");
+        Docent docent = informatieSysteem.getDocent(gebruikersnaam);    // Docent-object ophalen!
+
+            try {
+                Student student = informatieSysteem.getStudent(stdnr);
+                JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
+                // Uiteindelijk gaat er een array...
+                for(Absentie ab : student.getAbsentie()){
+                    jab.add(Json.createObjectBuilder()
+                            .add("datum", ab.getLes().getDateString())
+                            .add("begintijd", ab.getLes().getStartTijdString())
+                            .add("eindtijd", ab.getLes().getEindTijdString())
+                            //.add("lokaal", l.getLokaal().getLokaalNaam())
+                            .add("docent", ab.getLes().getDocent().getGebruikersNaam())
+                            .add("klas", ab.getLes().getKlas().getKlasCode())
+                    );
+                }
+                conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
+            } catch (NullPointerException error) {
+                System.out.println(error.getMessage());
+            }
+    }
+
     private void mijnLessen(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
 
         Docent docent = informatieSysteem.getDocent(gebruikersnaam);    // Docent-object ophalen!
         Rooster mijnRooster = informatieSysteem.getDocent(gebruikersnaam).getRooster();
-        ArrayList<Les> deLessen = mijnRooster.getLessen();                        // Vakken van de docent ophalen!
+        ArrayList<Les> deLessen = informatieSysteem.deLessen;                        // Vakken van de docent ophalen!
 
         JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
-
-        for (Les l : deLessen) {
-            jab.add(Json.createObjectBuilder()                            // daarin voor elk vak een JSON-object...
-                    .add("datum",l.getDateString())
-                    .add("tijd", l.getStartTijdString()));
-
+        System.out.println(informatieSysteem.deVakken.toString());
+        for(Les l : deLessen) {
+            if(l.getDocent().getGebruikersNaam().contains(gebruikersnaam)) {
+                jab.add(Json.createObjectBuilder()
+                        .add("datum", l.getDateString())
+                        .add("begintijd", l.getStartTijdString())
+                        .add("eindtijd", l.getEindTijdString())
+                        //.add("lokaal", l.getLokaal().getLokaalNaam())
+                        .add("docent", l.getDocent().getGebruikersNaam())
+                        //.add("klas", l.getKlas().getKlasCode())
+                        .add("vak",docent.getVakken().toString())
+                );
+            }
         }
 
         conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!

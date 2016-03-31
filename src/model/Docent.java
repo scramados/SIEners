@@ -16,6 +16,7 @@ public class Docent {
 	}
 
 	public Docent(String gebruikersNaam){
+		System.out.println(gebruikersNaam);
 		mijnVakken = new ArrayList<>();
 		this.gebruikersNaam = gebruikersNaam;
 		wachtwoord = "test";
