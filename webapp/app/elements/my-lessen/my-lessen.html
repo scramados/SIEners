@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/google-chart/google-chart.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
 
 <dom-module id="my-lessen">
     <template>
@@ -13,9 +14,15 @@
                 display: block;
             }
 
+            .collapse-content {
+                 padding: 15px;
+                 border: 1px solid #dedede;
+             }
+
             span {
                 @apply(--paper-font-body1);
             }
+
         </style>
 
         <h1 class="page-title">Overzicht van mijn vakken ( {{username}} )</h1>
@@ -38,9 +45,8 @@
                     <td> {{item.klas}} </td>
                     <td> {{item.lokaal}} </td>
                     <td> {{item.vak}} </td>
-                    <td> <paper-button raised on-click="showGrafiek"> Grafiek </paper-button></td>
-                    <td><google-chart></google-chart></td>
-    
+                    <td><paper-button raised on-click="">Select Grafiek</paper-button></td>
+
                 </tr>
             </template>
         </table>
@@ -94,10 +100,8 @@
                         };
                         this.$.ajax.generateRequest();
                     }
-                },
-                showGrafiek: function () {
-
                 }
+
 
             });
         })();
