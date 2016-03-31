@@ -1,8 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/google-chart/google-chart.html">
 
 <dom-module id="my-lessen">
     <template>
@@ -29,22 +31,34 @@
             </tr>
             <template is="dom-repeat" items="{{deLessen}}">
                 <tr>
-                    <td>{{item.datum}}</td>
-                    <td>{{item.begintijd}}</td>
-                    <td>{{item.eindtijd}}</td>
-                    <td>{{item.docent}}</td>
-                    <td>{{item.klas}}</td>
-                    <td>{{item.lokaal}}</td>
-                    <td>{{item.vak}}</td>
+                    <td> {{item.datum}} </td>
+                    <td> {{item.begintijd}} </td>
+                    <td> {{item.eindtijd}} </td>
+                    <td> {{item.docent}} </td>
+                    <td> {{item.klas}} </td>
+                    <td> {{item.lokaal}} </td>
+                    <td> {{item.vak}} </td>
+                    <td> <paper-button raised on-click="showGrafiek"> Grafiek </paper-button></td>
+                    <td><google-chart></google-chart></td>
+    
                 </tr>
             </template>
         </table>
 
 
         <iron-ajax
-                id="ajax"
+            id="ajax"
+            method="POST"
+            url="/docent/mijnRooster"
+            handle-as="json"
+            on-response="responseHandler">
+    </iron-ajax>
+
+        <iron-ajax
+                id="absentie"
                 method="POST"
                 url="/docent/mijnRooster"
+                <!--^-hier komt de link naar de java functie die de gegevens ophaalt-->
                 handle-as="json"
                 on-response="responseHandler">
         </iron-ajax>
@@ -80,6 +94,9 @@
                         };
                         this.$.ajax.generateRequest();
                     }
+                },
+                showGrafiek: function () {
+
                 }
 
             });
