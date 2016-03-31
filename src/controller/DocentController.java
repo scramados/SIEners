@@ -25,9 +25,9 @@ public class DocentController implements Handler {
     }
 
     public void handle(Conversation conversation) {
-        if (conversation.getRequestedURI().startsWith("/docent/mijnVakken")) {
-            mijnVakken(conversation);
-        }
+//        if (conversation.getRequestedURI().startsWith("/docent/mijnVakken")) {
+//            mijnVakken(conversation);
+//        }
 
         if (conversation.getRequestedURI().startsWith("/docent/mijnRooster")) {
             mijnLessen(conversation);
@@ -44,28 +44,28 @@ public class DocentController implements Handler {
      *
      * @param conversation - alle informatie over het request
      */
-    private void mijnVakken(Conversation conversation) {
-        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
-        String gebruikersnaam = jsonObjectIn.getString("username");
-
-        Docent docent = informatieSysteem.getDocent(gebruikersnaam);    // Docent-object ophalen!
-
-        JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
-        ArrayList<Vak> vakken = new ArrayList<>();
-        vakken = informatieSysteem.getVakkenDocent(docent);
-        for (Vak v : informatieSysteem.deVakken) {
-            if (vakken.contains(docent.getVakken())) {
-                vakken.add(v);
-            }
-        }
-        for (Vak v : vakken) {
-            jab.add(Json.createObjectBuilder()
-                    .add("vaknaam", v.getVakNaam())
-                    .add("vakcode", v.getVakCode()));
-        }
-
-        conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
-    }
+//    private void mijnVakken(Conversation conversation) {
+//        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+//        String gebruikersnaam = jsonObjectIn.getString("username");
+//
+//        Docent docent = informatieSysteem.getDocent(gebruikersnaam);    // Docent-object ophalen!
+//
+//        JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
+//        ArrayList<Vak> vakken = new ArrayList<>();
+//        vakken = informatieSysteem.getVakkenDocent(docent);
+//        for (Vak v : informatieSysteem.deVakken) {
+//            if (vakken.contains(docent.getVakken())) {
+//                vakken.add(v);
+//            }
+//        }
+//        for (Vak v : vakken) {
+//            jab.add(Json.createObjectBuilder()
+//                    .add("vaknaam", v.getVakNaam())
+//                    .add("vakcode", v.getVakCode()));
+//        }
+//
+//        conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
+//    }
 
     private void stdab(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
@@ -112,7 +112,7 @@ public class DocentController implements Handler {
                         //.add("lokaal", l.getLokaal().getLokaalNaam())
                         .add("docent", l.getDocent().getGebruikersNaam())
                         //.add("klas", l.getKlas().getKlasCode())
-                        .add("vak", docent.getVakken().toString())
+//                        .add("vak", docent.getVakken().toString())
                 );
             }
         }
