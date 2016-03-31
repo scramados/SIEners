@@ -16,40 +16,25 @@
             }
         </style>
 
-        <h1 class="page-title">Overzicht van studentnummer: {{studentnummer}} absenties ( {{username}} )</h1>
-        <paper-input label="Geeft student nummer op" value="{{studentnummer}}"> </paper-input>
+        <h1 class="page-title">Overzicht van mijn lessen ( {{username}} )</h1>
         <table>
             <tr>
-                <th>Datum Begintijd Eindtijd Klas Docent</th>
+                <th>Vakcode</th>
+                <th>Vaknaam</th>
             </tr>
-            <td><paper-listbox label="Dinosaurs" id="absl">
-                <template is="dom-repeat" items={{result}}>
-                    <tr >
-                        <paper-item on-tap="absentieverzenden">{{item.datum}} -
-                            {{item.begintijd}} -
-                            {{item.eindtijd}} -
-                            {{item.klas}} -
-                            {{item.docent}}
-                        </paper-item>
-                    </tr>
-                </template>
-            </paper-listbox></td>
+            <template is="dom-repeat" items="{{result}}">
+                <tr>
+                    <td>{{item.vakcode}}</td>
+                    <td>{{item.vaknaam}}</td>
+                </tr>
+            </template>
         </table>
-
 
 
         <iron-ajax
                 id="ajax"
                 method="POST"
-                url="/docent/mijnvakken"
-                handle-as="json"
-                on-response="responseHandler">
-        </iron-ajax>
-
-        <iron-ajax
-                id="ajax1"
-                method="POST"
-                url="/docent/studentabsenties"
+                url="/docent/mijnVakken"
                 handle-as="json"
                 on-response="responseHandler">
         </iron-ajax>
@@ -64,11 +49,6 @@
                 is: 'my-vakken',
 
                 properties: {
-                    studentnummer:{
-                    type: String,
-                    observer: "studentnropgeven"
-                    },
-
                     username: String,
                     rol: {
                         observer: 'fetchVakken'
@@ -80,22 +60,9 @@
                     this.result = request.detail.response;
                 },
 
-                    studentnropgeven: function (newValue) {
-                      this.studentnummer = newValue;
-                        if (this.rol == "docent") {
-                        this.$.ajax1.contentType = "application/json";
-                        this.$.ajax1.body = {
-                            "username": this.username,
-                            "stdnr": this.studentnummer
-                        };
-                        this.$.ajax1.generateRequest();
-                    }
-
-
-                },
-
                 fetchVakken: function () {
                     console.log("FetchVakken user=" + this.username);
+                    console.log(this.fetchVakken);
                     if (this.rol == "docent") {
                         this.$.ajax.contentType = "application/json";
                         this.$.ajax.body = {

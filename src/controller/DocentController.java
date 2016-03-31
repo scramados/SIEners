@@ -25,7 +25,7 @@ public class DocentController implements Handler {
     }
 
     public void handle(Conversation conversation) {
-        if (conversation.getRequestedURI().startsWith("/docent/mijnvakken")) {
+        if (conversation.getRequestedURI().startsWith("/docent/mijnVakken")) {
             mijnVakken(conversation);
         }
 
@@ -49,15 +49,18 @@ public class DocentController implements Handler {
         String gebruikersnaam = jsonObjectIn.getString("username");
 
         Docent docent = informatieSysteem.getDocent(gebruikersnaam);    // Docent-object ophalen!
-        ArrayList<Vak> vakken = docent.getVakken();                        // Vakken van de docent ophalen!
-
+        Les l;
         JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
-
+        ArrayList<Vak> vakken = new ArrayList<>();
+        for (Vak v : informatieSysteem.deVakken){
+            if(v.getVakCode().contains(docent.getVakken())){
+                vakken.add(v);
+            }
+        }
         for (Vak v : vakken) {
-            jab.add(Json.createObjectBuilder()                            // daarin voor elk vak een JSON-object...
-                    .add("vakcode", v.getVakCode())
-                    .add("vaknaam", v.getVakNaam()));
-
+            jab.add(Json.createObjectBuilder()
+            .add("vaknaam", v.getVakNaam())
+            .add("vakcode", v.getVakCode()));
         }
 
         conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
