@@ -49,11 +49,12 @@ public class DocentController implements Handler {
         String gebruikersnaam = jsonObjectIn.getString("username");
 
         Docent docent = informatieSysteem.getDocent(gebruikersnaam);    // Docent-object ophalen!
-        Les l;
+
         JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
         ArrayList<Vak> vakken = new ArrayList<>();
+        vakken = informatieSysteem.getVakkenDocent(docent);
         for (Vak v : informatieSysteem.deVakken){
-            if(v.getVakCode().contains(docent.getVakken())){
+            if(vakken.contains(docent.getVakken())){
                 vakken.add(v);
             }
         }
