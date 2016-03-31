@@ -35,7 +35,7 @@ public class Application {
         StudentController studentController = new StudentController(infoSysteem);
 
         server.registerHandler("/login", userController);
-        server.registerHandler("/docent/mijnvakken", docentController);
+        server.registerHandler("/docent/mijnVakken", docentController);
         server.registerHandler("/docent/mijnRooster", docentController);
         server.registerHandler("/student/mijnmedestudenten", studentController);
         server.registerHandler("/docent/mijnrooster", docentController);

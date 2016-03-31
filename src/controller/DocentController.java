@@ -53,11 +53,7 @@ public class DocentController implements Handler {
         JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
         ArrayList<Vak> vakken = new ArrayList<>();
         vakken = informatieSysteem.getVakkenDocent(docent);
-        for (Vak v : informatieSysteem.deVakken) {
-            if (vakken.contains(docent.getVakken())) {
-                vakken.add(v);
-            }
-        }
+
         for (Vak v : vakken) {
             jab.add(Json.createObjectBuilder()
                     .add("vaknaam", v.getVakNaam())
@@ -109,10 +105,10 @@ public class DocentController implements Handler {
                         .add("datum", l.getDateString())
                         .add("begintijd", l.getStartTijdString())
                         .add("eindtijd", l.getEindTijdString())
-                        //.add("lokaal", l.getLokaal().getLokaalNaam())
+                        .add("lokaal", l.getLokaal().getLokaalNaam())
                         .add("docent", l.getDocent().getGebruikersNaam())
-                        //.add("klas", l.getKlas().getKlasCode())
-                        .add("vak", docent.getVakken().toString())
+                        .add("klas", l.getKlas().getKlasCode())
+                        .add("vak", l.getVak().getVakCode())
                 );
             }
         }

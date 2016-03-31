@@ -114,18 +114,15 @@ public class PrIS {
                     d = new Docent(block[4]);
                     deDocenten.add(d);
                 }
-                Lokaal loka = getLokaal(block[3]);
+                Lokaal loka = getLokaal(block[5]);
                 if (loka == null) {
-                    loka = new Lokaal(block[3]);
+                    loka = new Lokaal(block[5]);
                     deLokalen.add(loka);
                 }
                 Vak v = getVak(block[3]);
                 Les l = getLes(k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
                 if (l == null) {
-                    l = new Les(loka, k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
-                    if (v != null) {
-                        l.setVak(v);
-                    }
+                    l = new Les(v, loka, k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
                     deLessen.add(l);
                 }
             }
@@ -235,7 +232,7 @@ public class PrIS {
         Vak resultaat = null;
 
         for (Vak v : deVakken) {
-            if (v.getVakCode() == (vakcode)) {
+            if (v.getVakCode().equals(vakcode)) {
                 resultaat = v;
                 break;
             }
@@ -262,7 +259,9 @@ public class PrIS {
 
         for (Les l : deLessen)
             if (l.getDocent().equals(docent)) {
-                vakkenDocent.add(l.getVak());
+                if(!vakkenDocent.contains(l.getVak())) {
+                    vakkenDocent.add(l.getVak());
+                }
             }
         return vakkenDocent;
     }
@@ -272,7 +271,9 @@ public class PrIS {
 
         for (Les l : deLessen)
             if (l.getDocent().equals(student)) {
-                vakkenStudent.add(l.getVak());
+                if(!vakkenStudent.contains(l.getVak())) {
+                    vakkenStudent.add(l.getVak());
+                }
             }
         return vakkenStudent;
     }

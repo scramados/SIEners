@@ -31,6 +31,15 @@ public class Les {
         this.eindTijd = eindTijd;
         this.lokaal = lokaal;
     }
+    public Les(Vak vak, Lokaal lokaal, Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd) {
+        this.klas = klas;
+        this.docent = docent;
+        this.date = date;
+        this.startTijd = startTijd;
+        this.eindTijd = eindTijd;
+        this.lokaal = lokaal;
+        this.vak = vak;
+    }
 
 
     public Les(Date date, Date startTijd, Date eindTijd) {
