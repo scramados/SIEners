@@ -254,6 +254,26 @@ public class PrIS {
         return resultaat;
     }
 
+    public ArrayList<Vak> getVakkenDocent (Docent docent){
+        ArrayList<Vak> vakkenDocent = new ArrayList<>();
+
+        for (Les l: deLessen)
+            if(l.getDocent().equals(docent)){
+                vakkenDocent.add(l.getVak());
+            }
+        return vakkenDocent;
+    }
+
+    public ArrayList<Vak> getVakkenStudent (Student student){
+        ArrayList<Vak> vakkenStudent = new ArrayList<>();
+
+        for (Les l: deLessen)
+            if(l.getDocent().equals(student)){
+                vakkenStudent.add(l.getVak());
+            }
+        return vakkenStudent;
+    }
+
     public Date stringToDateConvert(String dateString){
         Date startDate = null;
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
