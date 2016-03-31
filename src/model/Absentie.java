@@ -23,6 +23,19 @@ public class Absentie {
     }
 
     @Override
+    public boolean equals(Object o) {
+        boolean result = false;
+        if (o instanceof Absentie) {
+            Absentie ab = (Absentie) o;
+            if (this.les.equals(ab.getLes())) {
+                result = true;
+            }
+
+        }
+        return result;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(les, student);
     }

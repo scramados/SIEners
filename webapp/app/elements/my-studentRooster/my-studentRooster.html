@@ -24,7 +24,11 @@
             </tr>
             <template is="dom-repeat" items="{{absenties}}">
                 <tr>
-                    <paper-item >{{item}}
+                    <paper-item >{{item.datum}} -
+                        {{item.begintijd}} -
+                        {{item.eindtijd}} -
+                        {{item.docent}} -
+                        {{item.klas}}
 
 
                     </paper-item>

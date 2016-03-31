@@ -263,12 +263,5 @@ public class PrIS {
         }
         return time;
     }
-//    public maakAbsentie(Student student){
-//        for (Les l : deLessen) {
-//            if (l.getKlas().getKlasCode().contains(klas.getKlasCode())) {
-//                Absentie absentie = new Absentie(l, student);
-//                if(!student.getAbsentie().contains(absentie)) {
-//                    student.addabsentie(absentie);
-//    }
 
 }

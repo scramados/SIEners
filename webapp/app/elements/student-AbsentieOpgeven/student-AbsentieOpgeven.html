@@ -101,7 +101,9 @@
                         console.debug(event.model.item.datum);
                         this.$.absdoorgeven.body = {
                             "username": this.username,
-                            "datum": event.model.item.datum
+                            "datum": event.model.item.datum,
+                            "begintijd": event.model.item.begintijd,
+                            "eindtijd": event.model.item.eindtijd
 
                         };
                         this.$.absdoorgeven.generateRequest();

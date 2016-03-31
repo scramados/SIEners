@@ -107,6 +107,9 @@ public class StudentController implements Handler {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
         String datum=jsonObjectIn.getString("datum");
+        String begintijd=jsonObjectIn.getString("begintijd");
+        String eindtijd=jsonObjectIn.getString("eindtijd");
+
 
         //System.out.println(datum);
 
@@ -115,14 +118,11 @@ public class StudentController implements Handler {
         Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken
 
         for (Les l : informatieSysteem.deLessen) {
-            if (l.getKlas().getKlasCode().contains(klas.getKlasCode()) && l.getDateString().contains(datum)) {
+            if (l.getKlas().getKlasCode().contains(klas.getKlasCode()) && l.getDateString().contains(datum)
+                    && l.getStartTijdString().contains(begintijd) && l.getEindTijdString().contains(eindtijd)) {
                 Absentie absentie = new Absentie(l, student);
                 if (!student.getAbsentie().contains(absentie)) {
                     student.addabsentie(absentie);
-                    JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
-                    jab.add(absentie.getLes().getDateString());
-
-                    conversation.sendJSONMessage(jab.build().toString());
                 }
             }
         }
@@ -142,11 +142,16 @@ public class StudentController implements Handler {
 
 
         JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
-        for (Absentie ab: student.getAbsentie()){
-        jab.add(ab.getLes().getDateString()+" Datum");
-        jab.add(ab.getLes().getEindTijdString()+ " Eindtijd");
-            jab.add(ab.getLes().getStartTijdString()+" Starttijd");
-            jab.add(ab.getLes().getDocent().getGebruikersNaam()+ "Docent");}
+        for(Absentie ab : student.getAbsentie()){
+            jab.add(Json.createObjectBuilder()
+                    .add("datum", ab.getLes().getDateString())
+                    .add("begintijd", ab.getLes().getStartTijdString())
+                    .add("eindtijd", ab.getLes().getEindTijdString())
+                    //.add("lokaal", l.getLokaal().getLokaalNaam())
+                    .add("docent", ab.getLes().getDocent().getGebruikersNaam())
+                    .add("klas", ab.getLes().getKlas().getKlasCode())
+            );
+        }
 
         conversation.sendJSONMessage(jab.build().toString());                       // terug naar de Polymer-GUI!
     }
