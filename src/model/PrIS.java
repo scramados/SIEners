@@ -109,25 +109,25 @@ public class PrIS {
                     k = new Klas(block[6]);
                     deKlassen.add(k);
                 }
-                Vak v = getVak(block[3]);
                 Docent d = getDocent(block[4]);
                 if (d == null){
-                    if (v != null){
-                        d.voegVakToe(v);
-                    }
                     d = new Docent(block[4]);
                     deDocenten.add(d);
                 }
-
+                Lokaal loka = getLokaal(block[3]);
+                if (loka == null){
+                    loka = new Lokaal(block[3]);
+                    deLokalen.add(loka);
+                }
+                Vak v = getVak(block[3]);
                 Les l = getLes(k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
                 if (l == null){
+                    l = new Les(loka, k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
                     if (v != null){
                         l.setVak(v);
                     }
-                    l = new Les(k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
                     deLessen.add(l);
                 }
-
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -235,6 +235,18 @@ public class PrIS {
         for (Vak v : deVakken) {
             if (v.getVakCode()==(vakcode)) {
                 resultaat = v;
+                break;
+            }
+        }
+
+        return resultaat;
+    }
+    public Lokaal getLokaal(String lokaalnaam){
+        Lokaal resultaat = null;
+
+        for (Lokaal l : deLokalen) {
+            if (l.getLokaalNaam()==(lokaalnaam)) {
+                resultaat = l;
                 break;
             }
         }
