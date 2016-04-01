@@ -7,9 +7,8 @@ public class Student {
     private String studentNummer;
     private String voorNaam, tussenVoegsel, achterNaam, wachtwoord;
     private Klas mijnKlas;
-    private ArrayList<Vak> mijnVakken;
     private Rooster mijnRooster;
-    private ArrayList<Absentie> mijnabsenties = new ArrayList<>();
+    private ArrayList<Absentie> mijnabsenties;
 
     public Student(String studentNummer, String voorNaam, String achterNaam, String tussenVoegsel) {
         this.studentNummer = studentNummer;
@@ -17,6 +16,7 @@ public class Student {
         this.tussenVoegsel = tussenVoegsel;
         this.achterNaam = achterNaam;
         wachtwoord = "test";
+        mijnabsenties = new ArrayList<>();
     }
 
     public Student(String studentNummer, String voorNaam, String achterNaam) {
@@ -24,6 +24,7 @@ public class Student {
         this.voorNaam = voorNaam;
         this.achterNaam = achterNaam;
         wachtwoord = "test";
+        mijnabsenties = new ArrayList<>();
     }
 
     public void setWachtwoord(String wachtwoord) {
@@ -85,14 +86,6 @@ public class Student {
 
     public String getVoorNaam() {
         return voorNaam;
-    }
-
-    public Klas getMijnKlas() {
-        return mijnKlas;
-    }
-
-    public void setMijnKlas(Klas mijnKlas) {
-        this.mijnKlas = mijnKlas;
     }
 
     @Override

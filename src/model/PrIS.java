@@ -275,6 +275,21 @@ public class PrIS {
         return vakkenStudent;
     }
 
+    public ArrayList<Absentie> getAbsentiesLes(Les les){
+        ArrayList<Absentie> absenties = new ArrayList<>();
+        for(Les l : deLessen){
+            if(l.equals(les)){
+                for (Student s: l.getKlas().getStudentenKlas()){
+                    for(Absentie a:s.getAbsentie()){
+                        if (a.getLes().equals(l)){
+                            absenties.add(a);
+                        }
+                    }
+                }
+            }
+        }
+        return absenties;
+    }
     public Date stringToDateConvert(String dateString) {
         Date startDate = null;
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
