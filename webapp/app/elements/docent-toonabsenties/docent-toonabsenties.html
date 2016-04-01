@@ -34,7 +34,7 @@
             <td><paper-listbox label="Dinosaurs" id="absl">
                 <template is="dom-repeat" items={{result}}>
                     <tr >
-                        <paper-item on-tap="absentieverzenden">{{item.datum}} -
+                        <paper-item on-tap="absentieverwijderen">{{item.datum}} -
                             {{item.begintijd}} -
                             {{item.eindtijd}} -
                             {{item.klas}} -
@@ -51,6 +51,14 @@
             url="/docent/studentabsenties"
             handle-as="json"
             on-response="responseHandler">
+        </iron-ajax>
+
+        <iron-ajax
+                id="absverwijderen"
+                method="POST"
+                url="/docent/absverwijderen"
+                handle-as="json"
+                on-response="responseHandler1">
         </iron-ajax>
 
     </template>
@@ -79,6 +87,19 @@
 
                 },
 
+                    responseHandler1: function () {
+
+                        if (this.rol == "docent") {
+                        this.$.ajax1.contentType = "application/json";
+                        this.$.ajax1.body = {
+                        "username": this.username,
+                            "stdnr": this.studentnummer
+                        };
+    this.$.ajax1.generateRequest();
+    }
+
+                },
+
 
     studentnropgeven: function (newValue) {
     this.studentnummer = newValue;
@@ -93,6 +114,22 @@
 
 
     },
+
+                absentieverwijderen: function (event) {
+                    console.log("absentieverwijderen user=" + this.username);
+                    if (this.rol == "docent") {
+                        this.$.absverwijderen.contentType = "application/json";
+                        this.$.absverwijderen.body = {
+                            "username": this.username,
+                            "datum": event.model.item.datum,
+                            "begintijd": event.model.item.begintijd,
+                            "eindtijd": event.model.item.eindtijd,
+                            "stdnr": this.studentnummer
+
+                        };
+                        this.$.absverwijderen.generateRequest();
+                    }
+                },
 
 
     });

@@ -35,6 +35,9 @@ public class DocentController implements Handler {
         if (conversation.getRequestedURI().startsWith("/docent/studentabsenties")) {
             stdab(conversation);
         }
+        if (conversation.getRequestedURI().startsWith("/docent/absverwijderen")) {
+            absverwijderen(conversation);
+        }
     }
 
     /**
@@ -61,6 +64,53 @@ public class DocentController implements Handler {
         }
 
         conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
+    }
+
+    private void absverwijderen(Conversation conversation) {
+        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+        String gebruikersnaam = jsonObjectIn.getString("username");
+        String stdnr = jsonObjectIn.getString("stdnr");
+        String datum = jsonObjectIn.getString("datum");
+        String begintijd = jsonObjectIn.getString("begintijd");
+        String eindtijd = jsonObjectIn.getString("eindtijd");
+        System.out.println(datum+begintijd+eindtijd);
+
+
+        //System.out.println(datum);
+
+        Student student = informatieSysteem.getStudent(stdnr);            // Student-object opzoeken
+
+        Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken
+
+
+
+            try{
+            Les les = null;
+            for (Les l : informatieSysteem.deLessen) {
+                if (l.getKlas().getKlasCode().contains(klas.getKlasCode()) && l.getDateString().contains(datum)
+                        && l.getStartTijdString().contains(begintijd) && l.getEindTijdString().contains(eindtijd)) {
+                    les = l;
+                    System.out.println(les.toString());
+                }
+
+                for (int i = 0; i < student.getAbsentie().size(); i++) {
+                    if (student.getAbsentie().get(i).getLes().equals(les)) {
+                        System.out.println("absentie verwijdert");
+                        Absentie ab = student.getAbsentie().get(i);
+                        student.removeabsentie(ab);
+
+                    }
+                }
+            }
+
+                }catch (NullPointerException e){
+
+
+        }
+
+
+
+
     }
 
     private void stdab(Conversation conversation) {

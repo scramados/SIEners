@@ -38,6 +38,10 @@ public class Student {
         mijnabsenties.add(absentie);
     }
 
+    public void removeabsentie(Absentie absentie) {
+        mijnabsenties.remove(absentie);
+    }
+
     public ArrayList<Absentie> getAbsentie() {
         return mijnabsenties;
     }
