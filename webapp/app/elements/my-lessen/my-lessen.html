@@ -25,7 +25,7 @@
 
         </style>
 
-        <h1 class="page-title">Overzicht van mijn vakken ( {{username}} )</h1>
+        <h1 class="page-title">Overzicht van mijn lessen ( {{username}} )</h1>
         <table>
             <tr>
                 <th>Datum</th>
@@ -63,7 +63,6 @@
                 id="absentie"
                 method="POST"
                 url="/docent/mijnRooster"
-                <!--^-hier komt de link naar de java functie die de gegevens ophaalt-->
                 handle-as="json"
                 on-response="responseHandler">
         </iron-ajax>

@@ -25,16 +25,20 @@
 
         <h1 class="page-title">Overzicht van studentnummer: {{studentnummer}} absenties ( {{username}} )</h1>
         <paper-input label="Geeft student nummer op" value="{{studentnummer}}"> </paper-input>
+        <paper-input label="Geeft klas-code op" value="{{klascode}}"> </paper-input>
 
         <table>
             <tr>
                 <th>Datum Begintijd Eindtijd Klas Docent</th>
 
             </tr>
+
+
+
             <td><paper-listbox label="Dinosaurs" id="absl">
                 <template is="dom-repeat" items={{result}}>
                     <tr >
-                        <paper-item on-tap="absentieverwijderen">{{item.datum}} -
+                        <paper-item on-tap="absentieverwijderen" data-dialog="modal">{{item.datum}} -
                             {{item.begintijd}} -
                             {{item.eindtijd}} -
                             {{item.klas}} -
@@ -45,12 +49,48 @@
             </paper-listbox></td>
         </table>
 
+        <table>
+            <tr>
+                <th>Datum Begintijd Eindtijd Klas Docent</th>
+
+            </tr>
+
+        <td><paper-listbox label="Dinosaurs" id="absl2">
+            <template is="dom-repeat" items={{klasresults}}>
+                <tr >
+                    <paper-item >{{item.datum}} -
+                        {{item.begintijd}} -
+                        {{item.eindtijd}} -
+                        {{item.klas}} -
+                        {{item.docent}}
+                    </paper-item>
+                </tr>
+            </template>
+        </paper-listbox></td>
+
+        </table>
+
+        <paper-dialog id="modal" modal>
+            <p>Absentie is verwijdert.</p>
+            <div class="buttons">
+                <paper-button dialog-confirm autofocus>Oke!</paper-button>
+            </div>
+        </paper-dialog>
+
         <iron-ajax
             id="ajax1"
             method="POST"
             url="/docent/studentabsenties"
             handle-as="json"
             on-response="responseHandler">
+        </iron-ajax>
+
+        <iron-ajax
+                id="ajax2"
+                method="POST"
+                url="/docent/toonKlasAbs"
+                handle-as="json"
+                on-response="responseHandler2">
         </iron-ajax>
 
         <iron-ajax
@@ -70,6 +110,10 @@
     is: 'docent-toonabsenties',
 
     properties: {
+    klascode:{
+    type: String,
+    observer: "klascodeopgeven"
+    },
     studentnummer:{
     type: String,
     observer: "studentnropgeven"
@@ -87,7 +131,14 @@
 
                 },
 
+                    responseHandler2: function (request) {
+
+                    this.klasresults = request.detail.response;
+
+                },
+
                     responseHandler1: function () {
+                    this.$.modal.open();
 
                         if (this.rol == "docent") {
                         this.$.ajax1.contentType = "application/json";
@@ -95,8 +146,8 @@
                         "username": this.username,
                             "stdnr": this.studentnummer
                         };
-    this.$.ajax1.generateRequest();
-    }
+                        this.$.ajax1.generateRequest();
+                }
 
                 },
 
@@ -110,6 +161,20 @@
     "stdnr": this.studentnummer
     };
     this.$.ajax1.generateRequest();
+    }
+
+
+    },
+
+        klascodeopgeven: function (newValue) {
+    this.klascode = newValue;
+    if (this.rol == "docent") {
+    this.$.ajax2.contentType = "application/json";
+    this.$.ajax2.body = {
+    "username": this.username,
+    "klascode": this.klascode
+    };
+    this.$.ajax2.generateRequest();
     }
 
 

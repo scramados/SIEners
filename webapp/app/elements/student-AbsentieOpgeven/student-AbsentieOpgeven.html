@@ -5,6 +5,8 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+
 
 <dom-module id="student-AbsentieOpgeven">
     <template>
@@ -29,7 +31,7 @@
                         <td><paper-listbox label="Dinosaurs" id="absl">
                                 <template is="dom-repeat" items={{result}}>
                                     <tr >
-                                        <paper-item on-tap="absentieverzenden">{{item.datum}} -
+                                        <paper-item on-tap="absentieverzenden" data-dialog="modal">{{item.datum}} -
                                         {{item.begintijd}} -
                                         {{item.eindtijd}} -
                                         {{item.klas}} -
@@ -40,10 +42,12 @@
                 </paper-listbox></td>
             </table>
 
-
-
-
-
+        <paper-dialog id="modal" modal>
+            <p>Absentie is aangemaakt, u kunt uw absentie(s) terug vinden bij: "Toon mijn absenties".</p>
+            <div class="buttons">
+                <paper-button dialog-confirm autofocus>Oke!</paper-button>
+            </div>
+        </paper-dialog>
 
 
         <iron-ajax
@@ -86,6 +90,7 @@
 
                     teruggaveabsdoorgeven: function (request) {
                     console.log(request.detail.response);
+                    this.$.modal.open();
 
 
                 },

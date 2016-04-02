@@ -38,6 +38,9 @@ public class DocentController implements Handler {
         if (conversation.getRequestedURI().startsWith("/docent/absverwijderen")) {
             absverwijderen(conversation);
         }
+        if (conversation.getRequestedURI().startsWith("/docent/toonKlasAbs")) {
+            toonKlasAbs(conversation);
+        }
     }
 
     /**
@@ -73,18 +76,13 @@ public class DocentController implements Handler {
         String datum = jsonObjectIn.getString("datum");
         String begintijd = jsonObjectIn.getString("begintijd");
         String eindtijd = jsonObjectIn.getString("eindtijd");
-        System.out.println(datum+begintijd+eindtijd);
-
-
-        //System.out.println(datum);
+        System.out.println(datum + begintijd + eindtijd);
 
         Student student = informatieSysteem.getStudent(stdnr);            // Student-object opzoeken
 
         Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken
 
-
-
-            try{
+        try { //Hier gaan we absentie verwijderen wanneer er een studentnummer is opgegeven
             Les les = null;
             for (Les l : informatieSysteem.deLessen) {
                 if (l.getKlas().getKlasCode().contains(klas.getKlasCode()) && l.getDateString().contains(datum)
@@ -103,14 +101,8 @@ public class DocentController implements Handler {
                 }
             }
 
-                }catch (NullPointerException e){
-
-
+        } catch (NullPointerException e) {
         }
-
-
-
-
     }
 
     private void stdab(Conversation conversation) {
@@ -119,7 +111,7 @@ public class DocentController implements Handler {
         String stdnr = jsonObjectIn.getString("stdnr");
         Docent docent = informatieSysteem.getDocent(gebruikersnaam);    // Docent-object ophalen!
 
-        try {
+        try { //Student absenties ophalen
             Student student = informatieSysteem.getStudent(stdnr);
             JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
             // Uiteindelijk gaat er een array...
@@ -138,6 +130,45 @@ public class DocentController implements Handler {
             //System.out.println(error.getMessage());
         }
     }
+
+    private void toonKlasAbs(Conversation conversation){
+        JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+        String klascode = jsonObjectIn.getString("klascode");
+
+        try {
+            ArrayList<Absentie> absenties = null;
+            Klas klas = null;
+            JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
+            // Uiteindelijk gaat er een array...
+            for (Klas kl : informatieSysteem.deKlassen) {
+                if (kl.getKlasCode().contains(klascode)) {
+                    klas = kl;
+                }
+            }
+            for (Les l : informatieSysteem.deLessen) {
+                if (l.getKlas().equals(klas)) {
+                    absenties = informatieSysteem.getAbsentiesLes(l);
+                }
+            }
+            for (Absentie ab : absenties) {
+                jab.add(Json.createObjectBuilder()
+                        .add("datum", ab.getLes().getDateString())
+                        .add("begintijd", ab.getLes().getStartTijdString())
+                        .add("eindtijd", ab.getLes().getEindTijdString())
+                        //.add("lokaal", l.getLokaal().getLokaalNaam())
+                        .add("docent", ab.getLes().getDocent().getGebruikersNaam())
+                        .add("klas", ab.getLes().getKlas().getKlasCode())
+                );
+            }
+
+            conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
+
+        } catch (NullPointerException error) {
+            //System.out.println(error.getMessage());
+        }
+
+    }
+
 
     private void mijnLessen(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
