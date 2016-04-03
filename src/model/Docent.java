@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Docent {
+public class Docent implements Serializable {
     private String voornaam, tussenVoegsel, achternaam, wachtwoord;
     private Rooster mijnRooster;
 

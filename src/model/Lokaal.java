@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Created by jason on 22-3-2016.
  */
-public class Lokaal {
+public class Lokaal implements Serializable{
     //    private String vleugel;
     //    private String verdieping;
     //    private String lokaalNr;

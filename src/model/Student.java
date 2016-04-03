@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Student {
+public class Student implements Serializable {
     private String studentNummer;
     private String voorNaam, tussenVoegsel, achterNaam, wachtwoord;
     private Klas mijnKlas;

@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Carl on 22-3-2016.
  */
-public class Rooster {
+public class Rooster implements Serializable {
     private String mijnRooster;
     private ArrayList<Les> deLessen;
 

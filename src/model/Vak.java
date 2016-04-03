@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Vak {
+public class Vak implements Serializable {
     public String vakCode;
     public String vakNaam;
 

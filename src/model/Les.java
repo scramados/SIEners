@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class Les {
+public class Les implements Serializable {
     private Date date;
     private Date startTijd;
     private Date eindTijd;

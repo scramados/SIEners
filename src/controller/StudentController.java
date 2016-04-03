@@ -7,6 +7,7 @@ import server.Handler;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class StudentController implements Handler {
@@ -22,7 +23,7 @@ public class StudentController implements Handler {
      *
      * @param infoSys - het toegangspunt tot het domeinmodel
      */
-    public StudentController(PrIS infoSys) {
+    public StudentController(PrIS infoSys)  {
         informatieSysteem = infoSys;
     }
 
@@ -34,7 +35,7 @@ public class StudentController implements Handler {
             mijnStudentRooster(conversation);
         }
         if (conversation.getRequestedURI().startsWith("/student/student-AbsentieOpgeven")) {
-            studentAbsentieOpgeven(conversation);
+            studentAbsentieOpgeven(conversation) ;
         }
         if (conversation.getRequestedURI().startsWith("/student/absentietonen")) {
             toonabsenties(conversation);
@@ -120,6 +121,12 @@ public class StudentController implements Handler {
                 Absentie absentie = new Absentie(l, student);
                 if (!student.getAbsentie().contains(absentie)) {
                     student.addabsentie(absentie);
+                    try {
+                        informatieSysteem.writeAbsentie();
+                        //informatieSysteem.readAbsenties();
+                    }catch(IOException e){
+
+                    }
                 }
             }
         }

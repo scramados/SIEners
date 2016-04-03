@@ -7,6 +7,7 @@ import server.Handler;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DocentController implements Handler {
@@ -96,6 +97,12 @@ public class DocentController implements Handler {
                         System.out.println("absentie verwijdert");
                         Absentie ab = student.getAbsentie().get(i);
                         student.removeabsentie(ab);
+                        try{
+                            informatieSysteem.writeAbsentie();
+                        }catch(IOException e){
+
+                        }
+
 
                     }
                 }

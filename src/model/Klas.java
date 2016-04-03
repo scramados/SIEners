@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Klas {
+public class Klas implements Serializable {
     private String klasCode;
     private ArrayList<Student> studentenKlas;
 

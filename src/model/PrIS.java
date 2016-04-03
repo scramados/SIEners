@@ -1,6 +1,7 @@
 package model;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -313,17 +314,67 @@ public class PrIS {
         return time;
     }
 
-    public void writeAbsentie(){
-        String s = System.getProperty("user.dir") + "/CSV/absenties.txt";
-        PrintWriter printWriter = null;
+
+    public void writeAbsentie() throws IOException{
+        String s = System.getProperty("user.dir") + "/CSV/absenties.obj";
+        FileOutputStream fos=null;
+        ObjectOutputStream oos=null;
+        ArrayList<Absentie> absenties = new ArrayList<Absentie>();
+        ArrayList<Absentie> ab = null;
         try {
-            printWriter = new PrintWriter(s);
-            printWriter.println(/*hier moet de absentie in van de student*/);
+
+            fos = new FileOutputStream(s);
+            oos = new ObjectOutputStream(fos);
+            for (Student stu: deStudenten){
+                ab = stu.getAbsentie();
+                for(Absentie abs: ab){
+                    absenties.add(abs);
+                }
+
+            }
+            oos.writeObject(absenties);
         } catch (Exception e) {
             System.out.println("someting wong");
             e.printStackTrace();
         } finally {
-            printWriter.close();
+            oos.close();
+        }
+    }
+
+    public void readAbsenties()throws IOException{
+        String s = System.getProperty("user.dir") + "/CSV/absenties.obj";
+        FileInputStream fis=null;
+        ObjectInputStream ois=null;
+        try {
+            fis = new FileInputStream(s);
+            ois = new ObjectInputStream(fis);
+            Object obj =ois.readObject();
+            ArrayList<Absentie> lijst= (ArrayList<Absentie>) obj;
+            for(Absentie ab: lijst) {
+                Klas klas = ab.getLes().getKlas();
+                Les les = ab.getLes();
+                Student student = ab.getStudent();
+                for (Student st: deStudenten){
+                   if ( st.getGebruikersNaam().contains(student.getGebruikersNaam())){
+                        student = st;
+                    }
+                }
+                System.out.println(student.getAbsentie());
+
+
+                        //if (!student.getAbsentie().contains(ab)) {
+                            student.addabsentie(ab);
+                            System.out.println(student.getAbsentie());
+                       // }
+                    }
+
+
+
+        } catch (Exception e) {
+            System.out.println("someting wong");
+            e.printStackTrace();
+        } finally {
+            ois.close();
         }
     }
 
