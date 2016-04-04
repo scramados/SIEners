@@ -23,7 +23,7 @@ public class StudentController implements Handler {
      *
      * @param infoSys - het toegangspunt tot het domeinmodel
      */
-    public StudentController(PrIS infoSys)  {
+    public StudentController(PrIS infoSys) {
         informatieSysteem = infoSys;
     }
 
@@ -35,7 +35,7 @@ public class StudentController implements Handler {
             mijnStudentRooster(conversation);
         }
         if (conversation.getRequestedURI().startsWith("/student/student-AbsentieOpgeven")) {
-            studentAbsentieOpgeven(conversation) ;
+            studentAbsentieOpgeven(conversation);
         }
         if (conversation.getRequestedURI().startsWith("/student/absentietonen")) {
             toonabsenties(conversation);
@@ -70,6 +70,14 @@ public class StudentController implements Handler {
         conversation.sendJSONMessage(jab.build().toString());                    // terug naar de Polymer-GUI!
     }
 
+    /**
+     * Deze methode haalt eerst de opgestuurde JSON-data op. Daarna worden
+     * de benodigde gegevens uit het domeinmodel gehaald. Deze gegevens worden
+     * dan weer omgezet naar JSON en teruggestuurd naar de Polymer-GUI!
+     *
+     * @param conversation - alle informatie over het request
+     */
+
     private void mijnStudentRooster(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
@@ -77,17 +85,14 @@ public class StudentController implements Handler {
         JsonArrayBuilder jab = Json.createArrayBuilder();
         Klas klas = informatieSysteem.getKlasVanStudent(student);
         ArrayList<Les> lessen = new ArrayList<>();
-        //System.out.println(informatieSysteem.deLessen);
-        for (Les l : informatieSysteem.deLessen) {
 
-
+        for (Les l : informatieSysteem.deLessen) {                          //Zoek de lessen op
             if (l.getKlas().getKlasCode().contains(klas.getKlasCode())) {
                 lessen.add(l);
             }
         }
 
-
-        for (Les l : lessen) {
+        for (Les l : lessen) {                                              // Maak Array aan...
             jab.add(Json.createObjectBuilder()
                     .add("datum", l.getDateString())
                     .add("begintijd", l.getStartTijdString())
@@ -101,6 +106,14 @@ public class StudentController implements Handler {
         conversation.sendJSONMessage(jab.build().toString());                    // terug naar de Polymer-GUI!
     }
 
+    /**
+     * Deze methode haalt eerst de opgestuurde JSON-data op. Daarna worden
+     * de benodigde gegevens uit het domeinmodel gehaald. Deze gegevens worden
+     * dan gebruikt om de les en student te vinden zodat hiermee een absentie aangemaakt
+     * kan worden.
+     * @param conversation - alle informatie over het request
+     */
+
     private void studentAbsentieOpgeven(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
@@ -108,40 +121,38 @@ public class StudentController implements Handler {
         String begintijd = jsonObjectIn.getString("begintijd");
         String eindtijd = jsonObjectIn.getString("eindtijd");
 
-
-        //System.out.println(datum);
-
         Student student = informatieSysteem.getStudent(gebruikersnaam);            // Student-object opzoeken
 
-        Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken
+        Klas klas = informatieSysteem.getKlasVanStudent(student);         // klas van de student opzoeken
 
-        for (Les l : informatieSysteem.deLessen) {
+        for (Les l : informatieSysteem.deLessen) {                         // als de Les is gevonden...
             if (l.getKlas().getKlasCode().contains(klas.getKlasCode()) && l.getDateString().contains(datum)
                     && l.getStartTijdString().contains(begintijd) && l.getEindTijdString().contains(eindtijd)) {
-                Absentie absentie = new Absentie(l, student);
+                Absentie absentie = new Absentie(l, student);               // maak absentie aan
                 if (!student.getAbsentie().contains(absentie)) {
-                    student.addabsentie(absentie);
+                    student.addabsentie(absentie);                          // als deze nog niet bestaat in de lijst sla hem hier dan op.
                     try {
-                        informatieSysteem.writeAbsentie();
-                        //informatieSysteem.readAbsenties();
-                    }catch(IOException e){
+                        informatieSysteem.writeAbsentie();                  // Update het objecten bestand.
+                    } catch (IOException e) {
 
                     }
                 }
             }
         }
-        //terug naar de Polymer-GUI!
     }
+
+    /**
+     * Deze methode haalt eerst de opgestuurde JSON-data op. Daarna worden
+     * de benodigde gegevens uit het domeinmodel gehaald. Deze gegevens worden
+     * dan weer omgezet naar JSON en teruggestuurd naar de Polymer-GUI!
+     *
+     * @param conversation - alle informatie over het request
+     */
 
     private void toonabsenties(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
         String gebruikersnaam = jsonObjectIn.getString("username");
-
-
         Student student = informatieSysteem.getStudent(gebruikersnaam);            // Student-object opzoeken
-
-        Klas klas = informatieSysteem.getKlasVanStudent(student);         // klascode van de student opzoeken
-
 
         JsonArrayBuilder jab = Json.createArrayBuilder();                        // Uiteindelijk gaat er een array...
         for (Absentie ab : student.getAbsentie()) {
@@ -157,6 +168,4 @@ public class StudentController implements Handler {
 
         conversation.sendJSONMessage(jab.build().toString());                       // terug naar de Polymer-GUI!
     }
-
-
 }
