@@ -182,7 +182,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           };
           request.send(options);
           expect(server.requests.length).to.be.equal(1);
-          var fakeXhr = server.requests[0]
+          var fakeXhr = server.requests[0];
           expect(fakeXhr.requestHeaders['foo']).to.be.equal(
               'bar');
           expect(fakeXhr.requestHeaders['accept']).to.be.equal(
@@ -199,7 +199,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           };
           request.send(options);
           expect(server.requests.length).to.be.equal(1);
-          var fakeXhr = server.requests[0]
+          var fakeXhr = server.requests[0];
           expect(Object.keys(fakeXhr.requestHeaders).length).to.be.equal(2);
           expect(fakeXhr.requestHeaders['foo']).to.be.equal(
               'bar');

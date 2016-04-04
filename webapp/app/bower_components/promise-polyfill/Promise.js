@@ -3,7 +3,7 @@ function MakePromise (asap) {
 		if (typeof this !== 'object' || typeof fn !== 'function') throw new TypeError();
 		this._state = null;
 		this._value = null;
-		this._deferreds = []
+		this._deferreds = [];
 
 		doResolve(fn, resolve.bind(this), reject.bind(this));
 	}
@@ -15,7 +15,7 @@ function MakePromise (asap) {
 			return
 		}
 		asap(function() {
-			var cb = me._state ? deferred.onFulfilled : deferred.onRejected
+			var cb = me._state ? deferred.onFulfilled : deferred.onRejected;
 			if (typeof cb !== 'function') {
 				(me._state ? deferred.resolve : deferred.reject)(me._value);
 				return;

@@ -1031,12 +1031,10 @@ node.__domApi = new DomApi(node, patch);
 }
 return node.__domApi;
 }
-;
-function hasDomApi(node) {
+    function hasDomApi(node) {
 return Boolean(node.__domApi);
 }
-;
-Polymer.dom = function (obj, patch) {
+    Polymer.dom = function (obj, patch) {
 if (obj instanceof Event) {
 return Polymer.EventApi.factory(obj);
 } else {

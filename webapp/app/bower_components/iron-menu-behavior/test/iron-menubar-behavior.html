@@ -57,7 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var menubar = fixture('basic');
           menubar.focus();
           setTimeout(function() {
-            assert.equal(document.activeElement, menubar.firstElementChild, 'document.activeElement is first item')
+            assert.equal(document.activeElement, menubar.firstElementChild, 'document.activeElement is first item');
             done();
           // wait for async in _onFocus
           }, 200);

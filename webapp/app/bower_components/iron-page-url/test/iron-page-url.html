@@ -50,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     return new Promise(function(resolve) {
       originalFlush(resolve);
     });
-  }
+  };
 
   suite('<iron-page-url>', function () {
     var initialUrl;
@@ -98,7 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         // Changing the path and sending a custom event on the window changes
         // the urlElem.
-        window.history.replaceState({}, '', '/baz')
+        window.history.replaceState({}, '', '/baz');
         window.dispatchEvent(new CustomEvent('location-changed'));
         expect(urlElem.path).to.be.equal('/baz');
       });

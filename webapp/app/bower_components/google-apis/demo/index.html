@@ -31,7 +31,7 @@
     t.loadedShortener = function(event) {
       var request = event.target.api.url.get({
         shortUrl: 'http://goo.gl/fbsS'
-      })
+      });
       request.execute(function(resp) {
         console.log(resp);
       });

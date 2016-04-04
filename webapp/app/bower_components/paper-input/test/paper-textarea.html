@@ -173,7 +173,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('has aria-labelledby', function() {
         var input = fixture('label');
-        assert.isTrue(input.inputElement.textarea.hasAttribute('aria-labelledby'))
+        assert.isTrue(input.inputElement.textarea.hasAttribute('aria-labelledby'));
         assert.equal(input.inputElement.textarea.getAttribute('aria-labelledby'), Polymer.dom(input.root).querySelector('label').id, 'aria-labelledby points to the label');
       });
 

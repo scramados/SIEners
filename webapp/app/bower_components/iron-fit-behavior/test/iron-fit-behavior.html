@@ -242,7 +242,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         test('scrolling element with offscreen container is constrained to viewport height', function() {
           var container = fixture('offscreen-container');
-          var el = Polymer.dom(container).querySelector('.el')
+          var el = Polymer.dom(container).querySelector('.el');
           makeScrolling(el);
           el.refit();
           var rect = el.getBoundingClientRect();
@@ -317,7 +317,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var el = fixture('sized-x');
           el.classList.add('positioned-bottom');
           el.classList.add('positioned-right');
-          el.classList.add('with-margin')
+          el.classList.add('with-margin');
           el.refit();
           var rect = el.getBoundingClientRect();
           assert.isTrue(rect.height <= window.innerHeight - 100 - 20 * 2, 'height is less than or equal to viewport height');
@@ -339,7 +339,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         test('element fits in another element', function() {
           var constrain = fixture('constrain-target');
-          var el = Polymer.dom(constrain).querySelector('.el')
+          var el = Polymer.dom(constrain).querySelector('.el');
           makeScrolling(el);
           el.fitInto = constrain;
           el.refit();
@@ -351,7 +351,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         test('element centers in another element', function() {
           var constrain = fixture('constrain-target');
-          var el = Polymer.dom(constrain).querySelector('.el')
+          var el = Polymer.dom(constrain).querySelector('.el');
           makeScrolling(el);
           el.fitInto = constrain;
           el.refit();

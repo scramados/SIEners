@@ -164,7 +164,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('character counter is displayed', function() {
         var input = fixture('char-counter');
         forceXIfStamp(input);
-        var counter = Polymer.dom(input.root).querySelector('paper-input-char-counter')
+        var counter = Polymer.dom(input.root).querySelector('paper-input-char-counter');
         assert.ok(counter, 'paper-input-char-counter exists');
         assert.equal(counter._charCounterStr, input.value.length, 'character counter shows the value length');
       });
@@ -249,7 +249,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('has aria-labelledby', function() {
         var input = fixture('label');
-        assert.isTrue(input.inputElement.hasAttribute('aria-labelledby'))
+        assert.isTrue(input.inputElement.hasAttribute('aria-labelledby'));
         assert.equal(input.inputElement.getAttribute('aria-labelledby'), Polymer.dom(input.root).querySelector('label').id, 'aria-labelledby points to the label');
       });
 

@@ -23,14 +23,6 @@ public class Les implements Serializable {
         this.eindTijd = eindTijd;
     }
 
-    public Les(Lokaal lokaal, Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd) {
-        this.klas = klas;
-        this.docent = docent;
-        this.date = date;
-        this.startTijd = startTijd;
-        this.eindTijd = eindTijd;
-        this.lokaal = lokaal;
-    }
     public Les(Vak vak, Lokaal lokaal, Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd) {
         this.klas = klas;
         this.docent = docent;
@@ -41,11 +33,6 @@ public class Les implements Serializable {
         this.vak = vak;
     }
 
-    public Les(Date date, Date startTijd, Date eindTijd) {
-        this.date = date;
-        this.startTijd = startTijd;
-        this.eindTijd = eindTijd;
-    }
 
     public String getDateString() {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -104,16 +91,5 @@ public class Les implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(date, startTijd, eindTijd, vak, docent, lokaal, klas);
-    }
-
-    @Override
-    public String toString() {
-        return "Les{" +
-                "vak=" + vak +
-                ", klas=" + klas +
-                ", docent=" + docent +
-                ", date=" + date +
-                ", time=" + startTijd + " - " + eindTijd +
-                '}' + "\n";
     }
 }

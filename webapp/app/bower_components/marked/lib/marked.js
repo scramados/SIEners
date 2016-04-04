@@ -611,7 +611,7 @@ InlineLexer.prototype.output = function(src) {
         ? this.options.sanitizer
           ? this.options.sanitizer(cap[0])
           : escape(cap[0])
-        : cap[0]
+        : cap[0];
       continue;
     }
 

@@ -125,7 +125,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         test('ripples can be manually created', function () {
           expect(ripple.ripples.length).to.be.eql(0);
-          ripple.simulatedRipple()
+          ripple.simulatedRipple();
           expect(ripple.ripples.length).to.be.eql(1);
         });
       });

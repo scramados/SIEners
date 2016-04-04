@@ -76,7 +76,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     test('aria-label wins over alt attribute', function() {
       assert.strictEqual(b5.getAttribute('aria-label'), 'custom');
       b5.icon = 'arrow-forward';
-      b5.alt = 'other alt'
+      b5.alt = 'other alt';
       assert.strictEqual(b5.getAttribute('aria-label'), 'custom');
     });
 

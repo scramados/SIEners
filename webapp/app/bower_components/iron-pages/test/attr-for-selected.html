@@ -51,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           test('selected item', function(done) {
             // iron-selector uses observeNodes, which is async.
             Polymer.Base.async(function() {
-              assert.equal(pages.selectedItem, pages.items[0])
+              assert.equal(pages.selectedItem, pages.items[0]);
               done();
             }, 1);
           });

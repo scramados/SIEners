@@ -333,7 +333,7 @@ public class PrIS {
         try {
             fis = new FileInputStream(s);
             ois = new ObjectInputStream(fis);
-            Object obj =ois.readObject();
+            Object obj = ois.readObject();
             ArrayList<Absentie> lijst= (ArrayList<Absentie>) obj;
             for(Absentie ab: lijst) {
                 Klas klas = ab.getLes().getKlas();
@@ -344,17 +344,11 @@ public class PrIS {
                         student = st;
                     }
                 }
-                System.out.println(student.getAbsentie());
-
-
                         //if (!student.getAbsentie().contains(ab)) {
                             student.addabsentie(ab);
                             System.out.println(student.getAbsentie());
                        // }
                     }
-
-
-
         } catch (Exception e) {
             System.out.println("someting wong");
             e.printStackTrace();

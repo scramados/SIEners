@@ -91,13 +91,12 @@ public class DocentController implements Handler {
 
         Klas klas = informatieSysteem.getKlasVanStudent(student);           // klas van de student opzoeken
 
-        try { //Hier gaan we absentie verwijderen wanneer er een studentnummer is opgegeven
+        try  { //Hier gaan we absentie verwijderen wanneer er een studentnummer is opgegeven
             Les les = null;
             for (Les l : informatieSysteem.deLessen) {                      //zoek naar de juiste les
                 if (l.getKlas().getKlasCode().contains(klas.getKlasCode()) && l.getDateString().contains(datum)
                         && l.getStartTijdString().contains(begintijd) && l.getEindTijdString().contains(eindtijd)) {
                     les = l;
-                    System.out.println(les.toString());
                 }
                 for (int i = 0; i < student.getAbsentie().size(); i++) {    //zoek naar de absentie die verwijdert moet worden.
                     if (student.getAbsentie().get(i).getLes().equals(les)) {

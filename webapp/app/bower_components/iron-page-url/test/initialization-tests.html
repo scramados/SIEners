@@ -58,7 +58,7 @@
       function getUrl(iframe) {
         var result = getMessageMatching(iframe, function(message) {
           return message.type === 'urlQueryResponse';
-        })
+        });
         var revoke = function() {};
         var result = new Promise(function(resolve, reject) {
           revoke = onMessage(iframe, resolve);

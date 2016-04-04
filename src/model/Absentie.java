@@ -3,9 +3,6 @@ package model;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * Created by jason on 22-3-2016.
- */
 public class Absentie implements Serializable {
     private Les les;
     private Student student;

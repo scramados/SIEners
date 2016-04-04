@@ -73,7 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         scrollHeaderPanel.scroller.scrollTop = 300;
 
         flush(function() {
-          assert.notEqual(top1, toolbar.getBoundingClientRect().top)
+          assert.notEqual(top1, toolbar.getBoundingClientRect().top);
           done();
         });
       });

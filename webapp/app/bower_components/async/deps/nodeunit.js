@@ -2040,8 +2040,7 @@ exports.run = function (modules, options, callback) {
             div.appendChild(el);
         }
         return el;
-    };
-
+    }
     var header = getOrCreate('h1', 'nodeunit-header');
     var banner = getOrCreate('h2', 'nodeunit-banner');
     var userAgent = getOrCreate('h2', 'nodeunit-userAgent');

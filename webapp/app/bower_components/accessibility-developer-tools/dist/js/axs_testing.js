@@ -944,19 +944,12 @@ axs.utils.isNativeTextElement = function(a) {
   }
   switch(a) {
     case "email":
-    ;
     case "number":
-    ;
     case "password":
-    ;
     case "search":
-    ;
     case "text":
-    ;
     case "tel":
-    ;
     case "url":
-    ;
     case "":
       return !0;
     default:
@@ -1057,7 +1050,6 @@ axs.utils.getAriaPropertyValue = function(a, b, c) {
       Math.floor(c.value) !== c.value ? (d.valid = !1, d.reason = "" + b + " is not a whole integer") : (d.valid = !0, d.value = c.value);
       return d;
     case "decimal":
-    ;
     case "number":
       c = axs.utils.isValidNumber(b);
       d.valid = c.valid;

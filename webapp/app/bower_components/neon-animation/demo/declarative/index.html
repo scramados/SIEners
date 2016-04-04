@@ -105,19 +105,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.entryAnimation = 'slide-from-left-animation';
         this.exitAnimation = 'slide-right-animation';
         this.selected = this.selected === 0 ? 4 : (this.selected - 1);
-      }
+      };
 
       scope._onNextClick = function() {
         this.entryAnimation = 'slide-from-right-animation';
         this.exitAnimation = 'slide-left-animation';
         this.selected = this.selected === 4 ? 0 : (this.selected + 1);
-      }
+      };
 
       scope._onUpClick = function() {
         this.entryAnimation = 'slide-from-top-animation';
         this.exitAnimation = 'slide-down-animation';
         this.selected = this.selected === 4 ? 0 : (this.selected + 1);
-      }
+      };
 
       scope._onDownClick = function() {
         this.entryAnimation = 'slide-from-bottom-animation';

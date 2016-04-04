@@ -710,16 +710,16 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var isarray = require('isarray')
+var isarray = require('isarray');
 
 /**
  * Expose `pathToRegexp`.
  */
-module.exports = pathToRegexp
-module.exports.parse = parse
-module.exports.compile = compile
-module.exports.tokensToFunction = tokensToFunction
-module.exports.tokensToRegExp = tokensToRegExp
+module.exports = pathToRegexp;
+module.exports.parse = parse;
+module.exports.compile = compile;
+module.exports.tokensToFunction = tokensToFunction;
+module.exports.tokensToRegExp = tokensToRegExp;
 
 /**
  * The main path matching regexp utility.
@@ -737,7 +737,7 @@ var PATH_REGEXP = new RegExp([
   // "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined, undefined]
   // "/*"            => ["/", undefined, undefined, undefined, undefined, "*"]
   '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))'
-].join('|'), 'g')
+].join('|'), 'g');
 
 /**
  * Parse a string for the raw tokens.
@@ -746,42 +746,42 @@ var PATH_REGEXP = new RegExp([
  * @return {Array}
  */
 function parse (str) {
-  var tokens = []
-  var key = 0
-  var index = 0
-  var path = ''
-  var res
+  var tokens = [];
+  var key = 0;
+  var index = 0;
+  var path = '';
+  var res;
 
   while ((res = PATH_REGEXP.exec(str)) != null) {
-    var m = res[0]
-    var escaped = res[1]
-    var offset = res.index
-    path += str.slice(index, offset)
-    index = offset + m.length
+    var m = res[0];
+    var escaped = res[1];
+    var offset = res.index;
+    path += str.slice(index, offset);
+    index = offset + m.length;
 
     // Ignore already escaped sequences.
     if (escaped) {
-      path += escaped[1]
+      path += escaped[1];
       continue
     }
 
     // Push the current path onto the tokens.
     if (path) {
-      tokens.push(path)
+      tokens.push(path);
       path = ''
     }
 
-    var prefix = res[2]
-    var name = res[3]
-    var capture = res[4]
-    var group = res[5]
-    var suffix = res[6]
-    var asterisk = res[7]
+    var prefix = res[2];
+    var name = res[3];
+    var capture = res[4];
+    var group = res[5];
+    var suffix = res[6];
+    var asterisk = res[7];
 
-    var repeat = suffix === '+' || suffix === '*'
-    var optional = suffix === '?' || suffix === '*'
-    var delimiter = prefix || '/'
-    var pattern = capture || group || (asterisk ? '.*' : '[^' + delimiter + ']+?')
+    var repeat = suffix === '+' || suffix === '*';
+    var optional = suffix === '?' || suffix === '*';
+    var delimiter = prefix || '/';
+    var pattern = capture || group || (asterisk ? '.*' : '[^' + delimiter + ']+?');
 
     tokens.push({
       name: name || key++,
@@ -821,7 +821,7 @@ function compile (str) {
  */
 function tokensToFunction (tokens) {
   // Compile all the tokens into regexps.
-  var matches = new Array(tokens.length)
+  var matches = new Array(tokens.length);
 
   // Compile all the patterns before compilation.
   for (var i = 0; i < tokens.length; i++) {
@@ -831,20 +831,20 @@ function tokensToFunction (tokens) {
   }
 
   return function (obj) {
-    var path = ''
-    var data = obj || {}
+    var path = '';
+    var data = obj || {};
 
     for (var i = 0; i < tokens.length; i++) {
-      var token = tokens[i]
+      var token = tokens[i];
 
       if (typeof token === 'string') {
-        path += token
+        path += token;
 
         continue
       }
 
-      var value = data[token.name]
-      var segment
+      var value = data[token.name];
+      var segment;
 
       if (value == null) {
         if (token.optional) {
@@ -868,7 +868,7 @@ function tokensToFunction (tokens) {
         }
 
         for (var j = 0; j < value.length; j++) {
-          segment = encodeURIComponent(value[j])
+          segment = encodeURIComponent(value[j]);
 
           if (!matches[i].test(segment)) {
             throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"')
@@ -880,7 +880,7 @@ function tokensToFunction (tokens) {
         continue
       }
 
-      segment = encodeURIComponent(value)
+      segment = encodeURIComponent(value);
 
       if (!matches[i].test(segment)) {
         throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"')
@@ -921,7 +921,7 @@ function escapeGroup (group) {
  * @return {RegExp}
  */
 function attachKeys (re, keys) {
-  re.keys = keys
+  re.keys = keys;
   return re
 }
 
@@ -944,7 +944,7 @@ function flags (options) {
  */
 function regexpToRegexp (path, keys) {
   // Use a negative lookahead to match only capturing groups.
-  var groups = path.source.match(/\((?!\?)/g)
+  var groups = path.source.match(/\((?!\?)/g);
 
   if (groups) {
     for (var i = 0; i < groups.length; i++) {
@@ -971,13 +971,13 @@ function regexpToRegexp (path, keys) {
  * @return {RegExp}
  */
 function arrayToRegexp (path, keys, options) {
-  var parts = []
+  var parts = [];
 
   for (var i = 0; i < path.length; i++) {
     parts.push(pathToRegexp(path[i], keys, options).source)
   }
 
-  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options))
+  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));
 
   return attachKeys(regexp, keys)
 }
@@ -991,8 +991,8 @@ function arrayToRegexp (path, keys, options) {
  * @return {RegExp}
  */
 function stringToRegexp (path, keys, options) {
-  var tokens = parse(path)
-  var re = tokensToRegExp(tokens, options)
+  var tokens = parse(path);
+  var re = tokensToRegExp(tokens, options);
 
   // Attach keys back to the regexp.
   for (var i = 0; i < tokens.length; i++) {
@@ -1013,23 +1013,23 @@ function stringToRegexp (path, keys, options) {
  * @return {RegExp}
  */
 function tokensToRegExp (tokens, options) {
-  options = options || {}
+  options = options || {};
 
-  var strict = options.strict
-  var end = options.end !== false
-  var route = ''
-  var lastToken = tokens[tokens.length - 1]
-  var endsWithSlash = typeof lastToken === 'string' && /\/$/.test(lastToken)
+  var strict = options.strict;
+  var end = options.end !== false;
+  var route = '';
+  var lastToken = tokens[tokens.length - 1];
+  var endsWithSlash = typeof lastToken === 'string' && /\/$/.test(lastToken);
 
   // Iterate over the tokens and create our regexp string.
   for (var i = 0; i < tokens.length; i++) {
-    var token = tokens[i]
+    var token = tokens[i];
 
     if (typeof token === 'string') {
       route += escapeString(token)
     } else {
-      var prefix = escapeString(token.prefix)
-      var capture = token.pattern
+      var prefix = escapeString(token.prefix);
+      var capture = token.pattern;
 
       if (token.repeat) {
         capture += '(?:' + prefix + capture + ')*'
@@ -1081,10 +1081,10 @@ function tokensToRegExp (tokens, options) {
  * @return {RegExp}
  */
 function pathToRegexp (path, keys, options) {
-  keys = keys || []
+  keys = keys || [];
 
   if (!isarray(keys)) {
-    options = keys
+    options = keys;
     keys = []
   } else if (!options) {
     options = {}

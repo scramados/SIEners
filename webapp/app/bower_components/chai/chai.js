@@ -44,7 +44,7 @@ require.helper.semVerSort = function(a, b) {
       if (aLex === '' && bLex !== '') return 1;
       if (aLex !== '' && bLex === '') return -1;
       if (aLex !== '' && bLex !== '') return aLex > bLex ? 1 : -1;
-      continue;
+      
     } else if (aInt > bInt) {
       return 1;
     } else {
@@ -52,7 +52,7 @@ require.helper.semVerSort = function(a, b) {
     }
   }
   return 0;
-}
+};
 
 /**
  * Find and require a module which name starts with the provided name.
@@ -103,7 +103,7 @@ require.latest = function (name, returnPath) {
     return module;
   }
   return require(module);
-}
+};
 
 /**
  * Registered modules.
@@ -174,9 +174,8 @@ function exclude () {
 
     return res;
   };
-};
-
-/*!
+}
+  /*!
  * Primary Exports
  */
 
@@ -1702,8 +1701,7 @@ module.exports = function (chai, _) {
       , 'expected #{this} to be an instance of ' + name
       , 'expected #{this} to not be an instance of ' + name
     );
-  };
-
+  }
   Assertion.addMethod('instanceof', assertInstanceOf);
   Assertion.addMethod('instanceOf', assertInstanceOf);
 
@@ -2265,8 +2263,7 @@ module.exports = function (chai, _) {
     );
 
     flag(this, 'object', thrownError);
-  };
-
+  }
   Assertion.addMethod('throw', assertThrows);
   Assertion.addMethod('throws', assertThrows);
   Assertion.addMethod('Throw', assertThrows);
@@ -3639,7 +3636,7 @@ module.exports = function (chai, util) {
 
   assert.sameMembers = function (set1, set2, msg) {
     new Assertion(set1, msg).to.have.same.members(set2);
-  }
+  };
 
   /**
    * ### .sameDeepMembers(set1, set2, [message])
@@ -3658,7 +3655,7 @@ module.exports = function (chai, util) {
 
   assert.sameDeepMembers = function (set1, set2, msg) {
     new Assertion(set1, msg).to.have.same.deep.members(set2);
-  }
+  };
 
   /**
    * ### .includeMembers(superset, subset, [message])
@@ -3677,7 +3674,7 @@ module.exports = function (chai, util) {
 
   assert.includeMembers = function (superset, subset, msg) {
     new Assertion(superset, msg).to.include.members(subset);
-  }
+  };
 
    /**
    * ### .changes(function, object, property)
@@ -3698,7 +3695,7 @@ module.exports = function (chai, util) {
 
   assert.changes = function (fn, obj, prop) {
     new Assertion(fn).to.change(obj, prop);
-  }
+  };
 
    /**
    * ### .doesNotChange(function, object, property)
@@ -3719,7 +3716,7 @@ module.exports = function (chai, util) {
 
   assert.doesNotChange = function (fn, obj, prop) {
     new Assertion(fn).to.not.change(obj, prop);
-  }
+  };
 
    /**
    * ### .increases(function, object, property)
@@ -3740,7 +3737,7 @@ module.exports = function (chai, util) {
 
   assert.increases = function (fn, obj, prop) {
     new Assertion(fn).to.increase(obj, prop);
-  }
+  };
 
    /**
    * ### .doesNotIncrease(function, object, property)
@@ -3761,7 +3758,7 @@ module.exports = function (chai, util) {
 
   assert.doesNotIncrease = function (fn, obj, prop) {
     new Assertion(fn).to.not.increase(obj, prop);
-  }
+  };
 
    /**
    * ### .decreases(function, object, property)
@@ -3782,7 +3779,7 @@ module.exports = function (chai, util) {
 
   assert.decreases = function (fn, obj, prop) {
     new Assertion(fn).to.decrease(obj, prop);
-  }
+  };
 
    /**
    * ### .doesNotDecrease(function, object, property)
@@ -3803,7 +3800,7 @@ module.exports = function (chai, util) {
 
   assert.doesNotDecrease = function (fn, obj, prop) {
     new Assertion(fn).to.not.decrease(obj, prop);
-  }
+  };
 
   /*!
    * Undocumented / untested
@@ -3937,10 +3934,10 @@ module.exports = function (chai, util) {
 
     should.exist = function (val, msg) {
       new Assertion(val, msg).to.exist;
-    }
+    };
 
     // negation
-    should.not = {}
+    should.not = {};
 
     should.not.equal = function (val1, val2, msg) {
       new Assertion(val1, msg).to.not.equal(val2);
@@ -3952,14 +3949,13 @@ module.exports = function (chai, util) {
 
     should.not.exist = function (val, msg) {
       new Assertion(val, msg).to.not.exist;
-    }
+    };
 
     should['throw'] = should['Throw'];
     should.not['throw'] = should.not['Throw'];
 
     return should;
-  };
-
+  }
   chai.should = loadShould;
   chai.Should = loadShould;
 };
@@ -5223,7 +5219,7 @@ module.exports = function (ctx, name, getter) {
     , _super = function () {};
 
   if (_get && 'function' === typeof _get.get)
-    _super = _get.get
+    _super = _get.get;
 
   Object.defineProperty(ctx, name,
     { get: function () {
@@ -5427,4 +5423,4 @@ if (typeof exports == "object") {
 } else {
   (this || window)["chai"] = require("chai");
 }
-})()
+})();

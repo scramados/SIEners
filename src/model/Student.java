@@ -62,9 +62,4 @@ public class Student implements Serializable {
     public String getVoorNaam() {
         return voorNaam;
     }
-
-    @Override
-    public String toString() {
-        return achterNaam;
-    }
 }

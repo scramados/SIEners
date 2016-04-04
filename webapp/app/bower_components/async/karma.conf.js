@@ -9,4 +9,4 @@ module.exports = function (config) {
     reporters: ['mocha'],
     singleRun: true
   });
-}
+};

@@ -162,7 +162,7 @@ information about `paper-radio-button`.
 
       do {
         newIndex = (newIndex - 1 + length) % length;
-      } while (this.items[newIndex].disabled)
+      } while (this.items[newIndex].disabled);
 
       this._itemActivate(this._indexToValue(newIndex), this.items[newIndex]);
     },
@@ -177,7 +177,7 @@ information about `paper-radio-button`.
 
       do {
         newIndex = (newIndex + 1 + length) % length;
-      } while (this.items[newIndex].disabled)
+      } while (this.items[newIndex].disabled);
 
       this._itemActivate(this._indexToValue(newIndex), this.items[newIndex]);
     },

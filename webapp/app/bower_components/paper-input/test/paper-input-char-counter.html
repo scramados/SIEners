@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         input.value = 'foo\nbar';
         forceXIfStamp(input);
 
-        var counter = Polymer.dom(input.root).querySelector('paper-input-char-counter')
+        var counter = Polymer.dom(input.root).querySelector('paper-input-char-counter');
         assert.ok(counter, 'paper-input-char-counter exists');
 
         // A new line counts as two characters.

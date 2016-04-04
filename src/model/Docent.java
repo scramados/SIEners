@@ -56,8 +56,4 @@ public class Docent implements Serializable {
         return Objects.hash(voornaam, tussenVoegsel, achternaam, wachtwoord, wachtwoord, mijnRooster);
     }
 
-    @Override
-    public String toString() {
-        return voornaam + tussenVoegsel + achternaam;
-    }
 }

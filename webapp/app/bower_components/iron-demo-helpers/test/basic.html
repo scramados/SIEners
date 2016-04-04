@@ -86,7 +86,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // The demo is rendered in the light dom, so it should exist, and
         // it should respect the demo element's attributes, and not make up
         // new ones.
-        var input = Polymer.dom(element).querySelector('input')
+        var input = Polymer.dom(element).querySelector('input');
         expect(input).to.be.ok;
         expect(input.disabled).to.be.true;
         expect(input.checked).to.be.false;
@@ -107,7 +107,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // The demo is rendered in the light dom, so it should exist, and
         // it should respect the demo element's attributes, and not make up
         // new ones.
-        var checkbox = Polymer.dom(element).querySelector('paper-checkbox')
+        var checkbox = Polymer.dom(element).querySelector('paper-checkbox');
         expect(checkbox).to.be.ok;
         expect(checkbox.disabled).to.be.true;
         expect(checkbox.checked).to.be.false;

@@ -40,8 +40,4 @@ public class Klas implements Serializable {
         return Objects.hash(klasCode);
     }
 
-    @Override
-    public String toString() {
-        return klasCode + studentenKlas;
-    }
 }

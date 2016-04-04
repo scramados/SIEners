@@ -146,7 +146,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // If Markdown content were put into a `<template>` or directly into the DOM, it would be
           // rendered as DOM and be converted from camelCase to lowercase per HTML parsing rules. By
           // using `<script>` descendants, content is interpreted as plain text.
-          expect(proofElement.innerHTML).to.eql('<div camelcase=""></div>')
+          expect(proofElement.innerHTML).to.eql('<div camelcase=""></div>');
           expect(outputElement.innerHTML).to.include(escapeHTML('<div camelCase>'));
         });
       });
@@ -204,7 +204,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // If Markdown content were put into a `<template>` or directly into the DOM, it would be
           // rendered as DOM and be converted from camelCase to lowercase per HTML parsing rules. By
           // using `<script>` descendants, content is interpreted as plain text.
-          expect(proofElement.innerHTML).to.eql('<div camelcase=""></div>')
+          expect(proofElement.innerHTML).to.eql('<div camelcase=""></div>');
           expect(markedElement.$.content.innerHTML).to.include(escapeHTML('<div camelCase>'));
         });
       });

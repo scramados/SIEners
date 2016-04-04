@@ -3,9 +3,6 @@ package model;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * Created by jason on 22-3-2016.
- */
 public class Lokaal implements Serializable{
     private String lokaalNaam;
 
@@ -30,8 +27,4 @@ public class Lokaal implements Serializable{
         return Objects.hash(lokaalNaam);
     }
 
-    @Override
-    public String toString() {
-        return lokaalNaam;
-    }
 }
