@@ -7,8 +7,6 @@ import java.util.Objects;
 public class Student implements Serializable {
     private String studentNummer;
     private String voorNaam, tussenVoegsel, achterNaam, wachtwoord;
-    private Klas mijnKlas;
-    private Rooster mijnRooster;
     private ArrayList<Absentie> mijnabsenties;
 
     public Student(String studentNummer, String voorNaam, String achterNaam, String tussenVoegsel) {
@@ -28,10 +26,6 @@ public class Student implements Serializable {
         mijnabsenties = new ArrayList<>();
     }
 
-    public void setWachtwoord(String wachtwoord) {
-        this.wachtwoord = wachtwoord;
-    }
-
     public String getGebruikersNaam() {
         return studentNummer;
     }
@@ -48,28 +42,8 @@ public class Student implements Serializable {
         return mijnabsenties;
     }
 
-    public Rooster getRooster() {
-        return mijnRooster;
-    }
-
-    public void setRooster(Rooster mijnRooster) {
-        this.mijnRooster = mijnRooster;
-    }
-
     public boolean controleerWachtwoord(String wachtwoord) {
         return wachtwoord.equals(this.wachtwoord);
-    }
-
-    public String getAchterNaam() {
-        return achterNaam;
-    }
-
-    public String getTussenVoegsel() {
-        if (tussenVoegsel != null) {
-            return tussenVoegsel;
-        } else {
-            return "";
-        }
     }
 
     @Override

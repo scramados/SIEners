@@ -15,7 +15,6 @@ public class Les implements Serializable {
     private Lokaal lokaal;
     private Klas klas;
 
-
     public Les(Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd) {
         this.klas = klas;
         this.docent = docent;
@@ -41,7 +40,6 @@ public class Les implements Serializable {
         this.lokaal = lokaal;
         this.vak = vak;
     }
-
 
     public Les(Date date, Date startTijd, Date eindTijd) {
         this.date = date;
@@ -69,10 +67,6 @@ public class Les implements Serializable {
         return vak;
     }
 
-    public void setVak(Vak vak) {
-        this.vak = vak;
-    }
-
     public Docent getDocent() {
         return docent;
     }
@@ -83,10 +77,6 @@ public class Les implements Serializable {
 
     public Lokaal getLokaal() {
         return lokaal;
-    }
-
-    public void setLokaal(Lokaal lokaal) {
-        this.lokaal = lokaal;
     }
 
     public Klas getKlas() {

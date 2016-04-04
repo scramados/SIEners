@@ -1,7 +1,6 @@
 package model;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -139,7 +138,6 @@ public class PrIS {
         }
     }
 
-
     public String login(String gebruikersnaam, String wachtwoord) {
         for (Docent d : deDocenten) {
             if (d.getGebruikersNaam().equals(gebruikersnaam)) {
@@ -264,18 +262,6 @@ public class PrIS {
         return vakkenDocent;
     }
 
-    public ArrayList<Vak> getVakkenStudent(Student student) {
-        ArrayList<Vak> vakkenStudent = new ArrayList<>();
-
-        for (Les l : deLessen)
-            if (l.getDocent().equals(student)) {
-                if(!vakkenStudent.contains(l.getVak())) {
-                    vakkenStudent.add(l.getVak());
-                }
-            }
-        return vakkenStudent;
-    }
-
     public ArrayList<Absentie> getAbsentiesLes(Les les){
         ArrayList<Absentie> absenties = new ArrayList<>();
         for(Les l : deLessen){
@@ -313,7 +299,6 @@ public class PrIS {
         }
         return time;
     }
-
 
     public void writeAbsentie() throws IOException{
         String s = System.getProperty("user.dir") + "/CSV/absenties.obj";
@@ -377,5 +362,4 @@ public class PrIS {
             ois.close();
         }
     }
-
 }

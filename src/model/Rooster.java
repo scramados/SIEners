@@ -15,13 +15,4 @@ public class Rooster implements Serializable {
         deLessen = new ArrayList<Les>();
 
     }
-
-    public void setLes(Les les) {
-        deLessen.add(les);
-    }
-
-    public ArrayList<Les> getLessen() {
-        return deLessen;
-    }
-
 }

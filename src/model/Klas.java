@@ -44,5 +44,4 @@ public class Klas implements Serializable {
     public String toString() {
         return klasCode + studentenKlas;
     }
-
 }

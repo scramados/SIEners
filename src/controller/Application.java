@@ -50,7 +50,6 @@ public class Application {
         try {
             infoSysteem.readAbsenties();
         }catch (IOException e){
-
         }
         server.start();
     }

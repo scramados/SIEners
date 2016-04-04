@@ -30,14 +30,6 @@ public class Docent implements Serializable {
         this.wachtwoord = "test";
     }
 
-    public Rooster getRooster() {
-        return mijnRooster;
-    }
-
-    public void setRooster(Rooster mijnRooster) {
-        this.mijnRooster = mijnRooster;
-    }
-
     public String getGebruikersNaam() {
         return achternaam;
     }
