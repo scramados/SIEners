@@ -97,7 +97,7 @@ public class StudentController implements Handler {
                     .add("datum", l.getDateString())
                     .add("begintijd", l.getStartTijdString())
                     .add("eindtijd", l.getEindTijdString())
-                    //.add("lokaal", l.getLokaal().getLokaalNaam())
+                    .add("lokaal", l.getLokaal().getLokaalNaam())
                     .add("docent", l.getDocent().getGebruikersNaam())
                     .add("klas", l.getKlas().getKlasCode())
             );
@@ -160,7 +160,7 @@ public class StudentController implements Handler {
                     .add("datum", ab.getLes().getDateString())
                     .add("begintijd", ab.getLes().getStartTijdString())
                     .add("eindtijd", ab.getLes().getEindTijdString())
-                    //.add("lokaal", l.getLokaal().getLokaalNaam())
+                    .add("lokaal", ab.getLes().getLokaal().getLokaalNaam())
                     .add("docent", ab.getLes().getDocent().getGebruikersNaam())
                     .add("klas", ab.getLes().getKlas().getKlasCode())
             );

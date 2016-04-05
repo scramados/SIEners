@@ -21,53 +21,50 @@
                 @apply(--paper-font-body1);
             }
 
+        table, th, td {
+        border: 1px solid black;
+        }
+        th {
+        background-color: #3f51b5;
+        color: white;
+        }
+
+        tr:nth-child(even) {background-color: #f2f2f2}
+
         </style>
 
         <h1 class="page-title">Overzicht van studentnummer: {{studentnummer}} absenties ( {{username}} )</h1>
         <paper-input label="Geeft student nummer op" value="{{studentnummer}}"> </paper-input>
         <paper-input label="Geeft klas-code op" value="{{klascode}}"> </paper-input>
 
-        <table>
-            <tr>
-                <th>Datum Begintijd Eindtijd Klas Docent</th>
 
-            </tr>
-
-
-
-            <td><paper-listbox label="Dinosaurs" id="absl">
-                <template is="dom-repeat" items={{result}}>
-                    <tr >
-                        <paper-item on-tap="absentieverwijderen" data-dialog="modal">{{item.datum}} -
-                            {{item.begintijd}} -
-                            {{item.eindtijd}} -
-                            {{item.klas}} -
-                            {{item.docent}}
-                        </paper-item>
-                    </tr>
-                </template>
-            </paper-listbox></td>
-        </table>
 
         <table>
             <tr>
-                <th>Datum Begintijd Eindtijd Klas Docent Studentnr</th>
-
+                <th>Absentie Knop</th>
+                <th>Datum</th>
+                <th>Begintijd</th>
+                <th>Eindtijd</th>
+                <th>Klas</th>
+                <th>Docent</th>
+                <th>Lokaal</th>
+                <th>Student</th>
             </tr>
 
-        <td><paper-listbox label="Dinosaurs" id="absl2">
-            <template is="dom-repeat" items={{klasresults}}>
-                <tr >
-                    <paper-item >{{item.datum}} -
-                        {{item.begintijd}} -
-                        {{item.eindtijd}} -
-                        {{item.klas}} -
-                        {{item.docent}} -
-                        {{item.student}}
-                    </paper-item>
+            <template is="dom-repeat" items={{result}}>
+                <tr>
+
+                    <td><paper-button raised on-tap="absentieverwijderen" data-dialog="modal"><iron-icon icon="watch-later"></iron-icon>Verwijderen</paper-button></td>
+                    <td>{{item.datum}} </td>
+                    <td>{{item.begintijd}} </td>
+                    <td>{{item.eindtijd}} </td>
+                    <td>{{item.klas}} </td>
+                    <td>{{item.docent}}</td>
+                    <td>{{item.lokaal}}</td>
+                    <td>{{item.student}}</td>
                 </tr>
+
             </template>
-        </paper-listbox></td>
 
         </table>
 
@@ -134,7 +131,7 @@
 
                     responseHandler2: function (request) {
 
-                    this.klasresults = request.detail.response;
+                    this.result = request.detail.response;
 
                 },
 
