@@ -14,24 +14,37 @@
             span {
                 @apply(--paper-font-body1);
             }
+
+        table, th, td {
+        border: 1px solid black;
+        }
+        th {
+        background-color: #3f51b5;
+        color: white;
+        }
+
+        tr:nth-child(even) {background-color: #f2f2f2}
         </style>
 
         <h1 class="page-title">Overzicht van mijn opgegeven absenties ( {{username}} )</h1>
         <table>
             <tr>
-                <th>Les informatie:</th>
-
+                <th>Datum</th>
+                <th>Begintijd</th>
+                <th>Eindtijd</th>
+                <th>Klas</th>
+                <th>Docent</th>
+                <th>Lokaal</th>
             </tr>
             <template is="dom-repeat" items="{{absenties}}">
                 <tr>
-                    <paper-item >{{item.datum}} -
-                        {{item.begintijd}} -
-                        {{item.eindtijd}} -
-                        {{item.docent}} -
-                        {{item.klas}}
+                    <td>{{item.datum}} </td>
+                    <td>{{item.begintijd}} </td>
+                    <td>{{item.eindtijd}} </td>
+                    <td>{{item.klas}} </td>
+                    <td>{{item.docent}}</td>
+                    <td>{{item.lokaal}}</td>
 
-
-                    </paper-item>
                 </tr>
             </template>
         </table>
@@ -39,7 +52,7 @@
 
 
 
-        <paper-button on-click="fetchRooster"> Refresh</paper-button>
+        <paper-button raised on-click="fetchRooster"> Refresh</paper-button>
 
 
         <iron-ajax

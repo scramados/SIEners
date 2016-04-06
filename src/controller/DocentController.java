@@ -136,9 +136,10 @@ public class DocentController implements Handler {
                         .add("datum", ab.getLes().getDateString())
                         .add("begintijd", ab.getLes().getStartTijdString())
                         .add("eindtijd", ab.getLes().getEindTijdString())
-                        //.add("lokaal", l.getLokaal().getLokaalNaam())
+                        .add("lokaal", ab.getLes().getLokaal().getLokaalNaam())
                         .add("docent", ab.getLes().getDocent().getGebruikersNaam())
                         .add("klas", ab.getLes().getKlas().getKlasCode())
+                        .add("student", ab.getStudent().getGebruikersNaam())
                 );
             }
             conversation.sendJSONMessage(jab.build().toString());            // terug naar de Polymer-GUI!
@@ -169,6 +170,7 @@ public class DocentController implements Handler {
                         .add("datum", ab.getLes().getDateString())
                         .add("begintijd", ab.getLes().getStartTijdString())
                         .add("eindtijd", ab.getLes().getEindTijdString())
+                        .add("lokaal", ab.getLes().getLokaal().getLokaalNaam())
                         .add("docent", ab.getLes().getDocent().getGebruikersNaam())
                         .add("klas", ab.getLes().getKlas().getKlasCode())
                         .add("student", ab.getStudent().getGebruikersNaam())
