@@ -5,19 +5,17 @@ import java.util.Objects;
 
 public class Docent implements Serializable {
     private String voornaam, tussenVoegsel, achternaam, wachtwoord;
-    private Rooster mijnRooster;
 
 
-    public Docent(String gebruikersNaam) {
-        // checkt of de docentnaam 1 of 2 spaties heeft en voegt deze dan aan elkaar
+    public Docent(String completeNaam) {
         String temp = "";
         int counter = 0;
-        for (int i = 0; i < gebruikersNaam.length(); i++) {
-            if (gebruikersNaam.charAt(i) == ' ') {
+        for (int i = 0; i < completeNaam.length(); i++) {
+            if (completeNaam.charAt(i) == ' ') {
                 counter++;
             }
         }
-        String[] slice = gebruikersNaam.split(" ");
+        String[] slice = completeNaam.split(" ");
         if (counter == 2) {
             voornaam = slice[0];
             tussenVoegsel = slice[1];
@@ -47,13 +45,12 @@ public class Docent implements Serializable {
                 Objects.equals(tussenVoegsel, docent.tussenVoegsel) &&
                 Objects.equals(achternaam, docent.achternaam) &&
                 Objects.equals(wachtwoord, docent.wachtwoord) &&
-                Objects.equals(wachtwoord, docent.wachtwoord) &&
-                Objects.equals(mijnRooster, docent.mijnRooster);
+                Objects.equals(wachtwoord, docent.wachtwoord);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(voornaam, tussenVoegsel, achternaam, wachtwoord, wachtwoord, mijnRooster);
+        return Objects.hash(voornaam, tussenVoegsel, achternaam, wachtwoord, wachtwoord);
     }
 
 }
