@@ -272,10 +272,10 @@ public class PrIS {
 
     public void writeAbsentie() throws IOException{ // schrijft absenties weg naar obj file
         String s = System.getProperty("user.dir") + "/CSV/absenties.obj";
-        FileOutputStream fos=null;
+        FileOutputStream fos;
         ObjectOutputStream oos=null;
         ArrayList<Absentie> absenties = new ArrayList<>();
-        ArrayList<Absentie> ab = null;
+        ArrayList<Absentie> ab;
         try {
             fos = new FileOutputStream(s);
             oos = new ObjectOutputStream(fos);
@@ -287,7 +287,6 @@ public class PrIS {
             }
             oos.writeObject(absenties);
         } catch (Exception e) {
-            System.out.println("someting wong");
             e.printStackTrace();
         } finally {
             oos.close();
@@ -296,7 +295,7 @@ public class PrIS {
 
     public void readAbsenties()throws IOException{ // haalt absenties op uit obj file
         String s = System.getProperty("user.dir") + "/CSV/absenties.obj";
-        FileInputStream fis=null;
+        FileInputStream fis;
         ObjectInputStream ois=null;
         try {
             fis = new FileInputStream(s);
@@ -304,21 +303,16 @@ public class PrIS {
             Object obj = ois.readObject();
             ArrayList<Absentie> lijst= (ArrayList<Absentie>) obj;
             for(Absentie ab: lijst) {
-                Klas klas = ab.getLes().getKlas();
-                Les les = ab.getLes();
                 Student student = ab.getStudent();
                 for (Student st: deStudenten){
                    if ( st.getGebruikersNaam().contains(student.getGebruikersNaam())){
                         student = st;
                     }
                 }
-                        //if (!student.getAbsentie().contains(ab)) {
                             student.addabsentie(ab);
                             System.out.println(student.getAbsentie());
-                       // }
                     }
         } catch (Exception e) {
-            System.out.println("someting wong");
             e.printStackTrace();
         } finally {
             ois.close();
