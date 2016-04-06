@@ -227,24 +227,24 @@ public class PrIS {
 
         for (Les l : deLessen)
             if (l.getDocent().equals(docent)) {
-                if(!vakkenDocent.contains(l.getVak())) {
+                if (!vakkenDocent.contains(l.getVak())) {
                     vakkenDocent.add(l.getVak());
                 }
             }
         return vakkenDocent;
     }
 
-    public ArrayList<Absentie> getAbsentiesLes(Les les){ // Zoekt de Abseties van de opgegeven les op
+    public ArrayList<Absentie> getAbsentiesLes(Les les) { // Zoekt de Abseties van de opgegeven les op
         ArrayList<Absentie> absenties = new ArrayList<>();
-        for(Les l : deLessen){
-            if(l.equals(les)){
-                for (Student s: l.getKlas().getStudentenKlas()){
-                    for(Absentie a:s.getAbsentie()){
-                            absenties.add(a);
-                        }
+        for (Les l : deLessen) {
+            if (l.equals(les)) {
+                for (Student s : l.getKlas().getStudentenKlas()) {
+                    for (Absentie a : s.getAbsentie()) {
+                        absenties.add(a);
                     }
                 }
             }
+        }
         return absenties;
     }
 
@@ -270,22 +270,22 @@ public class PrIS {
         return time;
     }
 
-    public void writeAbsentie() throws IOException{ // schrijft absenties weg naar obj file
+    public void writeAbsentie() throws IOException { // schrijft absenties weg naar obj file
         String s = System.getProperty("user.dir") + "/CSV/absenties.obj";
         FileOutputStream fos;
-        ObjectOutputStream oos=null;
+        ObjectOutputStream oos = null;
         ArrayList<Absentie> absenties = new ArrayList<>();
         ArrayList<Absentie> ab;
         try {
             fos = new FileOutputStream(s);
             oos = new ObjectOutputStream(fos);
-            for (Student stu: deStudenten){
+            for (Student stu : deStudenten) { //haal alle studenten op en kijk of zij absenties hebben.
                 ab = stu.getAbsentie();
-                for(Absentie abs: ab){
-                    absenties.add(abs);
+                for (Absentie abs : ab) {
+                    absenties.add(abs); //voeg de absenties aan weg te schrijven absenties toe.
                 }
             }
-            oos.writeObject(absenties);
+            oos.writeObject(absenties); // schrijf absenties weg naar de object output stream.
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -293,25 +293,24 @@ public class PrIS {
         }
     }
 
-    public void readAbsenties()throws IOException{ // haalt absenties op uit obj file
+    public void readAbsenties() throws IOException { // haalt absenties op uit obj file
         String s = System.getProperty("user.dir") + "/CSV/absenties.obj";
         FileInputStream fis;
-        ObjectInputStream ois=null;
+        ObjectInputStream ois = null;
         try {
             fis = new FileInputStream(s);
             ois = new ObjectInputStream(fis);
             Object obj = ois.readObject();
-            ArrayList<Absentie> lijst= (ArrayList<Absentie>) obj;
-            for(Absentie ab: lijst) {
-                Student student = ab.getStudent();
-                for (Student st: deStudenten){
-                   if ( st.getGebruikersNaam().contains(student.getGebruikersNaam())){
+            ArrayList<Absentie> lijst = (ArrayList<Absentie>) obj;
+            for (Absentie ab : lijst) { //zoek in de lijst van op te halen absenties naar de studenten.
+                Student student = ab.getStudent(); // en voeg per student...
+                for (Student st : deStudenten) {
+                    if (st.getGebruikersNaam().contains(student.getGebruikersNaam())) { //Hier controleren we of de student voorkomt in onze bestaande studentenlijst.
                         student = st;
                     }
                 }
-                            student.addabsentie(ab);
-                            System.out.println(student.getAbsentie());
-                    }
+                student.addabsentie(ab); //de absentie toe aan absentielijst van deze student.
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
