@@ -150,6 +150,7 @@
                 },
 
 
+
     studentnropgeven: function (newValue) {
     this.studentnummer = newValue;
     if (this.rol == "docent") {
@@ -182,12 +183,14 @@
                     console.log("absentieverwijderen user=" + this.username);
                     if (this.rol == "docent") {
                         this.$.absverwijderen.contentType = "application/json";
+                        this.studentnummer = event.model.item.student;
                         this.$.absverwijderen.body = {
                             "username": this.username,
                             "datum": event.model.item.datum,
                             "begintijd": event.model.item.begintijd,
                             "eindtijd": event.model.item.eindtijd,
-                            "stdnr": this.studentnummer
+                            "stdnr": event.model.item.student
+
 
                         };
                         this.$.absverwijderen.generateRequest();

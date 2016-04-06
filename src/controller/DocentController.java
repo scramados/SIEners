@@ -58,7 +58,7 @@ public class DocentController implements Handler {
         Docent docent = informatieSysteem.getDocent(gebruikersnaam);    // Docent-object ophalen!
 
         JsonArrayBuilder jab = Json.createArrayBuilder();                // En uiteindelijk gaat er een JSON-array met...
-        ArrayList<Vak> vakken = new ArrayList<>();
+        ArrayList<Vak> vakken;
         vakken = informatieSysteem.getVakkenDocent(docent);
 
         for (Vak v : vakken) {
@@ -80,16 +80,15 @@ public class DocentController implements Handler {
 
     private void absverwijderen(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
-        String gebruikersnaam = jsonObjectIn.getString("username");
         String stdnr = jsonObjectIn.getString("stdnr");
         String datum = jsonObjectIn.getString("datum");
         String begintijd = jsonObjectIn.getString("begintijd");
         String eindtijd = jsonObjectIn.getString("eindtijd");
-        System.out.println(datum + begintijd + eindtijd);
 
         Student student = informatieSysteem.getStudent(stdnr);              // Student-object opzoeken
 
         Klas klas = informatieSysteem.getKlasVanStudent(student);           // klas van de student opzoeken
+
 
         try  { //Hier gaan we absentie verwijderen wanneer er een studentnummer is opgegeven
             Les les = null;
@@ -115,6 +114,8 @@ public class DocentController implements Handler {
         }
     }
 
+
+
     /**
      * Deze methode haalt eerst de opgestuurde JSON-data op. Daarna worden
      * de benodigde gegevens uit het domeinmodel gehaald. Deze gegevens worden
@@ -125,7 +126,6 @@ public class DocentController implements Handler {
 
     private void stdab(Conversation conversation) {
         JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
-        String gebruikersnaam = jsonObjectIn.getString("username");
         String stdnr = jsonObjectIn.getString("stdnr");
 
         try { //Student absenties ophalen
@@ -198,7 +198,6 @@ public class DocentController implements Handler {
         ArrayList<Les> deLessen = informatieSysteem.deLessen;                       // Vakken van de docent ophalen!
 
         JsonArrayBuilder jab = Json.createArrayBuilder();                           // En uiteindelijk gaat er een JSON-array met...
-        System.out.println(informatieSysteem.deVakken.toString());
         for (Les l : deLessen) {
             if (l.getDocent().getGebruikersNaam().contains(gebruikersnaam)) {       // Zoek naar de docent.
                 jab.add(Json.createObjectBuilder()                                  // En maak Array aan.

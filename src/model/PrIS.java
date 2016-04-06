@@ -95,9 +95,9 @@ public class PrIS {
                     deLokalen.add(loka);
                 }
                 Vak v = getVak(block[3]);  // Zoekt het vak op
-                Les l = getLes(v, loka, k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2])); // kijkt of de les al bestaat
+                Les l = getLes(v, loka, k, d, (block[0]), (block[1]), (block[2])); // kijkt of de les al bestaat
                 if (l == null) {        // als de les nog niet bestaat wordt deze aangemaakt
-                    l = new Les(v, loka, k, d, stringToDateConvert(block[0]), stringToTimeConvert(block[1]), stringToTimeConvert(block[2]));
+                    l = new Les(v, loka, k, d, (block[0]), (block[1]), (block[2]));
                     deLessen.add(l);    // en toegevoegd aan de lessen lijst
                 }
             }
@@ -148,7 +148,7 @@ public class PrIS {
         return resultaat;
     }
 
-    public Les getLes(Vak vak, Lokaal lokaal, Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd) { // vraagt om les gegevens en geeft Klas object terug
+    public Les getLes(Vak vak, Lokaal lokaal, Klas klas, Docent docent, String date, String startTijd, String eindTijd) { // vraagt om les gegevens en geeft Klas object terug
         Les resultaat = null;
 
         for (Les l : deLessen) {
@@ -246,28 +246,6 @@ public class PrIS {
             }
         }
         return absenties;
-    }
-
-    public Date stringToDateConvert(String dateString) { // Zet de String van de datum om in een Date object
-        Date startDate = null;
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            startDate = df.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return startDate;
-    }
-
-    public Date stringToTimeConvert(String timeString) { // Zet de string de String van tijd om in een Date object
-        Date time = null;
-        DateFormat df = new SimpleDateFormat("hh:mm");
-        try {
-            time = df.parse(timeString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return time;
     }
 
     public void writeAbsentie() throws IOException { // schrijft absenties weg naar obj file

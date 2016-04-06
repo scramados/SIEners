@@ -7,15 +7,15 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Les implements Serializable {
-    private Date date;
-    private Date startTijd;
-    private Date eindTijd;
+    private String date;
+    private String startTijd;
+    private String eindTijd;
     private Vak vak;
     private Docent docent;
     private Lokaal lokaal;
     private Klas klas;
 
-    public Les(Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd) {
+    public Les(Klas klas, Docent docent, String date, String startTijd, String eindTijd) {
         this.klas = klas;
         this.docent = docent;
         this.date = date;
@@ -23,7 +23,7 @@ public class Les implements Serializable {
         this.eindTijd = eindTijd;
     }
 
-    public Les(Vak vak, Lokaal lokaal, Klas klas, Docent docent, Date date, Date startTijd, Date eindTijd) {
+    public Les(Vak vak, Lokaal lokaal, Klas klas, Docent docent, String date, String startTijd, String eindTijd) {
         this.klas = klas;
         this.docent = docent;
         this.date = date;
@@ -35,19 +35,21 @@ public class Les implements Serializable {
 
 
     public String getDateString() {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        return df.format(date);
+
+        return (date);
 
     }
 
     public String getStartTijdString() {
-        DateFormat sdf = new SimpleDateFormat("hh:mm");
-        return sdf.format(startTijd);
+
+        return (startTijd);
+
+
     }
 
     public String getEindTijdString() {
-        DateFormat sdf = new SimpleDateFormat("hh:mm");
-        return sdf.format(eindTijd);
+
+        return (eindTijd);
     }
 
     public Vak getVak() {
